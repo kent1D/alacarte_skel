@@ -1,0 +1,19 @@
+<paquet
+	prefix="alacarte_skel"
+	categorie="squelette"
+	version="0.1.0"
+	etat="dev"
+	compatibilite="[3.0.0;["
+	documentation="http://alacarte.aarscenic.org"
+>	
+
+	<nom>À la carte</nom>
+
+	<auteur lien="http://www.kent1.info">kent1</auteur>
+	
+	<pipeline nom="jqueryui_plugins" inclure="alacarte_skel_pipelines.php" />
+	
+	<necessite nom="spipr_dist" />
+	<necessite nom="prix" />
+	<necessite nom="paniers" />
+</paquet>

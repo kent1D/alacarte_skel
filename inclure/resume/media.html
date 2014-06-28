@@ -1,0 +1,24 @@
+[(#REM)
+
+  Squelette Presentation resumee d'un article dans une liste
+  Distribue sous licence GPL
+
+]
+<BOUCLE_articles(ARTICLES) {id_article} {statut?}>
+<article class="entry media hentry">
+	<div class="headline_media">
+	<BOUCLE_document(DOCUMENTS){id_article}{0,1}>
+	[(#LOGO_DOCUMENT|image_reduire{500})]
+	</BOUCLE_document>
+	<strong class="h3-like entry-title"><a href="#" class="send_to_drop">#TITRE</a></strong>
+	</div>
+	[<div class="#EDIT{intro} introduction entry-content">(#INTRODUCTION{#ENV{coupe,300}})</div>]
+	<B_mots>
+	<div class="mots">
+		<BOUCLE_mots(MOTS){id_article}{', '}>
+		#TITRE
+		</BOUCLE_mots>
+	</div></B_mots>
+	[<div class="prix">from <span class="price">€ (#PRIX|sinon{15}),-</span></div>]
+</article>
+</BOUCLE_articles>
