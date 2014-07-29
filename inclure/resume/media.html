@@ -11,11 +11,14 @@
 	[(#LOGO_DOCUMENT|image_reduire{500})]
 	</BOUCLE_document>
 	<strong class="h3-like entry-title"><a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|ancre_url{media_visible_#ID_ARTICLE})]" class="ajax show_information">#TITRE</a></strong>
-	</div>
 	<B_mots>
-	<div class="mots">
-		<BOUCLE_mots(MOTS){id_article}{', '}>#TITRE</BOUCLE_mots>
-	</div></B_mots>
+		<BOUCLE_mots(MOTS){id_groupe=1}{id_article}{0,1}>
+		[<div class="badge_thumbnail badge_thumbnail_#ID_MOT">
+			(#LOGO_MOT)
+		</div>]
+		</BOUCLE_mots>
+	</B_mots>
+	</div>
 	[<div class="prix">from <span class="price">€ (#PRIX**|sinon{15}),-</span></div>]
 </article>
 </BOUCLE_articles>
