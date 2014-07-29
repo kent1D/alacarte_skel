@@ -8,14 +8,14 @@
 		[(#GET{liste_image}|count|div{3}|=={1}|oui)
 			[(#ENV{id_article_visible}|in_array{#GET{liste_image}}|oui)
 			<div class="span12">
-				<INCLURE{fond=inclure/media_visible,id_article=#ENV{id_article_visible},ajax} />
+				<INCLURE{fond=inclure/media_visible,id_article=#ENV{id_article_visible},id_article_visible,ajax} />
 			</div>]
 			#SET{liste_image,#LISTE}
 		]
 		[(#COMPTEUR_BOUCLE|=={#GRAND_TOTAL}|oui)
 			[(#ENV{id_article_visible}|in_array{#GET{liste_image}}|oui)
 			<div class="span12">
-				<INCLURE{fond=inclure/media_visible,id_article=#ENV{id_article_visible}} />
+				<INCLURE{fond=inclure/media_visible,id_article=#ENV{id_article_visible},ajax} />
 			</div>]
 		]
 		</BOUCLE_articles>
