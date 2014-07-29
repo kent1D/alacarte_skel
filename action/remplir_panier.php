@@ -43,7 +43,7 @@ function action_remplir_panier_dist($arg=null) {
 				'id_objet' => intval($id_objet),
 				'quantite' => $quantite,
 				'rang' => (intval($rang)+1),
-				'md5' => md5($objet.'-'.$id_objet.'-'.date())
+				'md5' => md5($objet.'-'.$id_objet.'-'.date('Y-m-d H:i:s'))
 			)
 		);
 		
