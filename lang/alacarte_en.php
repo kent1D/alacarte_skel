@@ -4,8 +4,13 @@
 if (!defined('_ECRIRE_INC_VERSION')) return;
 
 $GLOBALS[$GLOBALS['idx_lang']] = array(
+	// E
+	'erreur_no_video_criteria' => 'No video corresponding',
+
 	// L
 	'label_color' => 'Color:',
+	'label_filters' => 'FILTER:',
+	'label_filters_all' => 'ALL',
 	'label_size' => 'Size:',
 	'label_stock' => 'In stock:',
 
