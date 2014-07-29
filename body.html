@@ -1,0 +1,30 @@
+<body>
+	<div class="page">
+		<div class="container header" id="header">
+			<INCLURE{fond=header/#ENV{type-page},env} />
+		</div>
+		[<div class="navbar navbar-inverse navbar-responsive navbar-static-top" id="nav">
+			(#INCLURE{fond=inclure/nav,env}|navbar_responsive)
+		</div>]
+		<div class="container">
+			<div class="wrapper">
+				<div class="content primary span12" id="content">
+					<INCLURE{fond=breadcrumb/#ENV{type-page},env} />
+					<INCLURE{fond=content/#ENV{type-page},env} />
+				</div>
+				<div class="aside secondary span6" id="aside">
+					<INCLURE{fond=aside/#ENV{type-page},env} />
+				</div>
+				<div class="extra secondary span6" id="extra">
+					<INCLURE{fond=extra/#ENV{type-page},env} />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer" id="footer">
+		<INCLURE{fond=footer/#ENV{type-page},env} />
+	</div>
+	<div class="timeline container[(#ENV{timeline}|=={active}|oui)active]" id="timeline">
+		<INCLURE{fond=timeline/#ENV{type-page},ajax,env} />
+	</div>
+</body>
