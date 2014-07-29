@@ -1,8 +1,23 @@
+[(#SET{liste_image,#LISTE})]
 <B_articles>
 	#ANCRE_PAGINATION
 	<div class="row liste_medias">
 		<BOUCLE_articles(ARTICLES){id_rubrique?} {!par date}{!id_article IN #ENV{articles_exclus,#ARRAY}} {pagination #ENV{nb,5}}>
-		<div class="span4">#INCLURE{fond=inclure/resume/media,id_article}</div>
+		[(#SET{liste_image,#GET{liste_image}|push{#ID_ARTICLE}})]
+		<div class="span4">#INCLURE{fond=inclure/resume/media,id_article,id_article_visible}</div>
+		[(#GET{liste_image}|count|div{3}|=={1}|oui)
+			[(#ENV{id_article_visible}|in_array{#GET{liste_image}}|oui)
+			<div class="span12">
+				<INCLURE{fond=inclure/media_visible,id_article=#ENV{id_article_visible},ajax} />
+			</div>]
+			#SET{liste_image,#LISTE}
+		]
+		[(#COMPTEUR_BOUCLE|=={#GRAND_TOTAL}|oui)
+			[(#ENV{id_article_visible}|in_array{#GET{liste_image}}|oui)
+			<div class="span12">
+				<INCLURE{fond=inclure/media_visible,id_article=#ENV{id_article_visible}} />
+			</div>]
+		]
 		</BOUCLE_articles>
 	</div>
 	[<div class="pagination">(#PAGINATION)</div>]

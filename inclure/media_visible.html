@@ -1,0 +1,30 @@
+<BOUCLE_art(ARTICLES){id_article}>
+<div class="media_visible" id="media_visible_#ID_ARTICLE">
+	<h3>#TITRE[ <span class="prix">from <span class="price">€ (#PRIX**|sinon{15}),-</span></span>]</h3>
+	<div class="media_document">
+		<BOUCLE_document(DOCUMENTS){id_article}{media=video}>
+		#SET{duree,#DUREE}
+		#MODELE{emb,id_document=#ID_DOCUMENT,preload=metadatas}
+		</BOUCLE_document>
+	</div>
+	<div class="media_infos">
+		<div class="media_infos_technical">
+			<div class="size">
+				<span class="label"><:alacarte:label_size:></span> X ([(#GET{duree}|spipmotion_duree)] min)
+			</div>
+			<div class="stock">
+				<span class="label"><:alacarte:label_stock:></span> Only 2 left!
+			</div>
+			<div class="color">
+				<span class="label"><:alacarte:label_color:></span> Dark
+			</div>
+		</div>
+		<div class="media_add_to_timeline">
+			[<a href="[(#URL_ACTION_AUTEUR{remplir_panier,article-#ID_ARTICLE-1,#SELF})]" class="add_to_timeline">(#CHEMIN{images/a_la_carte_button_timeline.png}|balise_img)</a>]
+		</div>
+		<div class="media_texte_info">
+			#TEXTE
+		</div>
+	</div>
+</div>
+</BOUCLE_art>
