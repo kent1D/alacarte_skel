@@ -3,17 +3,20 @@
 	ZPIP 2.x
 	
 ]<div class="menu-conteneur container navbar-inner">
-<BOUCLE_rub(RUBRIQUES){id_rubrique}>
-[(#INCLURE{fond=inclure/menu, env, identifiant=barrenav[(#ID_SECTEUR)]}) rubrique #SET{menu,ok}]
-</BOUCLE_rub>
-</B_rub>
-<BOUCLE_articles(ARTICLES){id_article}>
-[(#INCLURE{fond=inclure/menu, env, identifiant=barrenav[(#ID_SECTEUR)]})article #SET{menu,ok}]
-</BOUCLE_articles>
-</B_articles>
-[(#INCLURE{fond=inclure/menu, env, identifiant=barrenav})rien #SET{menu,ok}]
-<//B_articles>
-<//B_rub>
-[(#GET{menu}|!={ok}|oui)
-[(#INCLURE{fond=inclure/menu, env, identifiant=barrenav})vraiment rien #SET{menu,ok}]]
+	<BOUCLE_rub(RUBRIQUES){id_rubrique}>
+	[(#INCLURE{fond=inclure/menu, env, identifiant=barrenav[(#ID_SECTEUR)]}) rubrique #SET{menu,ok}]
+	</BOUCLE_rub>
+	</B_rub>
+	<BOUCLE_articles(ARTICLES){id_article}>
+	[(#INCLURE{fond=inclure/menu, env, identifiant=barrenav[(#ID_SECTEUR)]})article #SET{menu,ok}]
+	</BOUCLE_articles>
+	</B_articles>
+	[(#INCLURE{fond=inclure/menu, env, identifiant=barrenav})#SET{menu,ok}]
+	<//B_articles>
+	<//B_rub>
+	[(#GET{menu}|!={ok}|oui)
+	[(#INCLURE{fond=inclure/menu, env, identifiant=barrenav})vraiment rien #SET{menu,ok}]]
 </div>
+[<div class="menu-conteneur container navbar-inner navbar-right">
+	(#INCLURE{fond=inclure/menu, env, identifiant=barrenav_right})
+</div>]
