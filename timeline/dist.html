@@ -1,0 +1,80 @@
+#CACHE{0}
+<div class="timeline_video">
+	<div class="head_timeline span8">
+		<a href="[(#SELF|parametre_url{timeline,[(#ENV{timeline}|=={active}|?{'','active'})]}|ancre_url{timeline})]" class="activate_timeline">
+			<strong class="h2-like"><:alacarte:title_timeline:></strong>
+			<strong>— <:alacarte:subtitle_timeline_1:> — <:alacarte:subtitle_timeline_2:> — <:alacarte:subtitle_timeline_3:> —</strong>
+		</a>
+	</div>
+	<div class="timeline_content">
+		<div class="timeline_line">
+			<BOUCLE_step1(CONDITION){si #ENV{step,1}|=={1}|oui}>
+			<div class="timeline_container">
+			<div class="timeline_list">
+				#SET{nb_produits,0}
+				<BOUCLE_contenu_panier(PANIERS_LIENS){id_panier=#SESSION{id_panier}}{objet=article}>
+				<BOUCLE_art_panier(ARTICLES){id_article=#ID_OBJET}>
+				<div class="timeline_drag">
+					<div class="headline_media">
+					<BOUCLE_document(DOCUMENTS){id_article}{0,1}>
+					[(#LOGO_DOCUMENT|adaptive_images{300})]
+					</BOUCLE_document>
+					<strong class="h3-like entry-title">#TITRE</strong>
+					<a class="remove" href=""></a>
+					</div>
+				</div>
+				</BOUCLE_art_panier>
+				[(#SET{nb_produits,#GET{nb_produits}|plus{#QUANTITE}})]
+				</BOUCLE_contenu_panier>
+				<BOUCLE_vides(DATA){source table,#LISTE{'drag here','yes here','your choice','just do it','drag here','yes here','your choice','just do it'}}>
+				<div class="timeline_drag empty">
+					<div class="headline_media">
+						<strong class="h3-like entry-title">#VALEUR</strong>
+					</div>
+				</div>
+				</BOUCLE_vides>
+			</div>
+			</div>
+			<div class="timeline_next">
+				
+			</div>
+			</BOUCLE_step1>
+			[(#ENV{step,1}|=={2}|oui)
+			<div class="timeline_date">
+				<:alacarte:title_timeline_step_2:>
+			</div>
+			<div class="timeline_next">
+				
+			</div>]
+			[(#ENV{step,1}|=={3}|oui)
+			<div class="timeline_order">
+				<:alacarte:title_timeline_step_3:>
+			</div>
+			<div class="timeline_next">
+				
+			</div>]
+		</div>
+		<div class="timeline_bottom">
+			<div class="timeline_menu">
+				<div class="timeline_menu_item[(#ENV{step,1}|=={1}|oui) active]">
+					<a href="[(#SELF|parametre_url{step,''})]" class="ajax">
+						<span class="numero">1.</span>
+						<:alacarte:title_timeline_step_1:>
+					</a>
+				</div>
+				<div class="timeline_menu_item[(#ENV{step,1}|=={2}|oui) active]">
+					<a href="[(#SELF|parametre_url{step,2})]" class="ajax">
+						<span class="numero">2.</span>
+						<:alacarte:title_timeline_step_2:>
+					</a>
+				</div>
+				<div class="timeline_menu_item[(#ENV{step,1}|=={3}|oui) active]">
+					<a href="[(#SELF|parametre_url{step,3})]" class="ajax">
+						<span class="numero">3.</span>
+						<:alacarte:title_timeline_step_3:>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
