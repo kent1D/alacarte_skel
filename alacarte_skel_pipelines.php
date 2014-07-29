@@ -2,12 +2,20 @@
 
 if (!defined("_ECRIRE_INC_VERSION")) return;	#securite
 
-function alacarte_skel_jqueryui_plugins($flux){
+function alacarte_skel_jqueryui_plugins($plugins){
 	if(!test_espace_prive()){
-		$flux[] = 'draggable';
-		$flux[] = 'droppable';
+		$plugins[] = 'jquery.ui.draggable';
+		$plugins[] = 'jquery.ui.droppable';
+		$plugins[] = 'jquery.ui.sortable';
+		$plugins[] = 'jquery.effects.transfer';
 	}
-	
-	return $flux;
+	return $plugins;
 }
 
+
+function alacarte_skel_jquery_plugins($plugins){
+	if(!test_espace_prive()){
+		$plugins[] = 'javascript/alacarte.js';
+	}
+	return $plugins;
+}

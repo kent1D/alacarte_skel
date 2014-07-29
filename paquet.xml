@@ -4,7 +4,8 @@
 	version="0.1.0"
 	etat="dev"
 	compatibilite="[3.0.0;["
-	documentation="http://alacarte.aarscenic.org"
+	schema="0.1.0"
+	demonstration="http://alacarte.arscenic.org"
 >	
 
 	<nom>À la carte</nom>
@@ -12,8 +13,11 @@
 	<auteur lien="http://www.kent1.info">kent1</auteur>
 	
 	<pipeline nom="jqueryui_plugins" inclure="alacarte_skel_pipelines.php" />
+	<pipeline nom="jquery_plugins" inclure="alacarte_skel_pipelines.php" />
 	
 	<necessite nom="spipr_dist" />
-	<necessite nom="prix" />
+	<necessite nom="contact" />
+	<necessite nom="menus" />
+	<necessite nom="spipmotion" />
 	<necessite nom="paniers" />
 </paquet>
