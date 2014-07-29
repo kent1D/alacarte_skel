@@ -6,7 +6,7 @@
 	compatibilite="[3.0.0;["
 	schema="0.1.0"
 	demonstration="http://alacarte.arscenic.org"
->	
+>
 
 	<nom>À la carte</nom>
 
@@ -20,4 +20,5 @@
 	<necessite nom="menus" />
 	<necessite nom="spipmotion" />
 	<necessite nom="paniers" />
+	<necessite nom="ancresdouces" />
 </paquet>
