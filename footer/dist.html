@@ -1,7 +1,24 @@
-<div class="explications">
-<strong class="h2-like">CREATE YOUR SHOW NOW.</strong>
-<ul>
-	<li>NO MIN/MAX ITEMS</li>
-	<li>YOU DECIDE THE ORDER</li>
-</ul>
+<div class="container">
+	<div class="row">
+		<div class="span4">
+			<strong><BOUCLE_annee(ARTICLES){par date}{0,1}>[(#DATE|annee|!={#VAL{Y}|date}|oui)[(#DATE|annee)]]</BOUCLE_annee>-</B_annee>[(#DATE|annee) ] © KUD NUM</strong>
+			<br />
+			<p class="social-links">
+				<a href="http://www.facebook.com" class="spip_out">
+					<span class="icon-facebook"> </span>
+					LIKE US
+				</a>
+				<a href="http://www.twitter.com" class="spip_out">
+					<span class="icon-twitter"> </span>
+					FOLLOW US
+				</a>
+			</p>
+		</div>
+		<div class="span4">
+			[(#INCLURE{fond=inclure/menu, env, identifiant=barrenav_footer})]
+		</div>
+		<div class="span4">
+			
+		</div>
+	</div>
 </div>
