@@ -13,7 +13,13 @@
 	</div>
 </div>
 <div class="span4"></div>
-<div class="span2"></div>
+<div class="span2">
+	<div class="navbar" id="nav_topsub">
+		<div class="menu-conteneur navbar-inner navbar-top">
+			[(#INCLURE{fond=inclure/menu, env, identifiant=topsubmenu})]
+		</div>
+	</div>
+</div>
 <div class="span3 itembox">
 	<INCLURE{fond=inclure/inc-panier, ajax} />
 </div>
