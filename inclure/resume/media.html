@@ -18,6 +18,9 @@
 		</div>]
 		</BOUCLE_mots>
 	</B_mots>
+	<div class="incitate incitate_drag"><span> || DRAG TO TIMELINE || </span></div>
+	[(#ENV{id_article_visible}|=={#ID_ARTICLE}|non)
+	<div class="incitate incitate_click"><span><a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|ancre_url{media_visible_#ID_ARTICLE})]" class="ajax show_information">PREVIEW</a></span></div>]
 	</div>
 	[<div class="prix">from <span class="price">€ (#PRIX**|sinon{15}),-</span></div>]
 </article>

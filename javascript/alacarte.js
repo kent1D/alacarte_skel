@@ -26,6 +26,7 @@ function add_to_timeline( $item, $dropbox) {
 	$dropbox = $dropbox.parent().find('.empty').eq(0);
 	var dropbox_html = $dropbox.html();
 	$dropbox.removeClass('empty').empty();
+	$item.find('.badge_thumbnail,.incitate').remove();
 	var html = $item.html();
 	$('<div class="headline_media"></div>').html(html).appendTo( $dropbox).find('.badge_thumbnail').remove();
 	var href = $item.parents('article').attr('data-add_timeline');
@@ -33,7 +34,17 @@ function add_to_timeline( $item, $dropbox) {
 		$.ajax({
 			url: href
 		}).done(function() {
-			$('#panier,.timeline_line').ajaxReload();
+			$('#panier').ajaxReload();
+			$('.timeline_line').ajaxReload({callback:function(){
+				var cible=false,count = $('.timeline_drag').not('.empty').size();
+				if(count > 2)
+					cible = $('.empty:eq(0)').prev().prev();
+				else if(count >= 1)
+					cible = $('.empty:eq(0)').prev();
+				else
+					cible = $('.empty:eq(0)');
+				$('.timeline_list').scrollTo(cible,500);
+			}});
 		});
 	}
 }
@@ -56,7 +67,7 @@ var init_drag = function(){
 		helper:"clone",
 		start:function(event,ui){
 			show_timeline();
-			$(ui.helper).find('.badge_thumbnail').remove();
+			$(ui.helper).find('.badge_thumbnail,.incitate').remove();
 			var cible=false,count = $('.timeline_drag').not('.empty').size();
 			if(count > 2)
 				cible = $('.empty:eq(0)').prev().prev();
@@ -87,19 +98,30 @@ var init_drag = function(){
 	$('.timeline_list').disableSelection();
 	$('a.add_to_timeline').unbind('click').click(function(){
 		var me = $(this),href = $(this).attr('href');
-		var id_article = $(this).parents('.media_visible').attr('id').replace('media_visible_','article_');
+		var id_article = $(this).parents('.media_content').eq(0).attr('id').replace('media_visible_','article_');
 		var content_box = $('#'+id_article).find('.headline_media');
 		var cible = $('.timeline_content .empty').eq(0);
 		show_timeline();
 		$('.timeline_list').scrollTo(cible,500,{onAfter:function(){
 			me.parents('.media_visible').effect( 'transfer', { to: cible }, 700, function(){
 				var content = content_box.clone();
+				content.find('.badge_thumbnail,.incitate').remove();
 				cible.removeClass('empty').empty();
 				content.appendTo(cible);
 				$.ajax({
 					url: href
 				}).done(function() {
-					$('#panier,.timeline_line').ajaxReload();
+					$('#panier').ajaxReload();
+					$('.timeline_line').ajaxReload({callback:function(){
+						var cible=false,count = $('.timeline_drag').not('.empty').size();
+						if(count > 2)
+							cible = $('.empty:eq(0)').prev().prev();
+						else if(count >= 1)
+							cible = $('.empty:eq(0)').prev();
+						else
+							cible = $('.empty:eq(0)');
+						$('.timeline_list').scrollTo(cible,500);
+					}});
 				});
 			});
 		}});
@@ -130,6 +152,28 @@ var init_drag = function(){
 		return false;
 	});
 	
+	$('a.preview').unbind('click.preview').bind('click.preview',function(){
+		$('.media_content').parents('.span12').eq(0).fadeOut('slow',function(){
+			$(this).remove();
+		});
+		$('.media_is_visible').removeClass('media_is_visible');
+		return false;
+	});
+
+	$('a.prev_preview,a.next_preview,a.close_preview').unbind('click').click(function(e){
+		var media_visible = parametre_url($(this).attr('href'),'id_article_visible');
+		$('.liste_medias').ajaxReload({args:{id_article_visible:media_visible},history:true,callback:function(){
+			if($('#media_visible_'+media_visible).size() == '1')
+				$.scrollTo($('#media_visible_'+media_visible),500);
+		}});
+		return false;
+	});
+	
+}
+
+$(function(){
+	init_drag();
+	onAjaxLoad(init_drag);
 	var cible=false,count = $('.timeline_drag').not('.empty').size();
 	if(count > 2)
 		cible = $('.empty:eq(0)').prev().prev();
@@ -138,9 +182,14 @@ var init_drag = function(){
 	else
 		cible = $('.empty:eq(0)');
 	$('.timeline_list').scrollTo(cible,500);
-}
-
-$(function(){
-	init_drag();
-	onAjaxLoad(init_drag);
 });
+
+jQuery.fn.animateLoading = function() {
+	this.attr('aria-busy','true').addClass('loading');
+	if (typeof ajax_image_searching != 'undefined'){
+		var i = (this).find('.image_loading');
+		if (i.length) i.eq(0).html(ajax_image_searching);
+		else this.prepend('<span class="image_loading">'+ajax_image_searching+'</span>');
+	}
+	return this; // don't break the chain
+}
