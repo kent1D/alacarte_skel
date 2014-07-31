@@ -6,11 +6,13 @@
 		[<div class="navbar navbar-inverse navbar-responsive navbar-static-top" id="nav">
 			(#INCLURE{fond=inclure/nav,env}|navbar_responsive)
 		</div>]
-		<div class="container span8 offset2">
-			<div class="wrapper">
+		<div class="container">
+			<div class="wrapper row">
+				<div class="span8 offset2">
 				<div class="content primary" id="content">
 					<INCLURE{fond=breadcrumb/#ENV{type-page},env} />
 					<INCLURE{fond=content/#ENV{type-page},env} />
+				</div>
 				</div>
 				<div class="aside secondary span6" id="aside">
 					<INCLURE{fond=aside/#ENV{type-page},env} />
