@@ -92,8 +92,7 @@ var init_drag = function(){
 	});
 	$('.timeline_list').sortable({
 		axis: "x",
-		items: ".timeline_drag:not(.empty)",
-		placeholder: "ui-state-highlight"
+		items: ".timeline_drag:not(.empty)"
 	});
 	$('.timeline_list').disableSelection();
 	$('a.add_to_timeline').unbind('click').click(function(){
