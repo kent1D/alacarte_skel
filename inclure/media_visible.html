@@ -24,10 +24,10 @@
 					<span class="label"><:alacarte:label_size:></span> [(#GET{duree}|alacarte_weight_video)] ([(#GET{duree}|spipmotion_duree)] min)
 				</div>
 				<div class="stock">
-					<span class="label"><:alacarte:label_stock:></span> Only 2 left!
+					<span class="label"><:alacarte:label_stock:></span> <BOUCLE_stock(MOTS){id_article}{id_groupe=3}{0,1}>#TITRE</BOUCLE_stock></B_stock>ONLY 2 LEFT!<//B_stock>
 				</div>
 				<div class="color">
-					<span class="label"><:alacarte:label_color:></span> Dark
+					<span class="label"><:alacarte:label_color:></span> <BOUCLE_couleur(MOTS){id_article}{id_groupe=4}{0,1}>#TITRE</BOUCLE_couleur></B_couleur>BLACK<//B_couleur>
 				</div>
 			</div>
 			<div class="media_add_to_timeline">
