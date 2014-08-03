@@ -1,0 +1,38 @@
+#CACHE{0}
+[(#SET{prix,0})][(#SET{duree,0})]
+<BOUCLE_contenu_panier(PANIERS_LIENS){id_panier=#SESSION{id_panier}}{objet=article}>
+<BOUCLE_art_panier(ARTICLES){id_article=#ID_OBJET}>
+#SET{prix,#GET{prix}|plus{#PRIX**}}
+<BOUCLE_document(DOCUMENTS){media=video}{id_article}{0,1}>
+#SET{duree,#GET{duree}|plus{#DUREE}}
+</BOUCLE_document>
+</BOUCLE_art_panier>
+</BOUCLE_contenu_panier>
+<div class="timeline_show">
+	<div class="show">
+		YOUR SHOW
+	</div>
+	<div class="show_infos">
+		<div class="show_duration">
+			<div class="show_text">
+				DURATION<br />
+				<small>IN MINUTES</small>
+			</div>
+			<div class="show_duree">
+				[(#GET{duree}|spipmotion_duree)]
+			</div>
+		</div>
+		<div class="show_costs">
+			<div class="show_text">
+				COSTS<br />
+				<small><a href="#URL_ARTICLE{11}">MORE INFOS</a></small>
+			</div>
+			<div class="show_prix">
+				[&euro; (#GET{prix}),-]
+			</div>
+		</div>
+	</div>
+	<div class="show_buy">
+		<a href="[(#SELF|parametre_url{step,3})]">[(#CHEMIN{images/button_buy.png}|balise_img)]</a>
+	</div>
+</div>
