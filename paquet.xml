@@ -21,4 +21,5 @@
 	<necessite nom="spipmotion" />
 	<necessite nom="paniers" />
 	<necessite nom="ancresdouces" />
+	<necessite nom="calendriermini" />
 </paquet>
