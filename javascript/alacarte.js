@@ -34,7 +34,7 @@ function add_to_timeline( $item, $dropbox) {
 		$.ajax({
 			url: href
 		}).done(function() {
-			$('#panier').ajaxReload();
+			$('#panier,.timeline_show').ajaxReload();
 			$('.timeline_line').ajaxReload({callback:function(){
 				var cible=false,count = $('.timeline_drag').not('.empty').size();
 				if(count > 2)
@@ -110,7 +110,7 @@ var init_drag = function(){
 				$.ajax({
 					url: href
 				}).done(function() {
-					$('#panier').ajaxReload();
+					$('#panier,.timeline_show').ajaxReload();
 					$('.timeline_line').ajaxReload({callback:function(){
 						var cible=false,count = $('.timeline_drag').not('.empty').size();
 						if(count > 2)
@@ -142,7 +142,7 @@ var init_drag = function(){
 					cible = $('.empty:eq(0)');
 				$('.timeline_list').scrollTo(cible,500);
 			});
-			$('#panier').ajaxReload();
+			$('#panier,.timeline_show').ajaxReload();
 		});
 		return false;
 	});
