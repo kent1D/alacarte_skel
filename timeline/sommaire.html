@@ -1,6 +1,6 @@
 #CACHE{0}
 <div class="timeline_video">
-	<div class="head_timeline span8">
+	<div class="head_timeline span6">
 		<a href="[(#SELF|parametre_url{timeline,[(#ENV{timeline}|=={active}|?{'','active'})]}|ancre_url{timeline})]" class="activate_timeline">
 			<strong class="h2-like"><:alacarte:title_timeline:></strong>
 			<strong>— <:alacarte:subtitle_timeline_1:> — <:alacarte:subtitle_timeline_2:> — <:alacarte:subtitle_timeline_3:> —</strong>
@@ -9,27 +9,51 @@
 	<div class="timeline_content">
 		<INCLURE{fond=inclure/timeline_content,step,ajax} />
 		<div class="timeline_bottom">
+			[(#ENV{step}|=={3}|non)
+			<div class="info_added_price">
+				<div class="content_added_price">
+					WHY IS € 400,- ADDED? 
+					<br />
+					<a href="#URL_ARTICLE{7}">[(#CHEMIN{images/button_read_all.png}|balise_img)]</a>
+					<br />
+					<small><a href="#" onclick="$('.info_added_price').fadeOut();return false;">I don't care, close this</a></small>
+				</div>
+				<div class="triangle_added_price">
+					
+				</div>
+			</div>]
 			<div class="timeline_menu">
-				<div class="timeline_menu_item[(#ENV{step,1}|=={1}|oui) active]">
+				<div class="timeline_menu_item[(#ENV{step,1}|=={1}|oui) active on]">
 					<a href="[(#SELF|parametre_url{step,''})]" class="ajax">
 						<span class="numero">1.</span>
 						<:alacarte:title_timeline_step_1:>
 					</a>
 				</div>
-				<div class="timeline_menu_item[(#ENV{step,1}|=={2}|oui) active]">
+				<div class="timeline_menu_item[(#ENV{step,1}|=={2}|oui) active on]">
 					<a href="[(#SELF|parametre_url{step,2})]" class="ajax">
 						<span class="numero">2.</span>
 						<:alacarte:title_timeline_step_2:>
 					</a>
 				</div>
-				<div class="timeline_menu_item[(#ENV{step,1}|=={3}|oui) active]">
+				<div class="timeline_menu_item[(#ENV{step,1}|=={3}|oui) active on]">
 					<a href="[(#SELF|parametre_url{step,3})]" class="ajax">
 						<span class="numero">3.</span>
 						<:alacarte:title_timeline_step_3:>
 					</a>
 				</div>
 			</div>
-			<INCLURE{fond=inclure/timeline_show,step,ajax} />
+			[(#ENV{step}|=={3}|non)
+			<INCLURE{fond=inclure/timeline_show,step,ajax} />]
+			[(#ENV{step}|=={3}|oui)
+			<div class="timeline_show">
+				<div class="show_buy">
+					<a href="[(#URL_PAGE{order})]">[(#CHEMIN{images/button_buy.png}|balise_img|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/button_buy_hover.png})]"}|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/button_buy.png})]"})]</a>
+				</div>
+				<div class="go_to_buy">
+					> > > > > > > > > > > > > > > > > > >
+				</div>
+			</div>
+			]
 		</div>
 	</div>
 </div>

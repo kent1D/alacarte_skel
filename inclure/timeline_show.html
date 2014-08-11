@@ -14,7 +14,7 @@
 	</div>
 	<div class="show_infos">
 		<div class="show_duration">
-			<div class="show_text">
+			<div class="show_text ">
 				DURATION<br />
 				<small>IN MINUTES</small>
 			</div>
@@ -28,11 +28,11 @@
 				<small><a href="#URL_ARTICLE{11}">MORE INFOS</a></small>
 			</div>
 			<div class="show_prix">
-				[&euro; (#GET{prix}),-]
+				[&euro; (#GET{prix}|>{0}|?{#GET{prix}|plus{400},#GET{prix}}),-]
 			</div>
 		</div>
 	</div>
 	<div class="show_buy">
-		<a href="[(#SELF|parametre_url{step,3})]">[(#CHEMIN{images/button_buy.png}|balise_img)]</a>
+		<a href="[(#SELF|parametre_url{step,3})]">[(#CHEMIN{images/button_buy.png}|balise_img|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/button_buy_hover.png})]"}|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/button_buy.png})]"})]</a>
 	</div>
 </div>

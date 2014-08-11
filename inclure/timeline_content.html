@@ -27,23 +27,138 @@
 			</BOUCLE_vides>
 		</div>
 		<div class="timeline_next">
-			<a href="[(#SELF|parametre_url{id_article_visible,''}|parametre_url{mode,preview})]" class="ajax preview" title="preview">[(#CHEMIN{images/button_preview.png}|balise_img)]</a>
+			<a href="[(#SELF|parametre_url{id_article_visible,''}|parametre_url{mode,preview})]" class="ajax preview" title="preview">[(#CHEMIN{images/button_preview.png}|balise_img|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/button_preview_hover.png})]"}|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/button_preview.png})]"})]</a>
 		</div>
 	</div>
 	
 	</BOUCLE_step1>
 	[(#ENV{step,1}|=={2}|oui)
 	<div class="timeline_date">
-		<:alacarte:title_timeline_step_2:>
-	</div>
-	<div class="timeline_next">
-		
+		<div class="timeline_container">
+			<div class="time_line_intro">
+				<h2><:alacarte:title_choose_date:></h2>
+				<p><:alacarte:description_choose_date:></p>
+			</div>
+			<div class="ajax">
+			[(#FORMULAIRE_PANIER_SET_DATES)]
+			</div>
+		</div>
 	</div>]
-	[(#ENV{step,1}|=={3}|oui)
+	<BOUCLE_step3(CONDITION){si #ENV{step,1}|=={3}|oui}>
 	<div class="timeline_order">
-		<:alacarte:title_timeline_step_3:>
+		<div class="timeline_container">
+			<div class="time_line_intro">
+				<h2><:alacarte:title_check_ticket:></h2>
+				<p><:alacarte:description_choose_ticket{url_contact=#URL_PAGE{contact}}:></p>
+			</div>
+			<div class="ticket">
+			<div class="ticket_title">
+				[(#CHEMIN{images/alacarte_your_show.png}|balise_img)]
+			</div>
+			
+			<div class="ticket_content">
+				<div class="ticket_infos">
+					<BOUCLE_contenu_panier1(PANIERS_LIENS){id_panier=#SESSION{id_panier}}{objet=article}>
+					<BOUCLE_art_panier1(ARTICLES){id_article=#ID_OBJET}>
+					#SET{prix,#GET{prix}|plus{#PRIX**}}
+					<BOUCLE_document1(DOCUMENTS){media=video}{id_article}{0,1}>
+					#SET{duree,#GET{duree}|plus{#DUREE}}
+					</BOUCLE_document1>
+					</BOUCLE_art_panier1>
+					<BOUCLE_venue(PANIERS_VENUES){id_panier}>
+					#SET{city,#CITY}
+					#SET{venue,#VENUE}
+					#SET{date_show,#DATE_SHOW}
+					</BOUCLE_venue>
+					</BOUCLE_contenu_panier1>
+					#SET{total,#TOTAL_BOUCLE}
+					</B_contenu_panier1>
+					<div class="show_infos">
+						<div class="show_duration show_info">
+							<div class="show_text title_value">
+								DURATION<br />
+								<small>IN MINUTES</small>
+							</div>
+							<div class="show_duree show_data value">
+								[(#GET{duree}|spipmotion_duree)]
+							</div>
+						</div>
+						<div class="show_chapters show_info">
+							<div class="show_text title_value">
+								CHAPTERS
+							</div>
+							<div class="show_chapters_number show_data value">
+								[(#GET{total})]
+							</div>
+						</div>
+						<div class="show_date show_info">
+							<div class="show_text title_value">
+								DATE<br />
+								<small><a href="[(#SELF|parametre_url{step,2}|parametre_url{timeline,active})]">CHANGE</a></small>
+							</div>
+							<div class="show_date_value show_data value">
+								[(#GET{date_show}|affdate{d/m/})][(#GET{date_show}|affdate{Y}|replace{20,''})]
+							</div>
+						</div>
+						<div class="show_costs show_info">
+							<div class="show_text title_value">
+								COSTS
+							</div>
+							<div class="show_prix show_data value">
+								[&euro; (#GET{prix}|>{0}|?{#GET{prix}|plus{400},#GET{prix}}),-]
+							</div>
+						</div>
+					</div>
+					<div class="place">
+						<div class="location show_info">
+							<div class="title_value">
+								LOCATION
+							</div>
+							<div class="value">
+							[(#GET{city})]
+							</div>
+						</div>
+						<div class="venue show_info">
+							<div class="title_value">
+								VENUE
+							</div>
+							<div class="value">
+								[(#GET{venue})]
+							</div>
+						</div>
+					</div>
+				</div>
+				#SET{chapters,#ARRAY}
+				<BOUCLE_contenu_panier2(PANIERS_LIENS){id_panier=#SESSION{id_panier}}{objet=article}{pagination 10}>
+				[(#SET{chapters,[(#GET{chapters}|push{#ARRAY{id_article,#ID_OBJET,compte,#COMPTEUR_BOUCLE,rang,#RANG}})]})]
+				</BOUCLE_contenu_panier2>
+				<div class="ticket_chapters">
+					<div class="price_infos">EXCL. ACCOMODATION & TRAVEL COSTS</div>
+					<div class="title_value">CHAPTER LIST</div>
+					<B_art_panier2>
+					<ul>
+					<BOUCLE_art_panier2(DATA){source table,#GET{chapters}}{0,5}>
+						<BOUCLE_article1(ARTICLES){id_article = #VALEUR|table_valeur{id_article}}>
+						<li>#_art_panier2:VALEUR{compte}. #TITRE (&euro;#PRIX**,-)</li>
+						</BOUCLE_article1>
+					</BOUCLE_art_panier2>
+					</ul>
+					</B_art_panier2>
+					<B_art_panier3>
+					<ul>
+					<BOUCLE_art_panier3(DATA){source table,#GET{chapters}}{5,10}>
+						<BOUCLE_article2(ARTICLES){id_article = #VALEUR|table_valeur{id_article}}>
+						<li>#_art_panier3:VALEUR{compte}. #TITRE (&euro;#PRIX**,-)</li>
+						</BOUCLE_article2>
+					</BOUCLE_art_panier3>
+					</ul>
+					</B_art_panier3>
+				</div>
+				</B_contenu_panier2>
+				<//B_contenu_panier2>
+			</div>
+		</div>
+		</div>
 	</div>
-	<div class="timeline_next">
-		
-	</div>]
+	</BOUCLE_step3>
 </div>
