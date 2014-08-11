@@ -24,4 +24,5 @@
 	<necessite nom="paniers" />
 	<necessite nom="ancresdouces" />
 	<necessite nom="calendriermini" />
+	<necessite nom="compositions" />
 </paquet>
