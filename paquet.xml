@@ -4,7 +4,7 @@
 	version="0.1.0"
 	etat="dev"
 	compatibilite="[3.0.0;["
-	schema="0.1.0"
+	schema="0.2.1"
 	demonstration="http://alacarte.arscenic.org"
 >
 
@@ -14,6 +14,8 @@
 	
 	<pipeline nom="jqueryui_plugins" inclure="alacarte_skel_pipelines.php" />
 	<pipeline nom="jquery_plugins" inclure="alacarte_skel_pipelines.php" />
+	<pipeline nom="declarer_tables_principales" inclure="base/alacarte.php" />
+	<pipeline nom="declarer_tables_interfaces" inclure="base/alacarte.php" />
 	
 	<necessite nom="spipr_dist" />
 	<necessite nom="contact" />
