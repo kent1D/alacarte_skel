@@ -1,0 +1,5 @@
+<composition>
+	<nom>Blog section</nom>
+	<description>Composition dédicated to the blog section</description>
+	<branche type="article" composition="blog" />
+</composition>

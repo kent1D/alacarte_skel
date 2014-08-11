@@ -1,0 +1,44 @@
+<BOUCLE_content(RUBRIQUES){id_rubrique}>
+<section>
+	<div class="main row">
+		<div class="span6 blog_current">
+			<h1>CURRENT</h1>
+			<div class="chapo">
+				<p>Are you curious to know what we are doing at the moment or where our next À la Cart performances will be? Here you can read all about it.</p>
+			</div>
+		<B_articles>
+			<div class="liste articles">
+				<ul class="liste-items">
+				<BOUCLE_articles(ARTICLES){id_rubrique}{statut=publie}{!par date}{pagination 5}>
+					<li class="item">#INCLURE{fond=inclure/resume/article-blog,id_article,statut}</li>
+				</BOUCLE_articles>
+				</ul>
+			</div>
+		</B_articles>
+		</div>
+		<div class="span6 blog_archive">
+			<B_articles_archive>
+			<h1>ARCHIVE</h1>
+			<div class="chapo">
+				<p>Do you want to peek into our previous orders? Browse freely and get inspired!</p>
+			</div>
+			<div class="liste articles">
+				<ul class="liste-items">
+				<BOUCLE_articles_archive(ARTICLES){id_rubrique}{statut=archive}{!par date}{pagination 5}>
+					<li class="item">#INCLURE{fond=inclure/resume/article-blog,id_article,statut}</li>
+				</BOUCLE_articles_archive>
+				</ul>
+			</div>
+			</B_articles_archive>
+		</div>
+	</div>
+
+	<aside>
+	</aside>
+
+	<footer>
+		[<div class="notes"><h2><:info_notes:></h2>(#NOTES)</div>]
+	</footer>
+
+</section>
+</BOUCLE_content>
