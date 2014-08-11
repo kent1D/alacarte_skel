@@ -11,7 +11,12 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'contact_message_placeholder' => 'WRITE YOUR MESSAGE HERE',
 	'contact_title_form' => 'DO YOU WANT TO GET IN CONTACT WITH US?',
 
+	// D
+	'description_choose_date' => 'Would you like us to perform more than once? Select one date now and contact us for other dates.',
+	'description_choose_ticket' => 'Is everything ok with your order? It’s not too late to change your order by returning to the previous steps. If you have more questions you can always <a href="@url_contact@">contact us</a>',
+
 	// E
+	'erreur_aucun_panier' => 'You have no item in your timeline',
 	'erreur_no_video_criteria' => 'No video corresponding',
 
 	// L
@@ -23,6 +28,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// M
 	'message_intro_abomailman' => 'If you wish to be informed about all the activities happening in connection with the À la Cart performance webshop project, subscribe to our NEWSLETTER.',
+	'message_venue_cree' => 'Your venue has been set.',
 
 	// P
 	'panier_un_item' => '<span class="number">@nb@</span> ITEM',
@@ -35,7 +41,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// T
 	'title_abomailman' => 'KEEP UP TO DATE',
+	'title_check_ticket' => 'CHECK YOUR TICKET',
+	'title_choose_date' => 'CHOOSE YOUR DATE',
 	'title_contact_infos' => 'CONTACT INFORMATION',
+	'title_order' => 'ORDER YOUR SHOW',
 	'title_social_contact' => 'SOCIAL CONTACT',
 	'title_timeline' => 'CREATE YOUR OWN PERFORMANCE NOW!',
 	'title_timeline_step_1' => 'SELECT YOUR FAVORITE CHAPTERS',
