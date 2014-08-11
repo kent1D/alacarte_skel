@@ -36,6 +36,17 @@
 			<div class="media_texte_info">
 				#TEXTE
 			</div>
+			<B_mots>
+			<div class="media_more_in">
+				MORE IN:
+				<BOUCLE_mots(MOTS){id_article}{id_groupe=2}>
+				<a href="[(#SELF|parametre_url{id_mot,#ID_MOT})]">#TITRE</a>
+				</BOUCLE_mots>
+			</div>
+			</B_mots>
+			<div class="media_read_pricing">
+				<a href="#URL_ARTICLE{11}">READ ABOUT PRICING</a>
+		</div>
 		</div>
 	</div>
 	</div>
