@@ -1,0 +1,95 @@
+#CACHE{0}
+
+<div class="formulaire_spip formulaire_#FORM" id="formulaire_#FORM">
+
+[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+<BOUCLE_editable(CONDITION){si #ENV{editable}}>
+<form method='post' action='[(#ENV{action})]'>
+	[(#REM) declarer les hidden qui declencheront le service du formulaire parametre : url d'action ]
+	#ACTION_FORMULAIRE{#ENV{action}}
+
+	[(#REM) Sinon, formulaire normal ]
+	<fieldset class="date">
+		<ul>
+			<li class="editer editer_date[ (#ENV**{erreurs}|table_valeur{date_show}|oui)error]">
+				[<span class='erreur'>(#ENV**{erreurs}|table_valeur{date_show})</span>]
+				[(#CALENDRIER_MINI{[(#ENV{date_show,#ENV{date}})],date_show,[(#URL_PAGE{agenda}|ancre_url{contenu})],[(#URL_PAGE{calendrier_mini_event.json})]})]
+				<input type="hidden" name="date_show" id="date_show" value="#ENV{date_show}" />
+			</li>
+		</ul>
+	</fieldset>
+	<fieldset class="venue">
+		<h3 class="legend">LOCATION</h3>
+		<ul>
+			<li class="editer editer_venue[ (#ENV**{erreurs}|table_valeur{venue}|oui)error]">
+				<label for="venue">VENUE</label>
+				[<span class='erreur'>(#ENV**{erreurs}|table_valeur{venue})</span>]
+				<input type="text" class="text" value="#ENV{venue}" id="venue" name="venue" />
+			</li>
+			<li class="editer editer_stage[ (#ENV**{erreurs}|table_valeur{stage}|oui)error]">
+				[<span class='erreur'>(#ENV**{erreurs}|table_valeur{stage})</span>]
+				<div class="choix">
+					<input type="radio" name="stage" value="stage" class="stage" id="stage1"[(#ENV{stage}|=={stage}|oui)checked="checked"]>
+					<label for="stage1">STAGE</label>
+				</div>
+				<div class="choix">
+					<input type="radio" name="stage" value="gallery" class="stage" id="stage2"[(#ENV{stage}|=={gallery}|oui)checked="checked"]>
+					<label for="stage2">GALLERY</label>
+				</div>
+				<div class="choix">
+					<input type="radio" name="stage" value="street" class="stage" id="stage3"[(#ENV{stage}|=={street}|oui)checked="checked"]>
+					<label for="stage3">STREET</label>
+				</div>
+				<div class="choix">
+					<input type="radio" name="stage" value="balcony" class="stage" id="stage4"[(#ENV{stage}|=={balcony}|oui)checked="checked"]>
+					<label for="stage4">BALCONY/TERRACE</label>
+				</div>
+				<div class="choix">
+					<input type="radio" name="stage" value="bar" class="stage" id="stage5"[(#ENV{stage}|=={bar}|oui)checked="checked"]>
+					<label for="stage5">BAR/RESTAURANT</label>
+				</div>
+				<div class="choix">
+					<input type="radio" name="stage" value="private" class="stage" id="stage6"[(#ENV{stage}|=={private}|oui)checked="checked"]>
+					<label for="stage6">PRIVATE HOME</label>
+				</div>
+				<div class="choix">
+					<input type="radio" name="stage" value="other" class="stage" id="stage7"[(#ENV{stage}|=={other}|oui)checked="checked"]>
+					<label for="stage7">OTHER</label>
+					<input type="text" class="text" value="#ENV{stage_other}" id="stage_other" name="stage_other"[(#ENV{stage}|=={other}|non)disabled="disabled"] />
+				</div>
+			</li>
+			<li class="editer editer_city[ (#ENV**{erreurs}|table_valeur{city}|oui)error]">
+				[<span class='erreur'>(#ENV**{erreurs}|table_valeur{city})</span>]
+				<label for="city">CITY</label>
+				<input type="text" class="text" value="#ENV{city}" id="city" name="city" />
+			</li>
+			<li class="editer editer_country[ (#ENV**{erreurs}|table_valeur{country}|oui)error]">
+				[<span class='erreur'>(#ENV**{erreurs}|table_valeur{country})</span>]
+				<label for="country">COUNTRY</label>
+				<input type="text" class="text" value="#ENV{country}" id="country" name="country" />
+			</li>
+		</ul>
+	</fieldset>
+
+	<p class="boutons">
+		<button type="submit" class="submit" value="<:bouton_enregistrer:>">[(#CHEMIN{images/button_order_show.png}|balise_img)]</button>
+	</p>
+</form>
+</BOUCLE_editable>
+</div>
+<script type="text/javascript">
+	jQuery('document').ready(function(){
+		jQuery('.stage').unbind('change').on('change',function(){
+			if(!$(this).is('#stage7')){
+				if(!$('#stage_other').is(':disabled'))
+					$('#stage_other').attr('disabled','disabled');
+			}
+			else if($(this).is('#stage7')){
+				if($('#stage_other').is(':disabled'))
+					$('#stage_other').attr('disabled',false);
+			}
+		});
+	});
+</script>
