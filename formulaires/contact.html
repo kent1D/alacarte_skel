@@ -25,7 +25,7 @@
 			[<li><strong>[(#VALEUR)]</strong> : (#ENV{#CLE})</li>]
 			]
 			</BOUCLE_previsu_infos>
-			[<li><strong><:form_prop_sujet:></strong> : (#ENV{sujet})</li>]
+			[<li><strong><:form_prop_sujet:></strong>: (#ENV{sujet})</li>]
 			[<li><div><strong><:info_texte_message:></strong></div>(#ENV{texte}|propre)</li>]
 			<B_previsu_pj>
 			<li>
@@ -143,9 +143,14 @@
 		<label for="contact_nobot"><:antispam_champ_vide:></label>
 		<input type="text" class="text" name="nobot" id="contact_nobot" value="#ENV{nobot}" size="10" />
 	</p>
-
 	<p class="boutons">
-		<button type="submit" class="submit" name="valide" value="<:form_prop_envoyer:>">[(#CHEMIN{images/button_send_message.png}|balise_img)]</button>
+		<button type="submit" class="submit" name="valide" value="<:form_prop_envoyer:>">
+			[(#CHEMIN{images/alacart_buttons_2x_send-17.png}|balise_img
+							|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_send-22.png}
+								|balise_img|extraire_attribut{src})]"}
+							|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/alacart_buttons_2x_send-17.png}
+								|balise_img|extraire_attribut{src})]"})]
+		</button>
 	</p>
 </form>
 </BOUCLE_editable>
