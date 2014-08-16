@@ -29,8 +29,20 @@
 			<div class="social_contact">
 				<h2><:alacarte:title_social_contact:></h2>
 				<p>
-					[<a href="http://www.facebook.com" class="fb">(#CHEMIN{images/button_social_fb.png}|balise_img)</a>]
-					[<a href="http://www.twitter.com" class="twitter">(#CHEMIN{images/button_social_twitter.png}|balise_img)</a>]
+					[<a href="http://www.facebook.com" class="fb">
+						(#CHEMIN{images/alacart_buttons_2x_fb-15.png}|balise_img
+							|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_fb-20.png}
+								|balise_img|extraire_attribut{src})]"}
+							|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/alacart_buttons_2x_fb-15.png}
+								|balise_img|extraire_attribut{src})]"})
+					</a>]
+					[<a href="http://www.twitter.com" class="twitter">
+						(#CHEMIN{images/alacart_buttons_2x_twitter-16.png}|balise_img
+							|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_twitter-21.png}
+								|balise_img|extraire_attribut{src})]"}
+							|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/alacart_buttons_2x_twitter-16.png}
+								|balise_img|extraire_attribut{src})]"})
+					</a>]
 				</p>
 			</div>
 		</div>
