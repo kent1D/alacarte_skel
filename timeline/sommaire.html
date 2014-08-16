@@ -14,7 +14,13 @@
 				<div class="content_added_price">
 					WHY IS € 400,- ADDED? 
 					<br />
-					<a href="#URL_ARTICLE{7}">[(#CHEMIN{images/button_read_all.png}|balise_img)]</a>
+					<a href="#URL_ARTICLE{7}">
+						[(#CHEMIN{images/alacart_buttons_2x_read-13.png}|balise_img
+							|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_read-18.png}
+								|balise_img|extraire_attribut{src})]"}
+							|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/alacart_buttons_2x_read-13.png}
+								|balise_img|extraire_attribut{src})]"})]
+					</a>
 					<br />
 					<small><a href="#" onclick="$('.info_added_price').fadeOut();return false;">I don't care, close this</a></small>
 				</div>
@@ -47,7 +53,13 @@
 			[(#ENV{step}|=={3}|oui)
 			<div class="timeline_show">
 				<div class="show_buy">
-					<a href="[(#URL_PAGE{order})]">[(#CHEMIN{images/button_buy.png}|balise_img|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/button_buy_hover.png})]"}|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/button_buy.png})]"})]</a>
+					<a href="[(#URL_PAGE{order})]">
+						[(#CHEMIN{images/alacart_buttons_2x_buy-05.png}|balise_img
+							|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_buy-06.png}
+								|balise_img|extraire_attribut{src})]"}
+							|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/alacart_buttons_2x_buy-05.png}
+								|balise_img|extraire_attribut{src})]"})]
+					</a>
 				</div>
 				<div class="go_to_buy">
 					> > > > > > > > > > > > > > > > > > >
