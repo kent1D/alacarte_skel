@@ -53,8 +53,13 @@
 				<input type="text" class="text" name="nobot" id="nobot_abomailman" value="#ENV{nobot}" size="10" />
 			</p>
 			<p class="boutons">
-				<button type="submit" class="submit" name="abonnement" value="<:abomailmans:btn_abonnement:>">[(#CHEMIN{images/button_subscribe.png}|balise_img)]</button>
-				[(#REM)<input name="desabonnement" type="submit" value="<:abomailmans:btn_desabonnement:>" class="submit" />]
+				<button type="submit" class="submit" name="abonnement" value="<:abomailmans:btn_abonnement:>">
+					[(#CHEMIN{images/alacart_buttons_2x_subscribe-03.png}|balise_img
+							|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_subscribe-04.png}
+								|balise_img|extraire_attribut{src})]"}
+							|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/alacart_buttons_2x_subscribe-03.png}
+								|balise_img|extraire_attribut{src})]"})]
+				</button>
 			</p>
 		</fieldset>
 		</div>
