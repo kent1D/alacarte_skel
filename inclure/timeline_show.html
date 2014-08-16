@@ -33,6 +33,12 @@
 		</div>
 	</div>
 	<div class="show_buy">
-		<a href="[(#SELF|parametre_url{step,3})]">[(#CHEMIN{images/button_buy.png}|balise_img|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/button_buy_hover.png})]"}|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/button_buy.png})]"})]</a>
+		<a href="[(#SELF|parametre_url{step,3})]">
+			[(#CHEMIN{images/alacart_buttons_2x_buy-05.png}|balise_img
+							|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_buy-06.png}
+								|balise_img|extraire_attribut{src})]"}
+							|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/alacart_buttons_2x_buy-05.png}
+								|balise_img|extraire_attribut{src})]"})]
+		</a>
 	</div>
 </div>
