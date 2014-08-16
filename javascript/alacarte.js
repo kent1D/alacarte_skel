@@ -27,11 +27,12 @@ jQuery.fn.animateLoading = function() {
 	return this; // don't break the chain
 }
 
-function activate_timeline(){
+function activate_desactivate_timeline(){
 	if($('#timeline').is('.active')){
 		$('#timeline .timeline_content').attr('data-heightorig',$('#timeline .timeline_content').outerHeight());
-		$('#timeline .timeline_content').animate({height:'4em'});
-		$('#timeline').removeClass('active');
+		$('#timeline .timeline_content').animate({height:'3.5em'},function(){
+			$('#timeline').removeClass('active');
+		});
 	}
 	else{
 		if($('#timeline .timeline_content').attr('data-heightorig') > 0){
@@ -45,9 +46,28 @@ function activate_timeline(){
 	}
 }
 
+function desactivate_timeline(){
+	if($('#timeline').is('.active')){
+		$('#timeline .timeline_content').attr('data-heightorig',$('#timeline .timeline_content').outerHeight());
+		$('#timeline .timeline_content').animate({height:'3.5em'});
+		$('#timeline').removeClass('active');
+	}
+}
+
+function activate_timeline(){
+	if(!$('#timeline').is('.active')){
+		if($('#timeline .timeline_content').attr('data-heightorig') > 0){
+			var height_orig = $('#timeline .timeline_content').attr('data-heightorig');
+			$('#timeline .timeline_content').animate({height:height_orig+'px'});
+			$('#timeline').addClass('active');
+		}else{
+			$('#timeline .timeline_content').css('height','auto');
+			$('#timeline').addClass('active');
+		}
+	}
+}
 function show_timeline(){
-	clearTimeout(showhide_timeline);
-	$('#timeline').animate({bottom:'0'}).addClass('active');
+	activate_timeline();
 }
 
 function hide_timeline(){
@@ -90,6 +110,15 @@ function media_visible_add_to_timeline(){
 }
 
 var init_drag = function(){
+	$('#timeline').unbind('hover').hover(
+		function(){
+			activate_timeline();
+		}
+	);
+	$('div').not('#timeline').click(function(){
+		if(!$('#timeline').is(':hover'))
+			desactivate_timeline();
+	})
 	$('.content .headline_media').draggable({
 		cursor: "move",
 		opacity: 0.7,
@@ -99,7 +128,7 @@ var init_drag = function(){
 		containment: "document",
 		helper:"clone",
 		start:function(event,ui){
-			show_timeline();
+			activate_timeline();
 			$(ui.helper).find('.badge_thumbnail,.incitate').hide();
 			var cible=false,count = $('.timeline_drag').not('.empty').size();
 			if(count > 2)
@@ -142,7 +171,7 @@ var init_drag = function(){
 			cible = $('.empty:eq(0)');
 		
 		var cible_transfer = $('.empty:eq(0)');
-		show_timeline();
+		activate_timeline();
 		$('.timeline_list').scrollTo(cible,500,{onAfter:function(){
 			me.parents('.media_visible').effect( 'transfer', { to: cible_transfer }, 700, function(){
 				var content = content_box.clone();
@@ -193,7 +222,7 @@ var init_drag = function(){
 		return false;
 	});
 	$('a.activate_timeline').unbind('click').click(function(){
-		activate_timeline();
+		activate_desactivate_timeline();
 		return false;
 	});
 	
@@ -221,7 +250,23 @@ var init_drag = function(){
  */
 $(function(){
 	init_drag();
+	$('#timeline').addClass('active',function(){
+		desactivate_timeline();
+	});
+	setTimeout(desactivate_timeline,500);
 	onAjaxLoad(init_drag);
+	$(".box1 span.typewriter").empty().typed({
+		strings: ["YOU CAN ORDER A PERFORMANCE TO BE EXECUTED LIVE,", "YOU CAN BECOME THE CO-CREATOR OF OUR SHOW,","YOUR DECISIONS DETERMINE HOW OUR PERFORMANCE WILL LOOK LIKE,","YOU CAN BE CREATIVE.","YOU CAN HAVE FUN!!"],
+		typeSpeed: 60,
+		backDelay: 3000,
+		loop:true
+	});
+	$(".box2 span.typewriter").empty().typed({
+		strings: ["ARE YOU ORGANIZING A FESTIVAL, THEATRE PROGRAM, EXHIBITION, HOUSE EVENT, LECTURE?", "OR ARE YOU JUST CURIOUS?","VIEW THE CHAPTERS BELOW!","WHICH CHAPTERS DO YOU LIKE?","DRAG THEM TO THE TIMELINE!","AND ORDER A LIVE CUSTOM MADE PERFORMANCE ANYWHERE YOU LIKE!"],
+		typeSpeed: 65,
+		backDelay: 4500,
+		loop:true
+	});
 	var cible=false,count = $('.timeline_drag').not('.empty').size();
 	if(count > 2)
 		cible = $('.empty:eq(0)').prev().prev();
