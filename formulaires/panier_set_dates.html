@@ -15,7 +15,7 @@
 		<ul>
 			<li class="editer editer_date[ (#ENV**{erreurs}|table_valeur{date_show}|oui)error]">
 				[<span class='erreur'>(#ENV**{erreurs}|table_valeur{date_show})</span>]
-				[(#CALENDRIER_MINI{[(#ENV{date_show,#ENV{date}})],date_show,[(#URL_PAGE{agenda}|ancre_url{contenu})],[(#URL_PAGE{calendrier_mini_event.json})]})]
+				[(#CALENDRIER_MINI{[(#ENV{date_show,#ENV{date}})],date_show,'',[(#URL_PAGE{calendrier_mini_event.json})]})]
 				<input type="hidden" name="date_show" id="date_show" value="#ENV{date_show}" />
 			</li>
 		</ul>

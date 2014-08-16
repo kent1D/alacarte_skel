@@ -47,20 +47,20 @@
 Chargement du javascript du mini-calendrier
 
 ]<script type='text/javascript'>/*<![CDATA[*/
-$(document).on('miniCalendarLoaded',function(){
-	console.log($(this));
-});
 if (window.jQuery){jQuery(function(){
 		jQuery.getScript('[(#PRODUIRE{fond=javascript/calendrier_mini.js,lang=#ENV{lang}}|compacte)]',
 			function(){
-				//minical.options.minDate = "[(#ENV{date}|affdate{Y-m-01}|Agenda_moisdecal{1,Y-m-01})]";
-				minical.options.maxDate = "[(#ENV{date}|Agenda_moisdecal{36,Y-m-01})]";
-				minical.on_select = function(dateText, inst){
+				minical.options.minDate = "[(#ENV{date_redac}|affdate{Y-m-01}|Agenda_moisdecal{-1,Y-m-01})]";
+				minical.options.maxDate = "[(#ENV{date_redac}|Agenda_moisdecal{36,Y-m-01})]";
+				minical.on_select = function(dateText,inst){
 					var me = inst.input;
 					if (dateText) {
 						$('#date_show').val(dateText);
+						inst.settings.minDate = "[(#ENV{date_redac}|affdate{Y-m-01}|Agenda_moisdecal{-1,Y-m-01})]";
+						inst.settings.maxDate = "[(#ENV{date_redac}|Agenda_moisdecal{36,Y-m-01})]";
 						// annuler la selection !
 						me.multiDatesPicker('toggleDate', dateText);
+						$(".minicalendar .calendar-container").datepicker("setDate",dateText);
 					}
 				};
 				minical.init('.minicalendar .calendar-container');
