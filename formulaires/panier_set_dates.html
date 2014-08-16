@@ -74,7 +74,13 @@
 	</fieldset>
 
 	<p class="boutons">
-		<button type="submit" class="submit" value="<:bouton_enregistrer:>">[(#CHEMIN{images/button_order_show.png}|balise_img)]</button>
+		<button type="submit" class="submit" value="<:bouton_enregistrer:>">
+			[(#CHEMIN{images/alacart_buttons_2x_order-13.png}|balise_img
+							|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_order-12.png}
+								|balise_img|extraire_attribut{src})]"}
+							|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/alacart_buttons_2x_order-13.png}
+								|balise_img|extraire_attribut{src})]"})]
+		</button>
 	</p>
 </form>
 </BOUCLE_editable>
