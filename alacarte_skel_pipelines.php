@@ -15,6 +15,7 @@ function alacarte_skel_jqueryui_plugins($plugins){
 
 function alacarte_skel_jquery_plugins($plugins){
 	if(!test_espace_prive()){
+		$plugins[] = 'javascript/typed.js';
 		$plugins[] = 'javascript/alacarte.js';
 	}
 	return $plugins;

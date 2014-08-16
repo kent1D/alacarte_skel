@@ -11,6 +11,7 @@
 	<nom>À la carte</nom>
 
 	<auteur lien="http://www.kent1.info">kent1</auteur>
+	<auteur>Maarten</auteur>
 	
 	<pipeline nom="jqueryui_plugins" inclure="alacarte_skel_pipelines.php" />
 	<pipeline nom="jquery_plugins" inclure="alacarte_skel_pipelines.php" />
