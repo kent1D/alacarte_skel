@@ -27,10 +27,15 @@
 			</BOUCLE_vides>
 		</div>
 		<div class="timeline_next">
-			<a href="[(#SELF|parametre_url{id_article_visible,''}|parametre_url{mode,preview})]" class="ajax preview" title="preview">[(#CHEMIN{images/button_preview.png}|balise_img|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/button_preview_hover.png})]"}|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/button_preview.png})]"})]</a>
+			<a href="[(#SELF|parametre_url{id_article_visible,''}|parametre_url{mode,preview})]" class="ajax preview" title="preview">
+				[(#CHEMIN{images/alacart_buttons_2x_preview-07.png}|balise_img
+							|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_preview-08.png}
+								|balise_img|extraire_attribut{src})]"}
+							|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/alacart_buttons_2x_preview-07.png}
+								|balise_img|extraire_attribut{src})]"})]
+			</a>
 		</div>
 	</div>
-	
 	</BOUCLE_step1>
 	[(#ENV{step,1}|=={2}|oui)
 	<div class="timeline_date">
