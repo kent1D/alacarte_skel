@@ -1,5 +1,16 @@
 var showhide_timeline = false;
+var timeline_drag_width = $('.timeline_drag').eq(0).outerWidth(),
+	timeline_next_width = $('.timeline_next').outerWidth(),
+	timeline_width = $('.timeline_list').width();
 
+/**
+ * Ajouter un évènement au beforestart sur le draggable pour changer de tab
+ */
+var oldMouseStart = $.ui.draggable.prototype._mouseStart;
+$.ui.draggable.prototype._mouseStart = function (event, overrideHandle, noActivation) {
+	this._trigger("beforeStart", event, this._uiHash());
+	oldMouseStart.apply(this, [event, overrideHandle, noActivation]);
+};
 /**
  * Put every selected element on the same height, based on the bigger one
  */
@@ -27,6 +38,23 @@ jQuery.fn.animateLoading = function() {
 	return this; // don't break the chain
 }
 
+/**
+ * Replacer la timeline au bon endroit
+ */
+function timeline_replace(){
+	var cible=false,count = $('.timeline_drag').not('.empty').size();
+	if(count > 2)
+		cible = $('.empty:eq(0)').prev().prev();
+	else if(count >= 1)
+		cible = $('.empty:eq(0)').prev();
+	else
+		cible = $('.empty:eq(0)');
+	$('.timeline_list').scrollTo(cible,500);
+}
+
+/**
+ * Active / désactive la timeline
+ */
 function activate_desactivate_timeline(){
 	if($('#timeline').is('.active')){
 		$('#timeline .timeline_content').attr('data-heightorig',$('#timeline .timeline_content').outerHeight());
@@ -88,14 +116,7 @@ function add_to_timeline( $item, $dropbox) {
 		}).done(function() {
 			$('#panier,.timeline_show').ajaxReload();
 			$('.timeline_line').ajaxReload({callback:function(){
-				var cible=false,count = $('.timeline_drag').not('.empty').size();
-				if(count > 2)
-					cible = $('.empty:eq(0)').prev().prev();
-				else if(count >= 1)
-					cible = $('.empty:eq(0)').prev();
-				else
-					cible = $('.empty:eq(0)');
-				$('.timeline_list').scrollTo(cible,500);
+				timeline_replace();
 				if($('.timeline_drag').not('.empty').size() == 1)
 					$('.info_added_price').fadeIn();
 			}});
@@ -127,35 +148,53 @@ var init_drag = function(){
 		zIndex: 2500,
 		containment: "document",
 		helper:"clone",
-		start:function(event,ui){
+		beforeStart:function(event,ui){
 			activate_timeline();
+			if(!$('#timeline .timeline_menu_item').eq(0).is('.on'))
+				$('#timeline .timeline_menu_item').eq(0).find('a').click();
+		},
+		start:function(event,ui){
 			$(ui.helper).find('.badge_thumbnail,.incitate').hide();
-			var cible=false,count = $('.timeline_drag').not('.empty').size();
-			if(count > 2)
-				cible = $('.empty:eq(0)').prev().prev();
-			else if(count == 1)
-				cible = $('.empty:eq(0)').prev();
-			else
-				cible = $('.empty:eq(0)');
-			$('.timeline_list').scrollTo(cible,500);
+			timeline_replace();
 			$(ui.helper).css({
 				width:$('.timeline_drag').eq(0).width(),
 				height:$('.timeline_drag').eq(0).height(),
 			});
 			$(ui.helper).find('strong').css({fontSize:".9em"});
+		},
+		drag:function(event,ui){
+			$(ui.helper).css({
+				width:$('.timeline_drag').eq(0).width(),
+				height:$('.timeline_drag').eq(0).height(),
+			});
 		}
 	});
 	$('.timeline_content .empty:eq(0)').droppable({
-	  accept: ".container .headline_media",
-	  activeClass: "ui-state-highlight",
-	  tolerance:"touch",
-	  drop: function( event, ui ) {
-		  add_to_timeline( ui.draggable,$(this) );
-	  }
+		accept: ".container .headline_media",
+		activeClass: "ui-state-highlight",
+		tolerance:"touch",
+		drop: function( event, ui ) {
+			add_to_timeline(ui.draggable,$(this));
+		}
 	});
 	$('.timeline_list').sortable({
 		axis: "x",
-		items: ".timeline_drag:not(.empty)"
+		items: ".timeline_drag:not(.empty)",
+		update: function(e, ui){
+			var sorted = $('.timeline_list').sortable('serialize');
+			if(url_sort){
+				$.ajax({
+					url: url_sort,
+					type: 'POST',
+					data:sorted
+				}).done(function() {
+					$('#panier,.timeline_show').ajaxReload();
+					$('.timeline_line').ajaxReload({callback:function(){
+						timeline_replace();
+					}});
+				});
+			}
+		}
 	});
 	$('.timeline_list').disableSelection();
 	$('a.add_to_timeline').unbind('click').click(function(){
@@ -183,14 +222,7 @@ var init_drag = function(){
 				}).done(function() {
 					$('#panier,.timeline_show').ajaxReload();
 					$('.timeline_line').ajaxReload({callback:function(){
-						var cible=false,count = $('.timeline_drag').not('.empty').size();
-						if(count > 2)
-							cible = $('.empty:eq(0)').prev().prev();
-						else if(count >= 1)
-							cible = $('.empty:eq(0)').prev();
-						else
-							cible = $('.empty:eq(0)');
-						$('.timeline_list').scrollTo(cible,500);
+						timeline_replace();
 						if($('.timeline_drag').not('.empty').size() == 1)
 							$('.info_added_price').fadeIn();
 					}});
@@ -206,14 +238,7 @@ var init_drag = function(){
 		}).done(function() {
 			me.parents('.timeline_drag').fadeOut(function(){
 				$(this).remove();
-				var cible=false,count = $('.timeline_drag').not('.empty').size();
-				if(count > 2)
-					cible = $('.empty:eq(0)').prev().prev();
-				else if(count == 1)
-					cible = $('.empty:eq(0)').prev();
-				else
-					cible = $('.empty:eq(0)');
-				$('.timeline_list').scrollTo(cible,500);
+				timeline_replace();
 			});
 			$('#panier,.timeline_show').ajaxReload();
 			if($('.info_added_price').is(':visible'))
@@ -267,14 +292,7 @@ $(function(){
 		backDelay: 4500,
 		loop:true
 	});
-	var cible=false,count = $('.timeline_drag').not('.empty').size();
-	if(count > 2)
-		cible = $('.empty:eq(0)').prev().prev();
-	else if(count >= 1)
-		cible = $('.empty:eq(0)').prev();
-	else
-		cible = $('.empty:eq(0)');
-	$('.timeline_list').scrollTo(cible,500);
+	timeline_replace();
 });
 
 /**
