@@ -81,60 +81,56 @@
 					</BOUCLE_contenu_panier1>
 					#SET{total,#TOTAL_BOUCLE}
 					</B_contenu_panier1>
-					<div class="show_infos">
-						<div class="show_duration show_info">
-							<div class="show_text title_value">
-								DURATION<br />
-								<small>IN MINUTES</small>
-							</div>
-							<div class="show_duree show_data value">
-								[(#GET{duree}|spipmotion_duree)]
-							</div>
-						</div>
-						<div class="show_chapters show_info">
-							<div class="show_text title_value">
-								CHAPTERS
-							</div>
-							<div class="show_chapters_number show_data value">
-								[(#GET{total})]
-							</div>
-						</div>
-						<div class="show_date show_info">
-							<div class="show_text title_value">
-								DATE<br />
-								<small><a href="[(#SELF|parametre_url{step,2}|parametre_url{timeline,active})]">CHANGE</a></small>
-							</div>
-							<div class="show_date_value show_data value">
-								[(#GET{date_show}|affdate{d/m/})][(#GET{date_show}|affdate{Y}|replace{20,''})]
-							</div>
-						</div>
-						<div class="show_costs show_info">
-							<div class="show_text title_value">
-								COSTS
-							</div>
-							<div class="show_prix show_data value">
-								[&euro; (#GET{prix}|>{0}|?{#GET{prix}|plus{400},#GET{prix}}),-]
-							</div>
-						</div>
-					</div>
-					<div class="place">
-						<div class="location show_info">
-							<div class="title_value">
-								LOCATION
-							</div>
-							<div class="value">
-							[(#GET{city})]
-							</div>
-						</div>
-						<div class="venue show_info">
-							<div class="title_value">
-								VENUE
-							</div>
-							<div class="value">
-								[(#GET{venue})]
-							</div>
-						</div>
-					</div>
+					<table class="show_infos">
+						<tbody>
+							<tr>
+								<td class="show_duration_label show_info show_text title_value">
+									DURATION<br />
+									<small>IN MINUTES</small>
+								</td>
+								<td class="show_duration show_info show_duree show_data value">
+									[(#GET{duree}|spipmotion_duree)]
+								</td>
+								<td class="show_chapters_label show_info show_text title_value">
+									CHAPTERS
+								</td>
+								<td class="show_chapters show_info show_chapters_number show_data value">
+									[(#GET{total})]
+								</td>
+								<td class="show_date_label show_info show_text title_value">
+									DATE<br />
+									<small><a href="[(#SELF|parametre_url{step,2}|parametre_url{timeline,active})]">CHANGE</a></small>
+								</td>
+								<td class="show_date show_info show_date_value show_data value">
+									[(#GET{date_show}|affdate{d/m/})][(#GET{date_show}|affdate{Y}|replace{20,''})]
+								</td>
+								<td class="show_costs_label show_info show_text title_value">
+									COSTS
+								</td>
+								<td class="show_costs show_info show_prix show_data value">
+									[&euro; (#GET{prix}|>{0}|?{#GET{prix}|plus{400},#GET{prix}}),-]
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="place">
+						<tbody>
+							<tr>
+								<td class="location_label show_info title_value">
+									LOCATION
+								</td>
+								<td class="location show_info value">
+									[(#GET{city})]
+								</td>
+								<td class="venue_label show_info title_value">
+									VENUE
+								</td>
+								<td class="venue show_info value">
+									[(#GET{venue})]
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 				#SET{chapters,#ARRAY}
 				<BOUCLE_contenu_panier2(PANIERS_LIENS){id_panier=#SESSION{id_panier}}{objet=article}{pagination 10}>
