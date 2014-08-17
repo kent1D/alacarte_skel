@@ -275,14 +275,15 @@ var init_drag = function(){
 		return false;
 	});
 	$('a.remove_panier').unbind('click').click(function(){
-		var me = $(this),href = $(this).attr('href');
+		var me = $(this),
+			href = $(this).attr('href');
+		me.parents('.timeline_drag').fadeOut(function(){
+			$(this).remove();
+			timeline_replace();
+		});
 		$.ajax({
 			url: href
 		}).done(function() {
-			me.parents('.timeline_drag').fadeOut(function(){
-				$(this).remove();
-				timeline_replace();
-			});
 			$('#panier,.timeline_show').ajaxReload();
 			if($('.info_added_price').is(':visible'))
 				$('.info_added_price').fadeOut();
