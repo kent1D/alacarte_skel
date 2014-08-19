@@ -1,7 +1,17 @@
 #CACHE{0}
 <div class="timeline_line">
 	<BOUCLE_step1(CONDITION){si #ENV{step,1}|=={1}|oui}>
-	<div class="timeline_container">
+	<div class="timeline_container" id="timeline_container_step1">
+		<div class="timeline_before">
+			[(#CHEMIN{images/alacart_buttons_2x_arrow.png}
+				|balise_img
+				|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_arrow_roll.png}
+				|balise_img
+				|extraire_attribut{src})]"}
+				|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/alacart_buttons_2x_arrow.png}
+				|balise_img
+				|extraire_attribut{src})]"})]
+		</div>
 		<div class="timeline_list">
 			#SET{nb_produits,0}
 			<script type="text/javascript">
@@ -28,6 +38,16 @@
 				</div>
 			</div>
 			</BOUCLE_vides>
+		</div>
+		<div class="timeline_after">
+			[(#CHEMIN{images/alacart_buttons_2x_arrow2.png}
+				|balise_img
+				|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_arrow2_roll.png}
+				|balise_img
+				|extraire_attribut{src})]"}
+				|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/alacart_buttons_2x_arrow2.png}
+				|balise_img
+				|extraire_attribut{src})]"})]
 		</div>
 		<div class="timeline_next">
 			<a href="[(#SELF|parametre_url{id_article_visible,''}|parametre_url{mode,preview})]" class="ajax preview" title="preview">
