@@ -6,11 +6,11 @@
 			<strong><:alacarte:label_filters:></strong>
 		</li>
 		<li class="item">
-			[(#SELF|parametre_url{id_mot,''}|lien_ou_expose{<:alacarte:label_filters_all:>, #ENV{id_mot,test}|=={test},ajax})]
+			[(#SELF|parametre_url{id_mot,''}|parametre_url{id_article_visible,''}|lien_ou_expose{<:alacarte:label_filters_all:>, #ENV{id_mot,test}|=={test},ajax})]
 		</li>
 		<BOUCLE_mots_filtres(MOTS){id_groupe=2}>
 		<li class="item">
-			[(#SELF|parametre_url{id_mot,#ID_MOT}|lien_ou_expose{#TITRE, #ENV{id_mot}|=={#ID_MOT},ajax})]
+			[(#SELF|parametre_url{id_mot,#ID_MOT}|parametre_url{id_article_visible,''}|lien_ou_expose{#TITRE, #ENV{id_mot}|=={#ID_MOT},ajax})]
 		</li>
 		</BOUCLE_mots_filtres>
 		</ul>
@@ -22,7 +22,7 @@
 	<div class="row liste_medias">
 		<BOUCLE_articles(ARTICLES){id_rubrique?}{id_mot ?} {!par date} {pagination #ENV{nb,21}}>
 		[(#SET{liste_image,#GET{liste_image}|push{#ID_ARTICLE}})]
-		<div class="span4">#INCLURE{fond=inclure/resume/media,id_article,id_article_visible}</div>
+		<div class="span4"><INCLURE{fond=inclure/resume/media,id_article,id_article_visible}></div>
 		[(#ENV{id_article_visible}|=={#ID_ARTICLE}|oui)
 			[(#SET{position,[(#COMPTEUR_BOUCLE|modulo{3})]})]
 			[(#COMPTEUR_BOUCLE|modulo{3}|=={0}|?{#SET{position,3}})]
