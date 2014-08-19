@@ -24,7 +24,7 @@
 	<div class="footer" id="footer">
 		<INCLURE{fond=footer/#ENV{type-page},env} />
 	</div>
-	<div class="timeline container[(#ENV{timeline}|=={active}|oui)active]" id="timeline">
+	<div class="timeline container[ (#ENV{mode}) ][(#ENV{timeline}|=={active}|oui)active]" id="timeline">
 		<INCLURE{fond=timeline/#ENV{type-page},ajax,env} />
 	</div>
 </body>
