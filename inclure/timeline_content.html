@@ -1,6 +1,10 @@
 #CACHE{0}
 <div class="timeline_line">
 	<BOUCLE_step1(CONDITION){si #ENV{step,1}|=={1}|oui}>
+	[(#ENV{mode}|=={preview}|oui)
+	<div class="preview_video">
+		<a class="close_preview_on" href="[(#SELF|parametre_url{mode,''})]">CLOSE PREVIEW</a>
+	</div>]
 	<div class="timeline_container" id="timeline_container_step1">
 		<div class="timeline_before">
 			[(#CHEMIN{images/alacart_buttons_2x_arrow.png}
@@ -50,13 +54,22 @@
 				|extraire_attribut{src})]"})]
 		</div>
 		<div class="timeline_next">
+			[(#ENV{mode}|=={preview}|non)
 			<a href="[(#SELF|parametre_url{id_article_visible,''}|parametre_url{mode,preview})]" class="ajax preview" title="preview">
 				[(#CHEMIN{images/alacart_buttons_2x_preview-07.png}|balise_img
 							|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_preview-08.png}
 								|balise_img|extraire_attribut{src})]"}
 							|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/alacart_buttons_2x_preview-07.png}
 								|balise_img|extraire_attribut{src})]"})]
-			</a>
+			</a>]
+			[(#ENV{mode}|=={preview}|oui)
+			<a href="[(#SELF|parametre_url{id_article_visible,''}|parametre_url{mode,''}|parametre_url{step,2})]" class="ajax setdates" title="Set dates">
+				[(#CHEMIN{images/alacart_buttons_2x_date-09.png}|balise_img
+							|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_date-11.png}
+								|balise_img|extraire_attribut{src})]"}
+							|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/alacart_buttons_2x_date-09.png}
+								|balise_img|extraire_attribut{src})]"})]
+			</a>]
 		</div>
 	</div>
 	</BOUCLE_step1>
