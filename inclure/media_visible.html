@@ -45,7 +45,7 @@
 			<B_mots>
 			<div class="media_more_in">
 				MORE IN:
-				<BOUCLE_mots(MOTS){id_article}{id_groupe=2}>
+				<BOUCLE_mots(MOTS){id_article}{id_groupe=2}{id_mot != #ENV{id_mot}}>
 				<a href="[(#SELF|parametre_url{id_mot,#ID_MOT})]">#TITRE</a>
 				</BOUCLE_mots>
 			</div>
