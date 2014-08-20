@@ -366,6 +366,43 @@ var init_drag = function(){
 		});
 		return false;
 	});
+	jQuery('a.moveleft').unbind('click').click(function(){
+		var parent = jQuery(this).parents('.timeline_drag').eq(0);
+		var id= parent.attr('id');
+		var href= $(this).attr('href');
+		var before = parent.prev('.timeline_drag:not(".empty")');
+		console.log(before);
+		if(before.size() > 0){
+			parent.fadeOut('slow',function(){
+				$.ajax({
+					url: href
+				}).done(function() {
+					var x = parent.detach();
+					before.before(x);
+					jQuery('#'+id).fadeIn('slow');
+				});
+			});
+		}
+		return false;
+	});
+	jQuery('a.moveright').unbind('click').click(function(){
+		var parent = jQuery(this).parents('.timeline_drag');
+		var id= parent.attr('id');
+		var href= $(this).attr('href');
+		var after = parent.next('.timeline_drag:not(".empty")');
+		if(after.size() > 0){
+			parent.fadeOut('slow',function(){
+				$.ajax({
+					url: href
+				}).done(function() {
+					var x = parent.detach();
+					after.after(x);
+					jQuery('#'+id).fadeIn('slow');
+				});
+			});
+		}
+		return false;
+	});
 }
 
 function init_empty(){
