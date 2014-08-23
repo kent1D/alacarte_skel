@@ -217,6 +217,17 @@ var init_drag = function(){
 			activate_timeline();
 		}
 	);
+	$("#timeline").swipe( {
+		//Generic swipe handler for all directions
+		swipeUp:function(event, direction, distance, duration, fingerCount) {
+			activate_timeline();
+		},
+		swipeDown:function(event, direction, distance, duration, fingerCount) {
+			desactivate_timeline();
+		},
+		threshold:20
+	});
+
 	$('div').not('#timeline').click(function(){
 		if(!$('#timeline').is(':hover'))
 			desactivate_timeline();

@@ -21,6 +21,7 @@ function alacarte_skel_jqueryui_plugins($plugins){
 function alacarte_skel_jquery_plugins($plugins){
 	if(!test_espace_prive()){
 		$plugins[] = 'javascript/typed.js';
+		$plugins[] = 'javascript/jquery.touchSwipe.js';
 		$plugins[] = 'javascript/jquery.ui.touch-punch.js';
 		$plugins[] = 'javascript/alacarte.js';
 	}
