@@ -9,26 +9,28 @@
 </BOUCLE_art_panier>
 </BOUCLE_contenu_panier>
 <div class="timeline_show">
-	<div class="show">
-		YOUR SHOW
-	</div>
-	<div class="show_infos">
-		<div class="show_duration">
-			<div class="show_text ">
-				DURATION<br />
-				<small>IN MINUTES</small>
-			</div>
-			<div class="show_duree">
-				[(#GET{duree}|spipmotion_duree)]
-			</div>
+	<div class="ticket_mini">
+		<div class="show">
+			YOUR SHOW
 		</div>
-		<div class="show_costs">
-			<div class="show_text">
-				COSTS<br />
-				<small><a href="#URL_ARTICLE{11}">MORE INFO</a></small>
+		<div class="show_infos">
+			<div class="show_duration">
+				<div class="show_text ">
+					DURATION<br />
+					<small>IN MINUTES</small>
+				</div>
+				<div class="show_duree">
+					[(#GET{duree}|spipmotion_duree)]
+				</div>
 			</div>
-			<div class="show_prix">
-				[&euro; (#GET{prix}|>{0}|?{#GET{prix}|plus{400},#GET{prix}}),-]
+			<div class="show_costs">
+				<div class="show_text">
+					COSTS<br />
+					<small><a href="#URL_ARTICLE{11}">MORE INFO</a></small>
+				</div>
+				<div class="show_prix">
+					[&euro; (#GET{prix}|>{0}|?{#GET{prix}|plus{400},#GET{prix}}),-]
+				</div>
 			</div>
 		</div>
 	</div>
