@@ -27,6 +27,41 @@ jQuery.fn.uniformHeight = function() {
 }
 
 /**
+ * Generate typewriter effect
+ */
+function box_typewriter(){
+	$(".box1 span.typewriter").empty().typed({
+		strings: ["YOU CAN ORDER A PERFORMANCE TO BE EXECUTED LIVE,", "YOU CAN BECOME THE CO-CREATOR OF OUR SHOW,","YOUR DECISIONS DETERMINE HOW OUR PERFORMANCE WILL LOOK LIKE,","YOU CAN BE CREATIVE.","YOU CAN HAVE FUN!!"],
+		typeSpeed: 60,
+		backDelay: 3000,
+		loop:true
+	});
+	$(".box2 span.typewriter").empty().typed({
+		strings: ["ARE YOU ORGANIZING A FESTIVAL, THEATRE PROGRAM, EXHIBITION, HOUSE EVENT, LECTURE?", "OR ARE YOU JUST CURIOUS?","VIEW THE CHAPTERS BELOW!","WHICH CHAPTERS DO YOU LIKE?","DRAG THEM TO THE TIMELINE!","AND ORDER A LIVE CUSTOM MADE PERFORMANCE ANYWHERE YOU LIKE!"],
+		typeSpeed: 65,
+		backDelay: 4500,
+		loop:true
+	});
+}
+
+/**
+ * On window resize :
+ * - Delete typewriter effect;
+ * - Resize homeboxes
+ * - Relaunch typewriter effect
+ */
+function window_resize(){
+	$(".box1 span.typewriter,.box2 span.typewriter").typed('reset');
+	$(".box1 span,.box2 span").addClass('typewriter');
+	$(".box1 span.typewriter").text('YOUR DECISIONS DETERMINE HOW OUR PERFORMANCE WILL LOOK LIKE,');
+	$(".box2 span.typewriter").text('ARE YOU ORGANIZING A FESTIVAL, THEATRE PROGRAM, EXHIBITION, HOUSE EVENT, LECTURE?');
+	$('.homeboxes .hero-unit').css('height','');
+	$(".homeboxes .hero-unit").uniformHeight();
+	box_typewriter();
+	$(".thumbnails").find(".thumbnail").css('height','');
+	$(".thumbnails").find(".thumbnail").uniformHeight();
+}
+/**
  * Surcharge de la fonction de SPIP
  * 
  * On enlève le passage par une opacité
@@ -172,6 +207,7 @@ function media_visible_add_to_timeline(){
 }
 
 var init_drag = function(){
+	$('.blog_archive').height($('.main').height());
 	$('.timeline_before').unbind('hover').hover(function(){
 		if($('.timeline_list').offset().left < 0){
 			moveleft = setInterval(timeline_before, 5);
@@ -217,8 +253,7 @@ var init_drag = function(){
 			activate_timeline();
 		}
 	);
-	$("#timeline").swipe( {
-		//Generic swipe handler for all directions
+	$("#timeline").swipe({
 		swipeUp:function(event, direction, distance, duration, fingerCount) {
 			activate_timeline();
 		},
@@ -475,17 +510,9 @@ $(function(){
 	setTimeout(desactivate_timeline,500);
 	onAjaxLoad(init_empty);
 	onAjaxLoad(init_drag);
-	$(".box1 span.typewriter").empty().typed({
-		strings: ["YOU CAN ORDER A PERFORMANCE TO BE EXECUTED LIVE,", "YOU CAN BECOME THE CO-CREATOR OF OUR SHOW,","YOUR DECISIONS DETERMINE HOW OUR PERFORMANCE WILL LOOK LIKE,","YOU CAN BE CREATIVE.","YOU CAN HAVE FUN!!"],
-		typeSpeed: 60,
-		backDelay: 3000,
-		loop:true
-	});
-	$(".box2 span.typewriter").empty().typed({
-		strings: ["ARE YOU ORGANIZING A FESTIVAL, THEATRE PROGRAM, EXHIBITION, HOUSE EVENT, LECTURE?", "OR ARE YOU JUST CURIOUS?","VIEW THE CHAPTERS BELOW!","WHICH CHAPTERS DO YOU LIKE?","DRAG THEM TO THE TIMELINE!","AND ORDER A LIVE CUSTOM MADE PERFORMANCE ANYWHERE YOU LIKE!"],
-		typeSpeed: 65,
-		backDelay: 4500,
-		loop:true
+	box_typewriter();
+	$(window).resize(function(){
+		window_resize();
 	});
 });
 
