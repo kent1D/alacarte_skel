@@ -4,7 +4,9 @@
 	<h1><:alacarte:title_order:></h1>
 </header>
 <div class="ticket_container">
-	<INCLURE{fond=inclure/ticket,env} />
+	<BOUCLE_panier(PANIERS){id_panier=#ID_PANIER}>
+	<INCLURE{fond=inclure/ticket,id_panier,env} />
+	</BOUCLE_panier>
 </div>
 <div class="content-principal main row">
 	<div class="ajax">
