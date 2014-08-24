@@ -1,11 +1,11 @@
 <paquet
 	prefix="alacarte_skel"
 	categorie="squelette"
-	version="0.1.0"
-	etat="dev"
+	version="0.2.0"
+	etat="test"
 	compatibilite="[3.0.0;["
-	schema="0.2.3"
-	demonstration="http://alacarte.arscenic.org"
+	schema="0.2.4"
+	demonstration="http://www.a-la-cart.com"
 >
 
 	<nom>À la cart</nom>
@@ -17,7 +17,8 @@
 	<pipeline nom="jquery_plugins" inclure="alacarte_skel_pipelines.php" />
 	<pipeline nom="declarer_tables_principales" inclure="base/alacarte.php" />
 	<pipeline nom="declarer_tables_interfaces" inclure="base/alacarte.php" />
-	
+	<pipeline nom="declarer_tables_objets_sql" inclure="base/alacarte.php" />
+
 	<necessite nom="spipr_dist" />
 	<necessite nom="contact" />
 	<necessite nom="menus" />
@@ -26,4 +27,6 @@
 	<necessite nom="ancresdouces" />
 	<necessite nom="calendriermini" />
 	<necessite nom="compositions" />
+	<necessite nom="commandes" />
+	<necessite nom="panier2commande" />
 </paquet>

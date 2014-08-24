@@ -24,6 +24,11 @@ function alacarte_skel_declarer_tables_interfaces($interfaces){
 	return $interfaces;
 }
 
+function alacarte_skel_declarer_tables_objets_sql($tables) {
+	$tables['spip_commandes']['field']['md5'] = "text DEFAULT '' NOT NULL";
+	$tables['spip_commandes']['field']['id_panier']	= "bigint(21) NOT NULL";
+	return $tables;
+}
 /**
  * Déclaration des tables principales
  */
