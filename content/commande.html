@@ -1,0 +1,12 @@
+#CACHE{0}
+<BOUCLE_commande(COMMANDES){md5=#ENV{md5}}{tout}>
+[(#REM) Fil d'Ariane ]
+<header class="cartouche">
+	<h1><:alacarte:titre_commande:> ##ID_COMMANDE</h1>
+</header>
+<div class="ticket_container">
+	<INCLURE{fond=inclure/ticket,id_panier,env} />
+</div>
+<div class="content-principal main row">
+</div>
+</BOUCLE_commande>
