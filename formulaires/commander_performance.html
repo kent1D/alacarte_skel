@@ -1,0 +1,22 @@
+<div class="formulaire_spip formulaire_#FORM">
+[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV**{message_erreur})</p>]
+[(#EDITABLE|oui) 
+	<h2> DEAR CUSTOMER AND CO-CREATOR
+	PLEASE FILL IN YOUR DETAILS SO THAT WE CAN GET IN CONTACT WITH YOU AFTER YOU PLACE YOUR ORDER</h2>
+	<form id="#FORM" class="#FORM" action="#ENV{action}" method="post">
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<ul>
+			#GENERER_SAISIES{#ENV{saisies}}
+		</ul>
+		<p class="boutons">
+			<button type="submit" class="submit" name="valide" value="<:bouton_valider:>">
+			[(#CHEMIN{images/alacart_buttons_2x_order-14.png}|balise_img
+							|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_order-19.png}
+								|balise_img|extraire_attribut{src})]"}
+							|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/alacart_buttons_2x_order-14.png}
+								|balise_img|extraire_attribut{src})]"})]
+			</button>
+		</p>
+	</form>]
+</div>
