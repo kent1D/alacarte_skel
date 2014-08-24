@@ -31,14 +31,17 @@ function alacarte_skel_declarer_tables_principales($tables_principales){
 
 	$paniers_venues = array(
 		'id_paniers_venue' => "bigint(21) NOT NULL",
-		'id_panier'   => "bigint(21) NOT NULL",
-		'venue'		  => "text DEFAULT '' NOT NULL",
-		'stage'		  => "text DEFAULT '' NOT NULL",
-		'stage_over' => "text DEFAULT '' NOT NULL",
-		'city'	  => "text DEFAULT '' NOT NULL",
-		'country'	  => "text DEFAULT '' NOT NULL",
-		'date_show'        => "datetime NOT NULL DEFAULT '0000-00-00 00:00:00'",
-		'maj'         => "TIMESTAMP"
+		'id_panier'		=> "bigint(21) NOT NULL",
+		'venue'			=> "text DEFAULT '' NOT NULL",
+		'stage'			=> "text DEFAULT '' NOT NULL",
+		'stage_over'	=> "text DEFAULT '' NOT NULL",
+		'city'			=> "text DEFAULT '' NOT NULL",
+		'country'		=> "text DEFAULT '' NOT NULL",
+		'co_creation'	=> "text DEFAULT '' NOT NULL",
+		'event_description'=> "text DEFAULT '' NOT NULL",
+		'event_comments'=> "text DEFAULT '' NOT NULL",
+		'date_show'		=> "datetime NOT NULL DEFAULT '0000-00-00 00:00:00'",
+		'maj'			=> "TIMESTAMP"
 	);
 
 	$paniers_venues_cles = array(
