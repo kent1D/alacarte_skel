@@ -32,7 +32,11 @@ function alacarte_skel_upgrade($nom_meta_base_version,$version_cible){
 	$maj['0.2.2'] = array(
 		array('maj_tables', array('spip_paniers_venues'))
 	);
-	
+
+	$maj['0.2.3'] = array(
+		array('maj_tables', array('spip_paniers_venues'))
+	);
+
 	include_spip('base/upgrade');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }

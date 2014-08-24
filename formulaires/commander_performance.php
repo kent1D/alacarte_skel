@@ -129,7 +129,6 @@ function saisies_commander_performance($id_auteur, $retour=''){
 				'label' => ''
 			),
 			'saisies' => array(
-				$civilite,
 				array(
 					'saisie' => 'input',
 					'options' => array(
@@ -183,8 +182,9 @@ function saisies_commander_performance($id_auteur, $retour=''){
 				array(
 					'saisie' => 'input',
 					'options' => array(
-						'nom' => 'email_rien',
-						'label' => _T('contacts:label_email')
+						'nom' => 'email',
+						'label' => _T('contacts:label_email'),
+						'obligatoire' => 'oui'
 					),
 					'verifier' => array(
 						'type' => 'email'
@@ -240,13 +240,20 @@ function saisies_commander_performance($id_auteur, $retour=''){
 			)
 		),
 	);
-	
-	spip_log($saisies,'test.'._LOG_ERREUR);
 	return $saisies;
 }
 
 function formulaires_commander_performance_charger_dist($id_auteur, $retour=''){
 	include_spip('inc/session');
+
+	$id_panier = session_get('id_panier');
+	// S'il n'y a pas de panier, on le crée
+	if (!$id_panier){
+		$valeurs['editable'] = false;
+		$valeurs['message_erreur'] = _T('alacarte:erreur_aucun_panier');
+		return $valeurs;
+	}
+
 	$contexte = array();
 
 	// On vérifie qu'il y a un client correct possible (auteur avec email) quelque part
@@ -256,7 +263,7 @@ function formulaires_commander_performance_charger_dist($id_auteur, $retour=''){
 		$id_auteur > 0
 		and $email = sql_getfetsel('email', 'spip_auteurs', 'id_auteur = '.intval($id_auteur))
 	){
-
+		$contexte = sql_fetsel('email,nom','spip_auteurs','id_auteur='.intval($id_auteur));
 		$contact = sql_fetsel(
 			'*',
 			'spip_contacts_liens LEFT JOIN spip_contacts USING(id_contact)',
@@ -266,7 +273,7 @@ function formulaires_commander_performance_charger_dist($id_auteur, $retour=''){
 			)
 		);
 
-		$contexte['email_rien'] = $email;
+		$contexte['email'] = $email;
 		if (is_array($contact)) {
 			foreach ($contact as $cle=>$valeur) {
 				$contexte[$cle] = $valeur;
@@ -314,7 +321,7 @@ function formulaires_commander_performance_charger_dist($id_auteur, $retour=''){
 					if ($c == 'numero'){
 						$c = 'portable'; 
 						$_portable[$c] = $v;
-				}
+					}
 				}
 				$contexte = array_merge($contexte, $_portable);
 			}
@@ -341,15 +348,20 @@ function formulaires_commander_performance_charger_dist($id_auteur, $retour=''){
 			}
 		}
 	}
+	$venue = sql_fetsel('*','spip_paniers_venues','id_panier='.intval($id_panier));
+	$contexte = array_merge($contexte, $venue);
 	$saisies = saisies_commander_performance($id_auteur);
+	//var_dump(saisies_charger_champs($saisies));
+	if(_request('valide'))
+		$contexte = array_merge($contexte,saisies_charger_champs($saisies));
 	$contexte['saisies'] = $saisies;
 	return $contexte;
 }
 
-
-
 function formulaires_commander_performance_verifier_dist($id_auteur, $retour=''){
-	$erreurs = array();
+	$erreurs = saisies_verifier(saisies_commander_performance($id_auteur));
+	if(count($erreurs) > 0)
+		$erreurs['message_erreur'] = _T('alacarte:message_erreur_order');
 	return $erreurs;
 }
 
@@ -359,14 +371,21 @@ function formulaires_commander_performance_traiter_dist($id_auteur, $retour=''){
 	if ($retour) refuser_traiter_formulaire_ajax();
 
 	$retours = array();
+	
+	if(intval($id_auteur) < 0){
+		include_spip('action/editer_auteur');
+		$id_auteur = auteur_inserer();
+		set_request('statut','6forum');
+		auteur_modifier($id_auteur);
+	}
 
 	// On modifie le contact
 	$id_contact = sql_getfetsel(
 		'id_contact',
 		'spip_contacts_liens',
-		'objet = '.sql_quote('auteur').' and id_objet = '.$id_auteur
+		'objet = '.sql_quote('auteur').' and id_objet = '.intval($id_auteur)
 	);
-
+	
 	//Si le contact n'existe pas encore, on doit le créer (cas d'un auteur prexistant à son statut de client)
 	if (is_null($id_contact)) {
 		$inscrire_client = charger_fonction('traiter','formulaires/inscription_client');
@@ -383,7 +402,7 @@ function formulaires_commander_performance_traiter_dist($id_auteur, $retour=''){
 	$editer_contact($id_contact);
 
 	// Le pseudo SPIP est construit
-	$nom_save = _request('nom') ;
+	$nom_save = _request('nom');
 	set_request('nom', trim(_request('prenom').' '._request('nom'))); 
 
 	// On modifie l'auteur
@@ -491,8 +510,32 @@ function formulaires_commander_performance_traiter_dist($id_auteur, $retour=''){
 		
 		$editer_fax = charger_fonction('editer_numero', 'action/');
 		$editer_fax($id_fax);
-
 	}
+
+	/**
+	 * Mettre à jour la venue
+	 */
+	include_spip('inc/session');
+	$id_panier = session_get('id_panier');
+
+	$id_paniers_venue = sql_getfetsel(
+		'id_paniers_venue',
+		'spip_paniers_venues',
+		array(
+			'id_panier = '.intval($id_panier)
+		)
+	);
+	
+	$champs_venue = array();
+	foreach(array('co_creation','event_description','event_comments','type_client','institution') as $champ){
+		$champs_venue[$champ] = _request($champ);
+	}
+	sql_updateq('spip_paniers_venues',$champs_venue,'id_paniers_venue='.intval($id_paniers_venue));
+	
+	/**
+	 * On met le panier en "commande"
+	 */
+	sql_updateq('spip_paniers',array('statut'=>'commande'),'id_panier='.intval($id_panier));
 
 	// Quand on reste sur la même page, on peut toujours éditer après
 	$retours['editable'] = true;

@@ -37,6 +37,8 @@ function alacarte_skel_declarer_tables_principales($tables_principales){
 		'stage_over'	=> "text DEFAULT '' NOT NULL",
 		'city'			=> "text DEFAULT '' NOT NULL",
 		'country'		=> "text DEFAULT '' NOT NULL",
+		'type_client'	=> "text DEFAULT '' NOT NULL",
+		'institution'	=> "text DEFAULT '' NOT NULL",
 		'co_creation'	=> "text DEFAULT '' NOT NULL",
 		'event_description'=> "text DEFAULT '' NOT NULL",
 		'event_comments'=> "text DEFAULT '' NOT NULL",

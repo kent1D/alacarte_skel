@@ -37,6 +37,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'label_stock' => 'In stock:',
 
 	// M
+	'message_erreur_order' => 'One or more fields are invalid. Please verify the form.',
 	'message_intro_abomailman' => 'If you wish to be informed about all the activities happening in connection with the À la Cart performance webshop project, subscribe to our NEWSLETTER.',
 	'message_venue_cree' => 'Your venue has been set.',
 
