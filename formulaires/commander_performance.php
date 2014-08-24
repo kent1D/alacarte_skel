@@ -367,9 +367,6 @@ function formulaires_commander_performance_verifier_dist($id_auteur, $retour='')
 
 
 function formulaires_commander_performance_traiter_dist($id_auteur, $retour=''){
-	// Si redirection demandée, on refuse le traitement en ajax
-	if ($retour) refuser_traiter_formulaire_ajax();
-
 	$retours = array();
 	
 	if(intval($id_auteur) < 0){
@@ -532,6 +529,10 @@ function formulaires_commander_performance_traiter_dist($id_auteur, $retour=''){
 	}
 	sql_updateq('spip_paniers_venues',$champs_venue,'id_paniers_venue='.intval($id_paniers_venue));
 	
+	include_spip('inc/commandes');
+	$id_commande = creer_commande_encours();
+	$md5 = md5($id_commande.'-'.$id_auteur);
+	sql_updateq('spip_commandes',array('md5'=>$md5,'id_panier'=>$id_panier),'id_commande='.intval($id_commande));
 	/**
 	 * On met le panier en "commande"
 	 */
@@ -541,9 +542,15 @@ function formulaires_commander_performance_traiter_dist($id_auteur, $retour=''){
 	$retours['editable'] = true;
 	// si necessaire on replace la bonne donnee dans l'environnement
 	$numero ? set_request('numero', $numero) : '';
+	
+	if(!$retour)
+		$retour = generer_url_public('commande','md5='.$md5);
 
 	// Si on demande une redirection
-	if ($retour) $retours['redirect'] = $retour;
+	if ($retour){
+		refuser_traiter_formulaire_ajax();
+		$retours['redirect'] = $retour;
+	}
 
 	set_request('nom', $nom_save); 
 
