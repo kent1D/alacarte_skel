@@ -61,6 +61,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'title_timeline_step_1' => 'SELECT YOUR FAVORITE CHAPTERS',
 	'title_timeline_step_2' => 'SET PERFORMANCE DATE(S)/LOCATION',
 	'title_timeline_step_3' => 'ORDER YOUR PERFORMANCE',
+	'titre_commande' => 'Order',
 );
 
 ?>
