@@ -4,7 +4,7 @@
 	</div>
 	<div class="ticket_content">
 		<div class="ticket_infos">
-			<BOUCLE_contenu_panier1(PANIERS_LIENS){id_panier=#SESSION{id_panier}}{objet=article}>
+			<BOUCLE_contenu_panier1(PANIERS_LIENS){id_panier=#ENV{id_panier,#SESSION{id_panier}}}{objet=article}>
 			<BOUCLE_art_panier1(ARTICLES){id_article=#ID_OBJET}>
 			#SET{prix,#GET{prix}|plus{#PRIX**}}
 			<BOUCLE_document1(DOCUMENTS){media=video}{id_article}{0,1}>
@@ -71,7 +71,7 @@
 			</table>
 		</div>
 		#SET{chapters,#ARRAY}
-		<BOUCLE_contenu_panier2(PANIERS_LIENS){id_panier=#SESSION{id_panier}}{objet=article}{pagination 10}>
+		<BOUCLE_contenu_panier2(PANIERS_LIENS){id_panier=#ENV{id_panier,#SESSION{id_panier}}}{objet=article}{pagination 10}>
 		[(#SET{chapters,[(#GET{chapters}|push{#ARRAY{id_article,#ID_OBJET,compte,#COMPTEUR_BOUCLE,rang,#RANG}})]})]
 		</BOUCLE_contenu_panier2>
 		<div class="ticket_chapters">
