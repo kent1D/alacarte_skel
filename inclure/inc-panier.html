@@ -1,12 +1,11 @@
 #CACHE{0}
+#SET{nb_produits,0}
+<BOUCLE_contenu_panier(PANIERS_LIENS){id_panier=#SESSION{id_panier}}>
+[(#SET{nb_produits,#GET{nb_produits}|plus{#QUANTITE}})]
+</BOUCLE_contenu_panier>
 <div id="panier">
-	#SET{nb_produits,0}
-	<BOUCLE_contenu_panier(PANIERS_LIENS){id_panier=#SESSION{id_panier}}>
-	[(#SET{nb_produits,#GET{nb_produits}|plus{#QUANTITE}})]
-	</BOUCLE_contenu_panier>
-	<p class="items">[(#GET{nb_produits}|singulier_ou_pluriel{alacarte:panier_un_item,alacarte:panier_nb_items})]</p>
-	</B_contenu_panier>
-	<p class="items"><span class="number">0</span> ITEM</p>
-	<//B_contenu_panier>
+	[<p class="items">(#GET{nb_produits}|singulier_ou_pluriel{alacarte:panier_un_item,alacarte:panier_nb_items})</p>]
+	[(#GET{nb_produits}|=={0}|oui)<p class="items"><span class="number">0</span> ITEM</p>]
 	<p>IN YOUR PLAYLIST</p>
 </div>
+#FILTRE{trim}
