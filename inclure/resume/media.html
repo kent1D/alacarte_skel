@@ -3,14 +3,13 @@
   Squelette Presentation resumee d'un article dans une liste
   Distribue sous licence GPL
 
-]
-<BOUCLE_articles(ARTICLES) {id_article} {statut?}>
+]<BOUCLE_articles(ARTICLES) {id_article} {statut?}>
 <article class="entry media hentry article_#ID_ARTICLE[(#ENV{id_article_visible}|=={#ID_ARTICLE}|oui)media_is_visible]" id="article_#ID_ARTICLE" data-add_timeline="[(#URL_ACTION_AUTEUR{remplir_panier,article-#ID_ARTICLE-1})]">
 	<div class="headline_media">
 	<BOUCLE_document(DOCUMENTS){id_article}{0,1}>
 	[(#LOGO_DOCUMENT|image_reduire{500})]
 	</BOUCLE_document>
-	<strong class="h3-like entry-title"><a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|ancre_url{media_visible_#ID_ARTICLE})]" class="ajax show_information">#TITRE</a></strong>
+	<h3 class="h3-like entry-title"><a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|ancre_url{media_visible_#ID_ARTICLE})]" class="ajax show_information">#TITRE</a></h3>
 	<B_mots>
 		<BOUCLE_mots(MOTS){id_groupe=1}{id_article}{0,1}>
 		[<div class="badge_thumbnail badge_thumbnail_#ID_MOT">
@@ -25,3 +24,4 @@
 	[<div class="prix">from <span class="price">€ (#PRIX**|sinon{15}),-</span></div>]
 </article>
 </BOUCLE_articles>
+#FILTRE{trim}
