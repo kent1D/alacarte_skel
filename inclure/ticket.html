@@ -1,24 +1,32 @@
+#SET{date_show,XX/XX/XX}
+#SET{city,...}
+#SET{venue,...}
+<BOUCLE_contenu_panier1(PANIERS_LIENS){id_panier=#ENV{id_panier,#SESSION{id_panier}}}{objet=article}>
+<BOUCLE_art_panier1(ARTICLES){id_article=#ID_OBJET}>
+#SET{prix,#GET{prix}|plus{#PRIX**}}
+<BOUCLE_document1(DOCUMENTS){media=video}{id_article}{0,1}>
+#SET{duree,#GET{duree}|plus{#DUREE}}
+</BOUCLE_document1>
+</BOUCLE_art_panier1>
+<BOUCLE_venue(PANIERS_VENUES){id_panier}>
+#SET{city,#CITY}
+#SET{venue,#VENUE}
+#SET{date_show,#DATE_SHOW}
+</BOUCLE_venue>
+</BOUCLE_contenu_panier1>
+#SET{total,#TOTAL_BOUCLE}
+</B_contenu_panier1>
+
+#SET{chapters,#ARRAY}
+<BOUCLE_contenu_panier2(PANIERS_LIENS){id_panier=#ENV{id_panier,#SESSION{id_panier}}}{objet=article}{pagination 10}>
+[(#SET{chapters,[(#GET{chapters}|push{#ARRAY{id_article,#ID_OBJET,compte,#COMPTEUR_BOUCLE,rang,#RANG}})]})]
+</BOUCLE_contenu_panier2>
 <div class="ticket">
 	<div class="ticket_title">
 		[(#CHEMIN{images/alacarte_your_show.png}|balise_img)]
 	</div>
 	<div class="ticket_content">
 		<div class="ticket_infos">
-			<BOUCLE_contenu_panier1(PANIERS_LIENS){id_panier=#ENV{id_panier,#SESSION{id_panier}}}{objet=article}>
-			<BOUCLE_art_panier1(ARTICLES){id_article=#ID_OBJET}>
-			#SET{prix,#GET{prix}|plus{#PRIX**}}
-			<BOUCLE_document1(DOCUMENTS){media=video}{id_article}{0,1}>
-			#SET{duree,#GET{duree}|plus{#DUREE}}
-			</BOUCLE_document1>
-			</BOUCLE_art_panier1>
-			<BOUCLE_venue(PANIERS_VENUES){id_panier}>
-			#SET{city,#CITY}
-			#SET{venue,#VENUE}
-			#SET{date_show,#DATE_SHOW}
-			</BOUCLE_venue>
-			</BOUCLE_contenu_panier1>
-			#SET{total,#TOTAL_BOUCLE}
-			</B_contenu_panier1>
 			<table class="show_infos">
 				<tbody>
 					<tr>
@@ -40,7 +48,7 @@
 							<small><a href="[(#SELF|parametre_url{step,2}|parametre_url{timeline,active})]">CHANGE</a></small>
 						</td>
 						<td class="show_date show_info show_date_value show_data value">
-							[(#GET{date_show}|affdate{d/m/})][(#GET{date_show}|affdate{Y}|replace{20,''})]
+							[(#GET{date_show}|affdate{d/m/})][(#GET{date_show}|affdate{Y}|replace{20,''}|sinon{#GET{date_show}})]
 						</td>
 						<td class="show_costs_label show_info show_text title_value">
 							COSTS
@@ -70,33 +78,26 @@
 				</tbody>
 			</table>
 		</div>
-		#SET{chapters,#ARRAY}
-		<BOUCLE_contenu_panier2(PANIERS_LIENS){id_panier=#ENV{id_panier,#SESSION{id_panier}}}{objet=article}{pagination 10}>
-		[(#SET{chapters,[(#GET{chapters}|push{#ARRAY{id_article,#ID_OBJET,compte,#COMPTEUR_BOUCLE,rang,#RANG}})]})]
-		</BOUCLE_contenu_panier2>
 		<div class="ticket_chapters">
 			<div class="price_infos">EXCL. ACCOMODATION & TRAVEL COSTS</div>
 			<div class="title_value">CHAPTER LIST</div>
-			<B_art_panier2>
-			<ul>
+			<B_art_panier2><ul>
 			<BOUCLE_art_panier2(DATA){source table,#GET{chapters}}{0,5}>
 				<BOUCLE_article1(ARTICLES){id_article = #VALEUR|table_valeur{id_article}}>
 				<li>#_art_panier2:VALEUR{compte}. #TITRE (&euro;#PRIX**,-)</li>
 				</BOUCLE_article1>
 			</BOUCLE_art_panier2>
-			</ul>
-			</B_art_panier2>
-			<B_art_panier3>
-			<ul>
+			</ul></B_art_panier2>
+			<B_art_panier3><ul>
 			<BOUCLE_art_panier3(DATA){source table,#GET{chapters}}{5,10}>
 				<BOUCLE_article2(ARTICLES){id_article = #VALEUR|table_valeur{id_article}}>
 				<li>#_art_panier3:VALEUR{compte}. #TITRE (&euro;#PRIX**,-)</li>
 				</BOUCLE_article2>
-			</BOUCLE_art_panier3>
-			</ul>
+			</BOUCLE_art_panier3></ul>
 			</B_art_panier3>
 		</div>
 		</B_contenu_panier2>
 		<//B_contenu_panier2>
 	</div>
 </div>
+#FILTRE{trim}
