@@ -16,7 +16,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'description_choose_ticket' => 'Is everything ok with your order? It’s not too late to change your order by returning to the previous steps. If you have more questions you can always <a href="@url_contact@">contact us</a>',
 
 	// E
-	'erreur_aucun_panier' => 'You have no item in your timeline',
+	'erreur_aucun_panier' => 'You have no items on your timeline',
 	'erreur_no_video_criteria' => 'No video corresponding',
 	'explication_agree' => 'BY ORDERING THIS PERFORMANCE I PROPOSE MY CUSTOMIZED VERSION OF THE À LA CART PERFORMANCE AND WILL THUS BECOME ITS CO-CREATOR. I WILL TAKE THIS ORDER SERIOUSLY AND TREAT THE ARTISTS ACCORDINGLY. I WILL TAKE THE RESPONSIBILITY TO CARRY OUT THE ORGANIZATIONAL PART OF THIS PERFORMANCE AND WILL COVER TRAVEL AND ACCOMMODATION COSTS OF THE ARTISTIC CREW.',
 	'explication_event_comments' => 'Do you wish to order a performance for multiple dates? Do you want to order our work but your available budget is too small? Any other comments, wishes, concerns? Note these comments here and we will get back to you as soon as possible.',
