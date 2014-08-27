@@ -1,7 +1,7 @@
 [(#SET{liste_image,#LISTE})]
 <B_mots_filtres>
 <div class="filters">
-		<ul class="menu-liste">
+	<ul class="menu-liste">
 		<li class="item">
 			<strong><:alacarte:label_filters:></strong>
 		</li>
@@ -13,39 +13,34 @@
 			[(#SELF|parametre_url{id_mot,#ID_MOT}|parametre_url{id_article_visible,''}|lien_ou_expose{#TITRE, #ENV{id_mot}|=={#ID_MOT},ajax})]
 		</li>
 		</BOUCLE_mots_filtres>
-		</ul>
-	</p>
+	</ul>
 </div>
 </B_mots_filtres>
 <B_articles>
-	#ANCRE_PAGINATION
-	<div class="row liste_medias">
+	<div class="row liste_medias"[ id='(#ANCRE_PAGINATION|extraire_attribut{id})']>
 		<BOUCLE_articles(ARTICLES){id_rubrique?}{id_mot ?} {!par date} {pagination #ENV{nb,21}}>
 		[(#SET{liste_image,#GET{liste_image}|push{#ID_ARTICLE}})]
 		<div class="span4"><INCLURE{fond=inclure/resume/media,id_article,id_article_visible}></div>
 		[(#ENV{id_article_visible}|=={#ID_ARTICLE}|oui)
 			[(#SET{position,[(#COMPTEUR_BOUCLE|modulo{3})]})]
 			[(#COMPTEUR_BOUCLE|modulo{3}|=={0}|?{#SET{position,3}})]
-		]
-		[(#GET{liste_image}|count|div{3}|=={1}|oui)
+		][(#GET{liste_image}|count|div{3}|=={1}|oui)
 			[(#ENV{id_article_visible}|in_array{#GET{liste_image}}|oui)
 			<div class="span12" id="media_visible">
 				<INCLURE{fond=inclure/media_visible,id_article=#ENV{id_article_visible},id_article_visible,position=#GET{position},env,ajax} />
 			</div>]
 			#SET{liste_image,#LISTE}
-		]
-		[(#COMPTEUR_BOUCLE|=={#GRAND_TOTAL}|oui)
+		][(#COMPTEUR_BOUCLE|=={#GRAND_TOTAL}|oui)
 			[(#ENV{id_article_visible}|in_array{#GET{liste_image}}|oui)
 			<div class="span12" id="media_visible">
 				<INCLURE{fond=inclure/media_visible,id_article=#ENV{id_article_visible},position=#GET{position},env,ajax} />
 			</div>]
-		]
-		</BOUCLE_articles>
+		]</BOUCLE_articles>
 	</div>
 	[<div class="pagination">(#PAGINATION)</div>]
-</B_articles>
 </B_articles>
 <p>
 	<:alacarte:erreur_no_video_criteria:>
 </p>
 <//B_articles>
+#FILTRE{trim}
