@@ -57,6 +57,9 @@ function action_sort_one_dist($arg=null) {
 			'id_panier = '.intval($id_panier)
 		);
 	}
+	if (defined('_AJAX')
+		AND _AJAX)
+		die('ok');
 }
 
 ?>

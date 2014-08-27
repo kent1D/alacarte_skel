@@ -54,6 +54,9 @@ function action_remplir_panier_dist($arg=null) {
 			'id_panier = '.intval($id_panier)
 		);
 	}
+	if (defined('_AJAX')
+		AND _AJAX)
+		die('ok');
 }
 
 ?>
