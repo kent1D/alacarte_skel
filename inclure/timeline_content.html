@@ -4,7 +4,7 @@
 	<BOUCLE_si_preview(CONDITION){si #ENV{mode}|=={preview}|oui}>
 	<div class="preview_video">
 		<a class="close_preview_on" href="[(#SELF|parametre_url{mode,''})]">CLOSE PREVIEW</a>
-		<BOUCLE_panier(PANIERS_LIENS){id_panier=#SESSION{id_panier}}{0,1}>
+		<BOUCLE_panier(PANIERS_LIENS){id_panier=#SESSION{id_panier}}{par rang}{0,1}>
 		#SET{playing,#MD5}
 		<div id="video_preview">
 		<BOUCLE_article(DOCUMENTS){id_article=#ID_OBJET}{media=video}>
