@@ -349,9 +349,14 @@ function formulaires_commander_performance_charger_dist($id_auteur, $retour=''){
 		}
 	}
 	$venue = sql_fetsel('*','spip_paniers_venues','id_panier='.intval($id_panier));
-	$contexte = array_merge($contexte, $venue);
+	if(is_array($venue)){
+		$contexte = array_merge($contexte, $venue);
+	}
+	else{
+		$contexte['message_erreur'] = _T('alacarte:message_erreur_date_first',array('url' => parametre_url($GLOBALS['url_site'],'step',2)));
+		$contexte['editable'] = false;
+	}
 	$saisies = saisies_commander_performance($id_auteur);
-	//var_dump(saisies_charger_champs($saisies));
 	if(_request('valide'))
 		$contexte = array_merge($contexte,saisies_charger_champs($saisies));
 	$contexte['saisies'] = $saisies;
