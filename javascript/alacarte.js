@@ -284,7 +284,7 @@ var init_drag = function(){
 			activate_timeline();
 			if(!$('#timeline .timeline_menu_item').eq(0).is('.on')){
 				$('.timeline_video').ajaxReload({
-					callback:function(){me.addtotimeline();},
+					callback:function(){},
 					args:{step:1},
 					history:true
 				});
@@ -552,10 +552,24 @@ function init_player_preview(){
 		}
 	});
 }
+
+/**
+ * Retaille les iframe issues d'oembed pour qu'elles prennent 100% de la largeur
+ */
+function resizeiframe(){
+	$('.oembed iframe').each(function(){
+		var height = $(this).height(),
+			width = $(this).width(),
+			parent_width= $(this).parents('.oembed').parent().width();
+		var ratio = parent_width/width;
+		$(this).width('100%').height(height*ratio);
+	});
+}
 /**
  * Au document.ready
  */
 $(function(){
+	resizeiframe();
 	init_empty();
 	init_drag();
 	init_player_preview();
