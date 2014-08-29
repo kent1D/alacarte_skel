@@ -1,12 +1,22 @@
 #CACHE{0}
-[(#SET{prix,0})][(#SET{duree,0})]
-<BOUCLE_contenu_panier(PANIERS_LIENS){id_panier=#SESSION{id_panier}}{objet=article}>
-<BOUCLE_art_panier(ARTICLES){id_article=#ID_OBJET}>
-#SET{prix,#GET{prix}|plus{#PRIX**}}
+[(#SET{duree,0})]
+<BOUCLE_contenu_panier(PANIERS_LIENS){id_panier=#SESSION{id_panier}}>
+<BOUCLE_art_panier(ARTICLES){si #OBJET|=={article}}{id_article=#ID_OBJET}>
+#SET{prix,#GET{prix,0}|plus{#PRIX**}}
 <BOUCLE_document(DOCUMENTS){media=video}{id_article}{0,1}>
 #SET{duree,#GET{duree}|plus{#DUREE}}
 </BOUCLE_document>
 </BOUCLE_art_panier>
+</B_art_panier>
+<BOUCLE_reponse_panier(FORMULAIRES_REPONSES){si #OBJET|=={formulaires_reponse}}{id_formulaires_reponse=#ID_OBJET}></BOUCLE_reponse_panier(FORMULAIRES_REPONSES){si>
+<BOUCLE_reponse_prix(FORMULAIRES_REPONSES_CHAMPS){nom=input_2}{id_formulaires_reponse}>
+#SET{prix,#GET{prix,0}|plus{#VALEUR|sinon{300}}}
+</BOUCLE_reponse_prix>
+<BOUCLE_reponse_duree(FORMULAIRES_REPONSES_CHAMPS){nom=input_1}{id_formulaires_reponse}>
+#SET{duree,#GET{duree}|plus{#VALEUR|mult{60}}}
+</BOUCLE_reponse_duree>
+</BOUCLE_reponse_panier>
+<//B_art_panier>
 </BOUCLE_contenu_panier>
 <div class="timeline_show">
 	<div class="ticket_mini">
@@ -29,7 +39,7 @@
 					<small><a href="#URL_ARTICLE{11}">MORE INFO</a></small>
 				</div>
 				<div class="show_prix">
-					[&euro; (#GET{prix}|>{0}|?{#GET{prix}|plus{400},#GET{prix}}),-]
+					[&euro; (#GET{prix}|>{-1}|?{[(#GET{prix}|plus{400})],0}),-]
 				</div>
 			</div>
 		</div>

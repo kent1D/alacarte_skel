@@ -8,7 +8,8 @@
 		#SET{playing,#MD5}
 		<div id="video_preview">
 		<BOUCLE_article(DOCUMENTS){id_article=#ID_OBJET}{media=video}>
-			#MODELE{emb,id_document=#ID_DOCUMENT,preload=metadatas,autoplay=oui,height=400px}
+			#SET{boutons_caches,'loop,progress_bar'}
+			[(#MODELE{emb,id_document=#ID_DOCUMENT,preload=metadatas,autoplay=oui,height=400px,boutons_caches=#GET{boutons_caches},messages=false,volume_mousewheel=false})]
 		</BOUCLE_article>
 		</div>
 		</BOUCLE_panier>
@@ -30,11 +31,11 @@
 			<script type="text/javascript">
 				var url_sort = "[(#URL_ACTION_AUTEUR{sort_panier,sort}|replace{'&amp;','&'})]";
 			</script>
-			<BOUCLE_contenu_panier(PANIERS_LIENS){id_panier=#SESSION{id_panier}}{objet=article}{par rang}>
-			<BOUCLE_art_panier(ARTICLES){id_article=#ID_OBJET}>
+			<BOUCLE_contenu_panier(PANIERS_LIENS){id_panier=#SESSION{id_panier}}{par rang}>
+			<BOUCLE_art_panier(ARTICLES){si #OBJET|=={article}}{id_article=#ID_OBJET}>
 			<div class="timeline_drag[(#GET{playing}|=={#_contenu_panier:MD5}|oui)playing]" data-rang="#_contenu_panier:RANG" id="media_sort_#_contenu_panier:RANG">
 				<BOUCLE_document(DOCUMENTS){id_article}{0,1}>
-				<div class="headline_media"<BOUCLE_ssdoc(DOCUMENTS){si #MEDIA|=={video}}{mode=conversion}{objet=document}{id_objet=#ID_DOCUMENT}{tout}> data-#EXTENSION="[(#URL_DOCUMENT|url_absolue)]"</BOUCLE_ssdoc>>
+				<div class="headline_media"[(#ENV{mode}|=={preview}|oui)title="<:alacarte:title_jump_chapter|attribut_html:>"]<BOUCLE_ssdoc(DOCUMENTS){si #MEDIA|=={video}}{mode=conversion}{objet=document}{id_objet=#ID_DOCUMENT}{tout}> data-#EXTENSION="[(#URL_DOCUMENT|url_absolue)]"</BOUCLE_ssdoc>>
 					[(#LOGO_DOCUMENT|adaptive_images{300})]
 					<strong class="h3-like entry-title">#_art_panier:TITRE</strong>
 					[(#ENV{mode}|=={preview}|non)
@@ -47,6 +48,22 @@
 				</BOUCLE_document>
 			</div>
 			</BOUCLE_art_panier>
+			</B_art_panier>
+			<BOUCLE_reponse_panier(FORMULAIRES_REPONSES){si #OBJET|=={formulaires_reponse}}{id_formulaires_reponse=#ID_OBJET}>
+			<div class="timeline_drag[(#GET{playing}|=={#_contenu_panier:MD5}|oui)playing]" data-rang="#_contenu_panier:RANG" id="media_sort_#_contenu_panier:RANG">
+				<div class="headline_media"[(#ENV{mode}|=={preview}|oui)title="<:alacarte:title_jump_chapter|attribut_html:>"]<BOUCLE_doc(DOCUMENTS){id_article=14}{media=video}{par hasard}{0,1}><BOUCLE_ssdoc2(DOCUMENTS){si #MEDIA|=={video}}{mode=conversion}{objet=document}{id_objet=#ID_DOCUMENT}{tout}> data-#EXTENSION="[(#URL_DOCUMENT|url_absolue)]"</BOUCLE_ssdoc2></BOUCLE_doc>>
+					[(#CHEMIN{images/vignette_vide.jpg}|adaptive_images{300})]
+					<strong class="h3-like entry-title">YOUR CUSTOM CHAPTER</strong>
+					[(#ENV{mode}|=={preview}|non)
+					<div class="move_right_left">
+						<a class="moveleft" href="[(#URL_ACTION_AUTEUR{sort_one,left-[(#_contenu_panier:RANG)],#SELF})]">&lt;&lt;</a>
+						<a class="moveright" href="[(#URL_ACTION_AUTEUR{sort_one,right-[(#_contenu_panier:RANG)],#SELF})]">&gt;&gt;</a>
+					</div>
+					<a class="remove_panier" href="[(#URL_ACTION_AUTEUR{enlever_panier,formulaires_reponse-#ID_FORMULAIRES_REPONSE-[(#_contenu_panier:MD5)],#SELF})]">Remove</a>]
+				</div>
+			</div>
+			</BOUCLE_reponse_panier>
+			<//B_art_panier>
 			[(#SET{nb_produits,#GET{nb_produits}|plus{#QUANTITE}})]
 			</BOUCLE_contenu_panier>
 			<BOUCLE_vides(DATA){source table,#LISTE{'drag here','yes here','your choice','just do it','drag here','yes here','your choice','just do it'}}>
