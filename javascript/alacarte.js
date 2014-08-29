@@ -271,7 +271,7 @@ var init_drag = function(){
 		if(!$('#timeline').is(':hover'))
 			desactivate_timeline();
 	})
-	$('.content .headline_media').draggable({
+	$('.content .media:not(".not_draggable") .headline_media').draggable({
 		cursor: "move",
 		opacity: 0.7,
 		cursorAt: { top: ($('.timeline_drag').eq(0).height()/2), left: ($('.timeline_drag').eq(0).width()/2) },
@@ -306,7 +306,7 @@ var init_drag = function(){
 		}
 	});
 	$('.timeline_content .empty:eq(0)').droppable({
-		accept: ".container .headline_media",
+		accept: ".container .media:not('.not_draggable') .headline_media",
 		activeClass: "ui-state-highlight",
 		tolerance:"touch",
 		drop: function( event, ui ) {
