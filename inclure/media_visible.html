@@ -11,7 +11,7 @@
 	<div class="row">
 	<div class="span12">
 	<div class="media_visible">
-		<h3>#TITRE[ <span class="prix">from <span class="price">€ (#PRIX**|sinon{15}),-</span></span>]</h3>
+		<h3>#TITRE[ <span class="prix">[(#FIXED_PRICE|?{'','from '})]<span class="price">€ (#PRIX**|sinon{15}),-</span></span>]</h3>
 		<div class="media_document">
 			<BOUCLE_document(DOCUMENTS){id_article}{media=video}>
 			#SET{duree,#DUREE}

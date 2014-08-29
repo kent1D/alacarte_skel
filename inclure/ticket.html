@@ -97,7 +97,7 @@
 			<B_art_panier2><ul>
 			<BOUCLE_art_panier2(DATA){source table,#GET{chapters}}{0,5}>
 				<BOUCLE_article1(ARTICLES){si #VALEUR|table_valeur{id_article}|>{0}|oui}{id_article = #VALEUR|table_valeur{id_article}}>
-				<li>#_art_panier2:VALEUR{compte}. #TITRE (&euro;#PRIX**,-)</li>
+				<li>#_art_panier2:VALEUR{compte}. #TITRE ([(#FIXED_PRICE|?{'','from '})]&euro;#PRIX**,-)</li>
 				</BOUCLE_article1>
 				</B_article_1>
 				<BOUCLE_reponse_form1(FORMULAIRES_REPONSES){si #VALEUR|table_valeur{id_formulaires_reponse}|>{0}|oui}{id_formulaires_reponse = #VALEUR|table_valeur{id_formulaires_reponse}}>
@@ -109,9 +109,9 @@
 			<B_art_panier3><ul>
 			<BOUCLE_art_panier3(DATA){source table,#GET{chapters}}{5,10}>
 				<BOUCLE_article2(ARTICLES){si #VALEUR|table_valeur{id_article}|>{0}|oui}{id_article = #VALEUR|table_valeur{id_article}}>
-				<li>#_art_panier3:VALEUR{compte}. #TITRE (&euro;#PRIX**,-)</li>
+				<li>#_art_panier3:VALEUR{compte}. #TITRE ([(#FIXED_PRICE|?{'','from '})]&euro;#PRIX**,-)</li>
 				</BOUCLE_article2>
-				</B_article_2>#VALEUR|table_valeur{id_formulaires_reponse}
+				</B_article_2>
 				<BOUCLE_reponse_form2(FORMULAIRES_REPONSES){si #VALEUR|table_valeur{id_formulaires_reponse}|>{0}|oui}{id_formulaires_reponse = #VALEUR|table_valeur{id_formulaires_reponse}}>
 				<li>#_art_panier3:VALEUR{compte}. YOUR CUSTOM MADE CHAPTER<BOUCLE_reponse_prix3(FORMULAIRES_REPONSES_CHAMPS){nom=input_2}{id_formulaires_reponse}> (&euro;#VALEUR,-)</BOUCLE_reponse_prix3></li>
 				</BOUCLE_reponse_form2>
