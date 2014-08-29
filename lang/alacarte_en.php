@@ -56,6 +56,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'title_check_ticket' => 'CHECK YOUR TICKET',
 	'title_choose_date' => 'CHOOSE YOUR DATE',
 	'title_contact_infos' => 'CONTACT INFORMATION',
+	'title_jump_chapter' => 'Jump to this chapter',
 	'title_order' => 'ORDER YOUR SHOW',
 	'title_social_contact' => 'SOCIAL CONTACT',
 	'title_timeline' => 'CREATE YOUR OWN PERFORMANCE NOW!',
