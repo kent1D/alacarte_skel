@@ -212,7 +212,6 @@ function media_visible_add_to_timeline(){
 }
 
 var init_drag = function(){
-	$('.blog_archive').height($('.main').height());
 	$('.timeline_before').unbind('hover').hover(function(){
 		if($('.timeline_list').offset().left < 0){
 			moveleft = setInterval(timeline_before, 5);
@@ -414,7 +413,7 @@ var init_drag = function(){
 		var me = $(this);
 		e.preventDefault();
 		$('.preview_video').slideUp('500',function(){
-			var arguments = {mode:null};
+			var arguments = {mode:null,step:null};
 			if(me.is('.setdates'))
 				arguments.step = 2;
 			$('.timeline_video').ajaxReload({
@@ -519,26 +518,25 @@ function timeline_after(){
 }
 
 function init_player_preview(){
+	$('#video_preview video').on('ms_init',function(){
+		$('#video_preview .media_wrapper').append('<div class="messages" style="display:none"></div>');
+		jQuery(this).parents('.media_wrapper').addClass('preview');
+	});
+	$('#video_preview video').bind("play",function(){
+		if(!jQuery(this).parents('.media_wrapper').is('.preview'))
+			jQuery(this).parents('.media_wrapper').addClass('preview');
+		if(jQuery(this).parents('.media_wrapper').is('.end_preview')){
+			$(this)[0].pause();
+			$('.preview .timeline_drag:not(.empty)').eq(0).click();
+			jQuery(this).parents('.media_wrapper').removeClass('end_preview').removeClass('seeking');
+		}
+	});
 	$('#video_preview video').bind("ended",function(){
 		var me = $(this),
 			next_video = $('.timeline_drag.playing').next('.timeline_drag:not(.empty)').eq(0);
-		var element = next_video.find('.headline_media');
-		$(element[0].attributes).each(function() {
-			console.log(this.nodeName);
-			if(this.nodeName.match(/data-/)){
-				var extension = this.nodeName.replace(/data-/,'');
-				$('#video_preview video [src*=".'+extension+'"]').attr('src',this.value);
-			}
-		});
-		$('#video_preview video')[0].load();
-		$('#video_preview video')[0].play();
-		$('.timeline_drag.playing').removeClass('playing');
-		next_video.addClass('playing');
-	});
-	$('.preview .timeline_drag:not(.empty)').unbind('click').click(function(){
-		if(!$(this).is('.playing')){
-			var me = $(this);
-			var element = me.find('.headline_media');
+		if(next_video.size() > 0){
+			var nb = $(".preview .timeline_drag:not(.empty)").index(next_video)+1,
+				element = next_video.find('.headline_media');
 			$(element[0].attributes).each(function() {
 				if(this.nodeName.match(/data-/)){
 					var extension = this.nodeName.replace(/data-/,'');
@@ -548,7 +546,27 @@ function init_player_preview(){
 			$('#video_preview video')[0].load();
 			$('#video_preview video')[0].play();
 			$('.timeline_drag.playing').removeClass('playing');
-			me.addClass('playing');
+			$('#video_preview video').ms_messages('','CHAPTER '+nb,true);
+			next_video.addClass('playing');
+		}else{
+			jQuery(this).parents('.media_wrapper').removeClass('preview').addClass('end_preview');
+		}
+	});
+	$('.preview .timeline_drag:not(.empty)').unbind('click').click(function(){
+		if(!$(this).is('.playing')){
+			var nb = $(".preview .timeline_drag:not(.empty)").index($(this))+1,
+				element = $(this).find('.headline_media');
+			$(element[0].attributes).each(function() {
+				if(this.nodeName.match(/data-/)){
+					var extension = this.nodeName.replace(/data-/,'');
+					$('#video_preview video [src*=".'+extension+'"]').attr('src',this.value);
+				}
+			});
+			$('#video_preview video')[0].load();
+			$('#video_preview video')[0].play();
+			$('#video_preview video').ms_messages('','CHAPTER '+nb,true);
+			$('.timeline_drag.playing').removeClass('playing');
+			$(this).addClass('playing');
 		}
 	});
 }
@@ -590,4 +608,9 @@ $(function(){
 $(window).load(function(){
 	$(".thumbnails").find(".thumbnail").uniformHeight();
 	$(".homeboxes .hero-unit").uniformHeight();
+	$('.blog_archive').height($('.main').height());
+	$('.headline_media .h3-like').each(function(){
+		var height = $(this).height()/2;
+		$(this).css({marginTop:'-'+height+'px'});
+	});
 });
