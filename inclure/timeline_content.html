@@ -8,7 +8,7 @@
 		#SET{playing,#MD5}
 		<div id="video_preview">
 		<BOUCLE_article(DOCUMENTS){id_article=#ID_OBJET}{media=video}>
-			#SET{boutons_caches,'loop,progress_bar'}
+			#SET{boutons_caches,'loop,time_elapsed,time_remaining'}
 			[(#MODELE{emb,id_document=#ID_DOCUMENT,preload=metadatas,autoplay=oui,height=400px,boutons_caches=#GET{boutons_caches},messages=false,volume_mousewheel=false})]
 		</BOUCLE_article>
 		</div>
