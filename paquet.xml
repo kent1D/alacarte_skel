@@ -5,6 +5,7 @@
 	etat="test"
 	compatibilite="[3.0.0;["
 	schema="0.2.4"
+	logo="alacart.png"
 	demonstration="http://www.a-la-cart.com"
 >
 
