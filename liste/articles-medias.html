@@ -1,3 +1,4 @@
+#CACHE{0}
 [(#SET{liste_image,#LISTE})]
 <B_mots_filtres>
 <div class="filters">
@@ -21,13 +22,13 @@
 #SET{valeur_cookie,#EVAL{$_COOKIE[#GET{cookie_prefix}]}}
 [(#SESSION{id_auteur}|oui) ]
 #SET{plus,0}
-<BOUCLE_form_custom(FORMULAIRES_REPONSES){id_auteur=#SESSION{id_auteur}}{cookie = #GET{valeur_cookie}}{id_formulaire=1}>
+<BOUCLE_form_custom(FORMULAIRES_REPONSES){cookie = #GET{valeur_cookie,xxx}}{id_formulaire=1}>
 #SET{plus,1}
 </BOUCLE_form_custom>
 <B_articles>
 	<div class="row liste_medias"[ id='(#ANCRE_PAGINATION|extraire_attribut{id})']>
 		[(#INCLURE{fond=inclure/media_cookie}) [(#SET{liste_image,#GET{liste_image}|push{100000}})]]
-		<BOUCLE_articles(ARTICLES){id_rubrique?}{id_mot ?} {!par date} {pagination #ENV{nb,21}}>
+		<BOUCLE_articles(ARTICLES){id_rubrique?}{id_mot ?} {par num titre} {pagination #ENV{nb,100}}>
 		[(#SET{liste_image,#GET{liste_image}|push{#ID_ARTICLE}})]
 		[(#SET{position_clear,[(#COMPTEUR_BOUCLE|plus{#GET{plus}}|modulo{3})]})]
 		<div class="span4[(#GET{position_clear}|=={1}|oui)clear] #GET{position_clear}"><INCLURE{fond=inclure/resume/media,id_article,id_article_visible}></div>
