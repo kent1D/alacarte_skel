@@ -133,7 +133,7 @@ function saisies_commander_performance($id_auteur, $retour=''){
 					'saisie' => 'input',
 					'options' => array(
 						'nom' => 'nom',
-						'label' => _T('contacts:label_nom'),
+						'label' => "NAME and SURNAME",
 						'obligatoire' => 'oui'
 					)
 				),
@@ -207,7 +207,8 @@ function saisies_commander_performance($id_auteur, $retour=''){
 					'options' => array(
 						'nom' => 'event_description',
 						'label' => _T('alacarte:label_event_description'),
-						'rows' => 10
+						'rows' => 10,
+						'obligatoire' => true
 					)
 				),
 				array(
@@ -372,31 +373,30 @@ function formulaires_commander_performance_verifier_dist($id_auteur, $retour='')
 
 
 function formulaires_commander_performance_traiter_dist($id_auteur, $retour=''){
-	$retours = array();
-	
-	if(intval($id_auteur) < 0){
-		include_spip('action/editer_auteur');
-		$id_auteur = auteur_inserer();
-		set_request('statut','6forum');
-		auteur_modifier($id_auteur);
-	}
 
+	$retours = array();
+
+	$id_auteur = sql_getfetsel('id_auteur','spip_auteurs','email='.sql_quote(_request('email')));
 	// On modifie le contact
 	$id_contact = sql_getfetsel(
 		'id_contact',
 		'spip_contacts_liens',
 		'objet = '.sql_quote('auteur').' and id_objet = '.intval($id_auteur)
 	);
-	
+
 	//Si le contact n'existe pas encore, on doit le créer (cas d'un auteur prexistant à son statut de client)
 	if (is_null($id_contact)) {
+		set_request('mail_inscription',_request('email'));
 		$inscrire_client = charger_fonction('traiter','formulaires/inscription_client');
-		$inscrire_client();
-
+		$auteur = $inscrire_client();
+		$id_auteur = $auteur['id_auteur'];
+		$auteur_complet = sql_fetsel('*','spip_auteurs','id_auteur='.intval($id_auteur));
+		if($auteur_complet['statut'] == 'nouveau')
+			sql_updateq('spip_auteurs',array('statut' => $auteur_complet['bio']),'id_auteur='.intval($id_auteur));
 		$id_contact = sql_getfetsel(
 			'id_contact',
 			'spip_contacts_liens',
-			'objet = '.sql_quote('auteur').' and id_objet = '.$id_auteur
+			'objet = '.sql_quote('auteur').' and id_objet = '.intval($auteur['id_auteur'])
 		);
 	}
 
@@ -406,10 +406,6 @@ function formulaires_commander_performance_traiter_dist($id_auteur, $retour=''){
 	// Le pseudo SPIP est construit
 	$nom_save = _request('nom');
 	set_request('nom', trim(_request('prenom').' '._request('nom'))); 
-
-	// On modifie l'auteur
-	$editer_auteur = charger_fonction('editer_auteur', 'action/');
-	$editer_auteur($id_auteur);
 	
 	// On modifie l'adresse
 	$id_adresse = sql_getfetsel(
@@ -460,60 +456,6 @@ function formulaires_commander_performance_traiter_dist($id_auteur, $retour=''){
 		// [Todo] il faudrait effacer aussi le numéro dans la base !
 	}
 
-	// On modifie le portable s'il existe dans l'environnement
-	if (_request('portable')){
-		// on stocke cette donnee
-		$numero = _request('numero');
-		set_request('numero', _request('portable'));
-		$id_portable = sql_getfetsel(
-			'id_numero',
-			'spip_numeros_liens',
-			array(
-				'objet = '.sql_quote('auteur'),
-				'id_objet = '.$id_auteur,
-				'type = '.sql_quote(type_contact_performance('portable'))
-			)
-		);
-
-		// S'il n'y a pas de numero de portable, on le crée
-		if (!$id_portable){
-			$id_portable = 'oui';
-			set_request('objet', 'auteur');
-			set_request('id_objet', $id_auteur);
-			set_request('type', type_contact_performance('portable'));
-		}
-
-		$editer_portable = charger_fonction('editer_numero', 'action/');
-		$editer_portable($id_portable);
-	}
-
-	// On modifie le fax s'il existe dans l'environnement
-	if (_request('fax')){
-		// on stocke cette donnee si elle ne l'est pas deja
-		$numero ? '' : $numero = _request('numero');
-		set_request('numero', _request('fax'));
-		$id_fax = sql_getfetsel(
-			'id_numero',
-			'spip_numeros_liens',
-			array(
-				'objet = '.sql_quote('auteur'),
-				'id_objet = '.$id_auteur,
-				'type = '.sql_quote('fax')
-			)
-		);
-
-		// S'il n'y a pas de numero de fax, on le crée
-		if (!$id_fax){
-			$id_fax = 'oui';
-			set_request('objet', 'auteur');
-			set_request('id_objet', $id_auteur);
-			set_request('type', 'fax');
-		}
-		
-		$editer_fax = charger_fonction('editer_numero', 'action/');
-		$editer_fax($id_fax);
-	}
-
 	/**
 	 * Mettre à jour la venue
 	 */
@@ -533,32 +475,90 @@ function formulaires_commander_performance_traiter_dist($id_auteur, $retour=''){
 		$champs_venue[$champ] = _request($champ);
 	}
 	sql_updateq('spip_paniers_venues',$champs_venue,'id_paniers_venue='.intval($id_paniers_venue));
-	
-	include_spip('inc/commandes');
-	$id_commande = creer_commande_encours();
-	$md5 = md5($id_commande.'-'.$id_auteur);
-	sql_updateq('spip_commandes',array('md5'=>$md5,'id_panier'=>$id_panier),'id_commande='.intval($id_commande));
-	/**
-	 * On met le panier en "commande"
-	 */
-	sql_updateq('spip_paniers',array('statut'=>'commande'),'id_panier='.intval($id_panier));
 
-	// Quand on reste sur la même page, on peut toujours éditer après
-	$retours['editable'] = true;
-	// si necessaire on replace la bonne donnee dans l'environnement
-	$numero ? set_request('numero', $numero) : '';
-	
-	if(!$retour)
-		$retour = generer_url_public('commande','md5='.$md5);
-
-	// Si on demande une redirection
-	if ($retour){
-		refuser_traiter_formulaire_ajax();
-		$retours['redirect'] = $retour;
+	if(intval(session_get('id_commande') > 0))
+		$id_commande = session_get('id_commande');
+	else{
+		include_spip('inc/commandes');
+		$id_commande = creer_commande_encours($id_auteur);
 	}
+	if(intval($id_commande) > 0){
+		// Add entrance fee
+		sql_insertq('spip_commandes_details',array('id_commande'=>$id_commande,"descriptif"=>"Entrance fee","quantite"=>1,"prix_unitaire_ht"=>400,"taxe"=> 0,"objet"=>"article","id_objet"=>11),"id_commande=".intval($id_commande));
+	
+		$md5 = md5($id_commande.'-'.$id_auteur);
+		if(intval($id_panier) > 0)
+			sql_updateq('spip_commandes',array('md5'=>$md5,'id_panier'=>$id_panier,'statut'=>'attente'),'id_commande='.intval($id_commande));
+	
+		/**
+		 * On met le panier en "commande"
+		 */
+		sql_updateq('spip_paniers',array('statut'=>'commande'),'id_panier='.intval($id_panier));
+	
+		include_spip('inc/cookie');
+		spip_setcookie($GLOBALS['cookie_prefix'].'cookie_formidable_1','');
+		session_set('id_commande','');
 
-	set_request('nom', $nom_save); 
+		// Quand on reste sur la même page, on peut toujours éditer après
+		$retours['editable'] = false;
 
+		// si necessaire on replace la bonne donnee dans l'environnement
+		$numero ? set_request('numero', $numero) : '';
+		
+		if($id_panier > 0){
+			$destinataires = array(_request('email'));
+			if (count($destinataires) > 0){
+				include_spip('inc/filtres');
+				include_spip('inc/texte');
+				
+				$nom_site_spip = supprimer_tags(typo($GLOBALS['meta']['nom_site']));
+				
+				$nom_envoyeur = $nom_site_spip;
+	
+				$sujet = $nom_site_spip.' - ORDER #'.$id_commande;
+				$sujet = filtrer_entites($sujet);
+			
+				$notification = 'notifications/formulaire_commander_performance';
+				
+				// On génère le mail avec le fond
+				$html = recuperer_fond(
+					$notification,
+					array(
+						'id_commande' => $id_commande,
+						'titre' => _T_ou_typo($formulaire['titre']),
+					)
+				);
+				
+				// On génère le texte brut
+				include_spip('facteur_fonctions');
+				$texte = facteur_mail_html2text($html);
+				
+				// On utilise la forme avancé de Facteur
+				$corps = array(
+					'html' => $html,
+					'texte' => $texte,
+					'nom_envoyeur' => filtrer_entites($nom_envoyeur),
+				);
+				
+				// On envoie enfin le message
+				$envoyer_mail = charger_fonction('envoyer_mail','inc');
+				
+				// On envoie aux destinataires
+				if ($destinataires)
+					$ok = $envoyer_mail($destinataires, $sujet, $corps, $courriel_from, "X-Originating-IP: ".$GLOBALS['ip']);
+			}
+		}
+		if(!$retour)
+			$retour = parametre_url(generer_url_entite($id_commande,'commande'),'md5',$md5);
+
+		$retours['redirect'] = $retour;
+	
+		set_request('nom', $nom_save); 
+	}else{
+		$retours['message_erreur'] = "Problem generating order.";
+		$retours['editable'] = true;
+		$retours['redirect'] = false;
+	}
 	return $retours;
 }
 
