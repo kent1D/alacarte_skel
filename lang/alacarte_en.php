@@ -29,10 +29,12 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'label_co_creation_anonymous' => 'As the co-creator I want to stay anonymous.',
 	'label_color' => 'Color:',
 	'label_event_description' => 'Describe your event briefly',
+	'label_event_description_commande' => 'Event description',
 	'label_event_comments' => 'Other comments',
 	'label_filters' => 'FILTER:',
 	'label_filters_all' => 'ALL',
 	'label_name_institution' => 'Name of institution',
+	'label_nom_prenom' => 'Name and surname',
 	'label_size' => 'Size:',
 	'label_stock' => 'In stock:',
 
@@ -58,12 +60,14 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'title_contact_infos' => 'CONTACT INFORMATION',
 	'title_jump_chapter' => 'Jump to this chapter',
 	'title_order' => 'ORDER YOUR SHOW',
+	'title_price_vary' => 'This price may vary',
 	'title_social_contact' => 'SOCIAL CONTACT',
 	'title_timeline' => 'CREATE YOUR OWN PERFORMANCE NOW!',
 	'title_timeline_step_1' => 'SELECT YOUR FAVORITE CHAPTERS',
 	'title_timeline_step_2' => 'SET PERFORMANCE DATE(S)/LOCATION',
 	'title_timeline_step_3' => 'ORDER YOUR PERFORMANCE',
-	'titre_commande' => 'Order',
+	'titre_commande' => 'Your order',
+	'titre_venue' => 'Venue',
 );
 
 ?>

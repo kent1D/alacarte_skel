@@ -2,11 +2,53 @@
 <BOUCLE_commande(COMMANDES){md5=#ENV{md5}}{tout}>
 [(#REM) Fil d'Ariane ]
 <header class="cartouche">
-	<h1><:alacarte:titre_commande:> ##ID_COMMANDE</h1>
+	<h1><:alacarte:titre_commande:></h1>
 </header>
-<div class="ticket_container">
-	<INCLURE{fond=inclure/ticket,id_panier,env} />
-</div>
-<div class="content-principal main row">
+<div class="main">
+	
+	<div class="chapo">Please find here your ticket</div>
+	
+	<div class="ticket_container">
+		<INCLURE{fond=inclure/ticket,id_panier,env} />
+	</div>
+	<div class="texte">
+		<h2>Your datas</h2>
+		<BOUCLE_auteurs(AUTEURS){id_auteur}{tout}>
+		<p>
+			<strong><:alacarte:label_nom_prenom:></strong>: #NOM
+		</p>
+		<BOUCLE_panier(PANIERS){id_panier=#_commande:ID_PANIER}>
+		<BOUCLE_venue(PANIERS_VENUES){id_panier}>
+		[<p>
+			<strong><:alacarte:label_name_institution:></strong>: (#INSTITUTION)
+		</p>]
+		#SET{event_description,#EVENT_DESCRIPTION}
+		#SET{other_comment,#OTHER_COMMENT}
+		</BOUCLE_venue>
+		</BOUCLE_panier>
+		<BOUCLE_add(ADRESSES adresses_liens auteurs){id_auteur}{0,1}>
+		<div class="address">
+			<p><strong><:coordonnees:adresse:></strong><br />
+			#VOIE<br />
+			[(#COMPLEMENT)<br />]
+			#CODE_POSTAL #VILLE[ (#PAYS)]</p>
+		</div>
+		</BOUCLE_add>
+		<BOUCLE_num(NUMEROS numeros_liens auteurs){id_auteur}{0,1}>
+		<p class="item #EDIT{numero}"><strong><:coordonnees:label_telephone:></strong>: #NUMERO</p>
+		</BOUCLE_num>
+		[<div>
+			<p><strong><:alacarte:label_event_description_commande:></strong><br />
+			(#GET{event_description})
+		</div>]
+		[<div>
+			<p><strong><:alacarte:label_event_comments:></strong><br />
+			(#GET{other_comment})
+		</div>]
+		</BOUCLE_auteurs>
+		<p>You will receive an e-mail confirmation shortly.<br />
+		Thank you for your order,<br />
+		À la Cart Performance Webshop Team</p>
+	</div>
 </div>
 </BOUCLE_commande>

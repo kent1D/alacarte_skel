@@ -1,5 +1,4 @@
 <composition>
 	<nom>How does it work?</nom>
 	<description>Composition dedicated to the How does it work article</description>
-	<branche type="article" composition="blog" />
 </composition>
