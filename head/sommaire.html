@@ -1,0 +1,48 @@
+[(#REM)
+	Ces deux balises #NOM_SITE_SPIP et #DESCRIPTIF_SITE_SPIP
+	permettent de récupérer des informations de configuration de SPIP
+	que l'on renseigne dans l'espace privé.
+
+	Ces enregistrements sont stockés en base de donnée dans une
+	table appelée "spip_meta". Les champs de la table peuvent aussi
+	être récupérés en utilisant la balise #CONFIG{nom de la configuration}
+	ce qui donnerait ici : #CONFIG{nom_site_spip}
+
+	Les |mot suivants les #BALISE indique qu'on applique certains traitements
+	au texte retourné par la balise.
+
+	|textebrut supprime toute balise HTML, |couper{150} coupe le texte
+	retourné à 150 caractères. Ces "filtres" peuvent se chaîner
+	|filtreA|filtreB ...
+
+	Ces deux lignes permettent au bout du compte de renseigner le titre
+	de la page affiché tout en haut du navigateur ainsi que la description du site
+	(utile aux moteurs de recherche)
+]
+<title>[(#NOM_SITE_SPIP|typo|textebrut)][ - (#SLOGAN_SITE_SPIP|typo|textebrut)]</title>
+[<meta name="description" content="(#DESCRIPTIF_SITE_SPIP|couper{150}|trim|attribut_html)" />]
+[<meta property="og:title" content="(#NOM_SITE_SPIP|attribut_html)" />]
+[<meta property="twitter:title" content="(#NOM_SITE_SPIP|attribut_html)" />]
+[<meta property="og:description" content="(#DESCRIPTIF_SITE_SPIP|couper{300}|trim|attribut_html)" />]
+<meta name="keywords" content="performance, webshop, kud num, aksioma" />
+<meta name="author" content="Kud Num" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+[<meta property="og:site_name" content="(#NOM_SITE_SPIP|textebrut)" />]
+[<meta property="og:url" content="(#URL_SITE_SPIP)" />]
+[<meta property="twitter:url" content="(#URL_SITE_SPIP)" />]
+<meta property="og:type" content="website" />
+
+<BOUCLE_doc(CONDITION){si #LOGO_SITE_SPIP|oui}>
+<meta name="twitter:card" content="summary_large_image">
+[(#EXTENSION|=={gif}|?{#SET{document,#LOGO_SITE_SPIP},#SET{document,#LOGO_SITE_SPIP|image_reduire{1500,1500}|extraire_attribut{src}}})]
+<meta property="og:image" content="[(#GET{document}|url_absolue)]" />
+<meta name="twitter:image:src" content="[(#GET{document}|url_absolue)]" />
+<meta name="twitter:image:width" content="[(#GET{document}|balise_img|extraire_attribut{width})]" />
+<meta name="twitter:image:height" content="[(#GET{document}|balise_img|extraire_attribut{height})]" />
+</BOUCLE_doc>
+
+[<link rel="icon" type="image/x-icon" href="(#CHEMIN{favicon.ico})" />
+[<link rel="shortcut icon" type="image/x-icon" href="(#CHEMIN{favicon.ico})" />]]
+[<link rel="icon" type="image/png" href="(#CHEMIN{favicon.png})" />]
+[<link rel="apple-touch-icon" href="(#CHEMIN{apple-touch-icon.png})" />]
