@@ -1,0 +1,37 @@
+#CACHE{0}
+#HTTP_HEADER{Content-type:text/javascript;}
+#SET{paniers,#ARRAY}
+<BOUCLE_commandes(COMMANDES){tout}> #SET{paniers,#GET{paniers}|push{#ID_PANIER}}</BOUCLE_commandes>
+[<BOUCLE_ev(PANIERS_VENUES)
+	{id_panier IN #GET{paniers}}
+	{', '}>
+[(#ARRAY{
+id,#ID_PANIER,
+title,[(#VENUE|html2unicode|unicode2charset|textebrut|concat{" - "}|concat{#CITY}|concat{" - "}|concat{#COUNTRY})],
+allDay,#EVAL{true},
+start,#DATE_SHOW,
+end,#DATE_SHOW,
+url,#EVAL{false},
+className,panier-ok,
+description,[(#CITY|concat{ - #COUNTRY})]
+}|json_encode)][(#SET{event_before,ok})]</BOUCLE_ev>
+<B_ev1>[(#GET{event_before}|=={ok}|oui),]
+<BOUCLE_ev1(EVENEMENTS)
+	{par date_debut}
+	{id_article?}
+	{id_rubrique?}
+	{id_mot?}
+	{id_evenement_source?}
+	{', '}>
+[(#ARRAY{
+id,#ID_EVENEMENT,
+title,[(#TITRE|html2unicode|unicode2charset|textebrut)],
+allDay,[(#HORAIRE|=={oui}|non)],
+start,#DATE_DEBUT,
+end,#DATE_FIN,
+url,#EVAL{false},
+className,panier-ok,
+description,[(#DESCRIPTIF|html2unicode|unicode2charset)]
+}|json_encode)]</BOUCLE_ev1>
+</B_ev1>]
+#FILTRE{trim}
