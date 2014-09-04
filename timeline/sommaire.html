@@ -1,9 +1,8 @@
 #CACHE{0}
-<div class="timeline_video">
-	<div class="head_timeline span6">
+<div class="timeline_video step_#ENV{step,1}">
+	<div class="head_timeline">
 		<a href="[(#SELF|parametre_url{timeline,[(#ENV{timeline}|=={active}|?{'','active'})]}|ancre_url{timeline})]" class="activate_timeline">
 			<strong class="h2-like"><:alacarte:title_timeline:></strong>
-			<strong>— <:alacarte:subtitle_timeline_1:> — <:alacarte:subtitle_timeline_2:> — <:alacarte:subtitle_timeline_3:> —</strong>
 		</a>
 	</div>
 	<div class="timeline_content">
