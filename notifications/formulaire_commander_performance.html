@@ -1,0 +1,22 @@
+#CACHE{0}
+<BOUCLE_commande(COMMANDES){id_commande}{tout}>
+<BOUCLE_auteur(AUTEURS){id_auteur}{tout}>
+<BOUCLE_contact(CONTACTS){id_auteur}{0,1}>
+<p>Dear #NOM,</p>
+</BOUCLE_contact>
+</BOUCLE_auteur>
+
+<p>We have just received your order and are very excited to have you as the co-creator of our <a href="#URL_SITE_SPIP">À la Cart Performance.</a></p>
+
+<p>We will contact you shortly to discuss your order in detail and address the available payment method.</p>
+
+<p>
+In the meantime, here are the details of your order. You can also access your order online via the following LINK:<br />
+<a href="[(#URL_COMMANDE|parametre_url{md5,#MD5}|url_absolue)]">[(#URL_COMMANDE|parametre_url{md5,#MD5}|url_absolue)]</a>
+</p>
+
+We are very much looking forward to collaborating with you!
+
+<p style="text-align:right">Nina Jan and Urša Sekirnik<br />
+À la Cart Performance Webshop</p>
+</BOUCLE_commande>
