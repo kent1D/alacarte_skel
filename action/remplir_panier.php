@@ -31,7 +31,6 @@ function action_remplir_panier_dist($arg=null) {
 		include_spip('inc/paniers');
 		$id_panier = paniers_creer_panier();
 	}
-	
 	// On ne fait que s'il y a bien un panier existant et un objet valable
 	if ($id_panier > 0 and $objet and $id_objet) {
 		$rang = sql_getfetsel('MAX(rang)','spip_paniers_liens','id_panier='.intval($id_panier));
