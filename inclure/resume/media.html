@@ -5,7 +5,7 @@
 
 ]<BOUCLE_articles(ARTICLES) {id_article} {statut?}>
 <BOUCLE_badge(MOTS){id_groupe=1}{id_article}{0,1}>
-[(#ID_MOT|in_array{#LISTE{4,6}}|oui)#SET{notforsale,oui}]
+[(#ID_MOT|in_array{#LISTE{6,4}}|oui)#SET{notforsale,oui}]
 [(#SET{logo_mot,#LOGO_MOT})][(#SET{id_badge,#ID_MOT})]
 </BOUCLE_badge>
 <article class="entry media hentry article_#ID_ARTICLE[(#ENV{id_article_visible}|=={#ID_ARTICLE}|oui)media_is_visible][(#GET{notforsale}|=={oui}|oui)not_draggable]" id="article_#ID_ARTICLE" data-add_timeline="[(#URL_ACTION_AUTEUR{remplir_panier,article-#ID_ARTICLE-1})]">
@@ -21,7 +21,7 @@
 	[(#ENV{id_article_visible}|=={#ID_ARTICLE}|non)
 	<div class="incitate incitate_click"><span><a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|ancre_url{media_visible_#ID_ARTICLE})]" class="ajax show_information">PREVIEW</a></span></div>]
 	</div>
-	[<div class="prix">[(#FIXED_PRICE|?{'','from '})]<span class="price">€ (#PRIX**),-</span></div>]
+	[<div class="prix">[(#FIXED_PRICE|?{'','from '})]<span class="price">€ (#PRIX**),-[(#FIXED_PRICE|=={on}|non)<a href="[(#URL_ARTICLE{11}|ancre_url{star})]" title="<:alacart:title_price_vary|attribut_html:>">*</a>]</span></div>]
 </article>
 </BOUCLE_articles>
 #FILTRE{trim}

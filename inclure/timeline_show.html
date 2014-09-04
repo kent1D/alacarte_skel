@@ -27,10 +27,10 @@
 			<div class="show_duration">
 				<div class="show_text ">
 					DURATION<br />
-					<small>IN MINUTES</small>
+					[(#GET{duree}|<{3600}|?{<small>IN MINUTES</small>,<small>IN HOURS</small>})]
 				</div>
 				<div class="show_duree">
-					[(#GET{duree}|spipmotion_duree)]
+					[(#GET{duree}|<{3600}|?{[(#GET{duree}|spipmotion_duree)],[(#GET{duree}|spipmotion_duree|substr{0,5})]})]
 				</div>
 			</div>
 			<div class="show_costs">

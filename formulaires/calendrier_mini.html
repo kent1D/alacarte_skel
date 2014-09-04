@@ -52,6 +52,46 @@ if (window.jQuery){jQuery(function(){
 			function(){
 				minical.options.minDate = "[(#ENV{date_redac}|affdate{Y-m-01}|Agenda_moisdecal{-1,Y-m-01})]";
 				minical.options.maxDate = "[(#ENV{date_redac}|Agenda_moisdecal{36,Y-m-01})]";
+				minical.set_events = function(me,start,end,data){
+					var dates = [];
+					var $this = me.get(0);
+			
+					if (data.length){
+						var d,datebegin,dateend;
+						for(var j=0;j<data.length;j++){
+							d = data[j].start.split(" ");
+							d = d[0].split("-");
+							d = new Date(d[0],d[1]-1,d[2]);
+							dates.push(d);
+							minical.add_tooltip_and_class($this,d,data[j].id,data[j].title,data[j].className);
+			
+							if(data[j].end){
+								/* prendre la plus grande date de debut entre debut a afficher et l'interval donne */
+								datebegin = Math.max(start * 1000,d.getTime());
+								d = data[j].end.split(" ");
+								d = d[0].split("-");
+								d = new Date(d[0],d[1]-1,d[2]);
+								/* prendre la plus petite date de fin entre fin a afficher et l'interval donne */
+								dateend = Math.min(end * 1000, d.getTime());
+								if (dateend>datebegin){
+									dates.push(d);
+									minical.add_tooltip_and_class($this,d,data[j].id,data[j].title,data[j].className);
+									datebegin = datebegin+(3600*24*1000);
+									while(datebegin < dateend){
+										d = new Date(datebegin);
+										dates.push(d);
+										minical.add_tooltip_and_class($this,d,data[j].id,data[j].title,data[j].className);
+										datebegin = datebegin+(3600*24*1000);
+									}
+								}
+							}
+						}
+			
+						me.multiDatesPicker('addDates', dates,'disabled');
+						// toujours retirer la classe active qui n'a pas de sens pour l'affichage
+						jQuery('.ui-state-active',me).removeClass('ui-state-active');
+					}
+				};
 				minical.on_select = function(dateText,inst){
 					var me = inst.input;
 					if (dateText) {

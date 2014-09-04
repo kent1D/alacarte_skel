@@ -1,5 +1,5 @@
 #CACHE{0}
-<div class="timeline_line">
+<div class="timeline_line[ timeline_(#ENV{mode})]">
 	<BOUCLE_step1(CONDITION){si #ENV{step,1}|=={1}|oui}>
 	<BOUCLE_si_preview(CONDITION){si #ENV{mode}|=={preview}|oui}>
 	<div class="preview_video">
@@ -9,7 +9,7 @@
 		<div id="video_preview">
 		<BOUCLE_article(DOCUMENTS){id_article=#ID_OBJET}{media=video}>
 			#SET{boutons_caches,'loop,time_elapsed,time_remaining'}
-			[(#MODELE{emb,id_document=#ID_DOCUMENT,preload=metadatas,autoplay=oui,height=400px,boutons_caches=#GET{boutons_caches},messages=false,volume_mousewheel=false})]
+			[(#MODELE{emb,id_document=#ID_DOCUMENT,logo=non,preload=metadatas,autoplay=oui,height=400px,boutons_caches=#GET{boutons_caches},messages=false,volume_mousewheel=false})]
 		</BOUCLE_article>
 		</div>
 		</BOUCLE_panier>
@@ -68,7 +68,7 @@
 			<//B_art_panier>
 			[(#SET{nb_produits,#GET{nb_produits}|plus{#QUANTITE}})]
 			</BOUCLE_contenu_panier>
-			<BOUCLE_vides(DATA){source table,#LISTE{'drag here','yes here','your choice','just do it','drag here','yes here','your choice','just do it'}}>
+			<BOUCLE_vides(DATA){source table,#LISTE{'drag<br />here','yes<br />here','your<br />choice','just do it','drag<br />here','yes<br />here','your<br />choice','just do it'}}>
 			<div class="timeline_drag empty">
 				<div class="headline_media">
 					<strong class="h3-like entry-title">#VALEUR</strong>

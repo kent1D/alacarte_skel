@@ -2,8 +2,8 @@
 <div id="media_visible_#ID_ARTICLE" class="media_content">
 	<div class="row">
 		<div class="media_visible_nav span4 offset[(#ENV{position}|moins{1}|mult{4})]">
-			<BOUCLE_prev(ARTICLES){id_rubrique?}{id_mot ?} {par date}{date > #DATE}{0,1}>
-			<a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|ancre_url{media_visible_#ID_ARTICLE})]" class="prev_preview" title="Previous">[(#CHEMIN{images/button_prev.png}|balise_img)]</a></BOUCLE_prev><a href="[(#SELF|parametre_url{id_article_visible,''}|ancre_url{article_#ID_ARTICLE})]" class="close_preview">CLOSE</a><BOUCLE_next(ARTICLES){id_rubrique?}{id_mot ?} {!par date}{date < #DATE}{0,1}><a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|ancre_url{media_visible_#ID_ARTICLE})]" class="next_preview" title="Next">[(#CHEMIN{images/button_next.png}|balise_img)]</a>
+			<BOUCLE_prev(ARTICLES){id_rubrique?}{id_mot ?} {par num titre}{titre < #TITRE**}{0,1}>
+			<a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|ancre_url{media_visible_#ID_ARTICLE})]" class="prev_preview" title="Previous">[(#CHEMIN{images/button_prev.png}|balise_img)]</a></BOUCLE_prev><a href="[(#SELF|parametre_url{id_article_visible,''}|ancre_url{article_#ID_ARTICLE})]" class="close_preview">CLOSE</a><BOUCLE_next(ARTICLES){id_rubrique?}{id_mot ?} {par num titre}{titre > #TITRE**}{0,1}><a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|ancre_url{media_visible_#ID_ARTICLE})]" class="next_preview" title="Next">[(#CHEMIN{images/button_next.png}|balise_img)]</a>
 			</BOUCLE_next>
 		</div>
 		<div class="span12 borderbottom"></div>
@@ -11,7 +11,7 @@
 	<div class="row">
 	<div class="span12">
 	<div class="media_visible">
-		<h3>#TITRE[ <span class="prix">[(#FIXED_PRICE|?{'','from '})]<span class="price">€ (#PRIX**|sinon{15}),-</span></span>]</h3>
+		<h3>#TITRE[ <span class="prix">[(#FIXED_PRICE|?{'','from '})]<span class="price">€ (#PRIX**|sinon{15}),-</span></span>][(#FIXED_PRICE|=={on}|non)<a href="[(#URL_ARTICLE{11}|ancre_url{star})]" title="<:alacart:title_price_vary|attribut_html:>">*</a>]</h3>
 		<div class="media_document">
 			<BOUCLE_document(DOCUMENTS){id_article}{media=video}>
 			#SET{duree,#DUREE}
@@ -30,7 +30,7 @@
 					<span class="label"><:alacarte:label_color:></span> <BOUCLE_couleur(MOTS){id_article}{id_groupe=4}{0,1}>#TITRE</BOUCLE_couleur></B_couleur>BLACK<//B_couleur>
 				</div>
 			</div>
-			<BOUCLE_mots_not_draggable(MOTS){id_article}{id_mot IN #LISTE{4,6}}>
+			<BOUCLE_mots_not_draggable(MOTS){id_article}{id_mot IN 4,6}>
 			</BOUCLE_mots_not_draggable>
 			</B_mots_not_draggable>
 			<div class="media_add_to_timeline">
@@ -49,9 +49,7 @@
 			<B_mots>
 			<div class="media_more_in">
 				MORE IN:
-				<BOUCLE_mots(MOTS){id_article}{id_groupe=2}{id_mot != #ENV{id_mot}}>
-				<a href="[(#SELF|parametre_url{id_mot,#ID_MOT})]">#TITRE</a>
-				</BOUCLE_mots>
+				<BOUCLE_mots(MOTS){id_article}{id_groupe=2}{id_mot != #ENV{id_mot}}{', '}><a href="[(#SELF|parametre_url{id_mot,#ID_MOT})]">#TITRE</a></BOUCLE_mots>
 			</div>
 			</B_mots>
 			<div class="media_read_pricing">
