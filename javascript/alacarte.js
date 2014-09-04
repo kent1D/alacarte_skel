@@ -30,7 +30,7 @@ jQuery.fn.uniformHeight = function() {
  */
 function box_typewriter(){
 	$(".box1 span.typewriter").empty().typed({
-		strings: ["YOU CAN ORDER A PERFORMANCE TO BE EXECUTED LIVE,", "YOU CAN BECOME THE CO-CREATOR OF OUR SHOW,","YOUR DECISIONS DETERMINE HOW OUR PERFORMANCE WILL LOOK LIKE,","YOU CAN BE CREATIVE.","YOU CAN HAVE FUN!!"],
+		strings: ["YOU CAN ORDER A PERFORMANCE TO BE EXECUTED LIVE.", "YOU CAN BECOME THE CO-CREATOR OF OUR SHOW.","YOUR DECISIONS DETERMINE HOW OUR PERFORMANCE WILL LOOK LIKE.","YOU CAN BE CREATIVE.","YOU CAN HAVE FUN!!"],
 		typeSpeed: 60,
 		backDelay: 3000,
 		loop:true
@@ -39,6 +39,7 @@ function box_typewriter(){
 		strings: ["ARE YOU ORGANIZING A FESTIVAL, THEATRE PROGRAM, EXHIBITION, HOUSE EVENT, LECTURE?", "OR ARE YOU JUST CURIOUS?","VIEW THE CHAPTERS BELOW!","WHICH CHAPTERS DO YOU LIKE?","DRAG THEM TO THE TIMELINE!","AND ORDER A LIVE CUSTOM MADE PERFORMANCE ANYWHERE YOU LIKE!"],
 		typeSpeed: 65,
 		backDelay: 4500,
+		startDelay:1500,
 		loop:true
 	});
 }
@@ -322,10 +323,8 @@ var init_drag = function(){
 		items: ".timeline_drag:not(.empty)",
 		forcePlaceholderSize: true,
 		change: function(e, ui){
-			console.log('change');
 		},
 		out: function(e, ui){
-			console.log('out');
 		},
 		over: function(e, ui){
 			if(e.clientX <= 20){
@@ -517,7 +516,7 @@ function timeline_after(){
 }
 
 function init_player_preview(){
-	if($('#timeline').is('.preview')){
+	if($('.timeline_line').is('.timeline_preview')){
 		var count = $('.timeline_drag').not('.empty').size();
 		var left = ($('.timeline_drag').eq(0).outerWidth()*($('.timeline_drag').not('.empty').size()-nb_timeline));
 		timeline_max_left = 0-left;
@@ -530,8 +529,11 @@ function init_player_preview(){
 				$('.timeline_after').fadeOut();
 		}
 	}
-	$('#video_preview video').on('ms_init',function(){
-		$('#video_preview .media_wrapper').append('<div class="messages" style="display:none"></div>');
+	$('#video_preview video').on('ms_start',function(){
+		var nb = $(".preview .timeline_drag:not(.empty)").index($(".preview .timeline_drag.playing"))+1;
+		if($('#video_preview .media_wrapper .messages').size() == 0)
+			$('#video_preview .media_wrapper').append('<div class="messages" style="display:none"></div>');
+		$('#video_preview video').ms_messages('','CHAPTER '+nb,true);
 		jQuery(this).parents('.media_wrapper').addClass('preview');
 	});
 	$('#video_preview video').bind("play",function(){
@@ -563,9 +565,7 @@ function init_player_preview(){
 			var count = $('.timeline_drag').not('.empty').size(),position = $(".preview .timeline_drag:not(.empty)").index(next_video)+1;
 			if(position > (nb_timeline/2)){
 				var nb_position_timeline = position - Math.floor((nb_timeline/2));
-				console.log(nb_position_timeline);
 				var left = nb_position_timeline * timeline_drag_width;
-				console.log(left);
 				$('.timeline_list').animate({left:'-'+left+'px'});
 				if($('.timeline_before').is(':hidden'))
 					$('.timeline_before').fadeIn();
@@ -598,9 +598,7 @@ function init_player_preview(){
 			var count = $('.timeline_drag').not('.empty').size(),position = $(".preview .timeline_drag:not(.empty)").index($(this))+1;
 			if(position > (nb_timeline/2)){
 				var nb_position_timeline = position - Math.floor((nb_timeline/2));
-				console.log(nb_position_timeline);
 				var left = nb_position_timeline * timeline_drag_width;
-				console.log(left);
 				$('.timeline_list').animate({left:'-'+left+'px'});
 				if($('.timeline_before').is(':hidden'))
 					$('.timeline_before').fadeIn();
@@ -627,20 +625,28 @@ function resizeiframe(){
 		$(this).width('100%').height(height*ratio);
 	});
 }
+
+function link_new_window(){
+	jQuery('a.spip_out').unbind('click').click(function(){
+		$(this).attr('target', '_blank');
+	});
+}
 /**
  * Au document.ready
  */
 $(function(){
+	link_new_window();
 	resizeiframe();
 	init_empty();
 	init_drag();
 	init_player_preview();
 	$('#timeline').addClass('active');
-	setTimeout(desactivate_timeline,500);
+	if($('.step_3').size() == 0)
+		setTimeout(desactivate_timeline,500);
 	onAjaxLoad(init_empty);
 	onAjaxLoad(init_drag);
 	onAjaxLoad(init_player_preview);
-	box_typewriter();
+	onAjaxLoad(link_new_window);
 	$(window).resize(function(){
 		window_resize();
 	});
@@ -657,4 +663,5 @@ $(window).load(function(){
 		var height = $(this).height()/2;
 		$(this).css({marginTop:'-'+height+'px'});
 	});
+	box_typewriter();
 });
