@@ -34,7 +34,7 @@
 <meta property="og:type" content="website" />
 
 <BOUCLE_doc(CONDITION){si #LOGO_SITE_SPIP|oui}>
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 [(#EXTENSION|=={gif}|?{#SET{document,#LOGO_SITE_SPIP},#SET{document,#LOGO_SITE_SPIP|image_reduire{1500,1500}|extraire_attribut{src}}})]
 <meta property="og:image" content="[(#GET{document}|url_absolue)]" />
 <meta name="twitter:image:src" content="[(#GET{document}|url_absolue)]" />
