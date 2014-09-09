@@ -27,3 +27,15 @@ function alacarte_skel_jquery_plugins($plugins){
 	}
 	return $plugins;
 }
+
+function alacarte_skel_formulaire_traiter($flux){
+	if($flux['args']['form'] == 'abomailman' && ((!is_array($flux['data']) && strlen($flux['data']) > 1)|| isset($flux['data']['message']))){
+		if(!is_array($flux['data']))
+			$flux['data'] = _T('alacarte:message_abomailman');
+		else {
+			$flux['data']['message'] = _T('alacarte:message_abomailman');
+		}
+	}
+	spip_log($flux['data'],'test.'._LOG_ERREUR);
+	return $flux;
+}

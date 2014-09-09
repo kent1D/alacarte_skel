@@ -39,6 +39,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'label_stock' => 'In stock:',
 
 	// M
+	'message_abomailman' => 'A newsletter subscription request has been sent to the À la Cart Performance Webshop.<br /><br />To validate your request, please reply to the confirmation email that you will receive shortly.',
 	'message_erreur_date_first' => 'Please set your <a href="@url@">date and venue first</a>.',
 	'message_erreur_order' => 'One or more fields are invalid. Please verify the form.',
 	'message_intro_abomailman' => 'If you wish to be informed about all the activities happening in connection with the À la Cart performance webshop project, subscribe to our NEWSLETTER.',
