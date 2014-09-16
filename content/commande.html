@@ -4,15 +4,15 @@
 <header class="cartouche">
 	<h1><:alacarte:titre_commande:></h1>
 </header>
+<div class="chapo">
+	YOUR ORDER OVERVIEW:
+</div>
 <div class="main">
-	
-	<div class="chapo">Please find here your ticket</div>
-	
 	<div class="ticket_container">
 		<INCLURE{fond=inclure/ticket,id_panier,env} />
 	</div>
 	<div class="texte">
-		<h2>Your datas</h2>
+		<h2>YOUR DATA</h2>
 		<BOUCLE_auteurs(AUTEURS){id_auteur}{tout}>
 		<p>
 			<strong><:alacarte:label_nom_prenom:></strong>: #NOM
@@ -23,17 +23,20 @@
 			<strong><:alacarte:label_name_institution:></strong>: (#INSTITUTION)
 		</p>]
 		#SET{event_description,#EVENT_DESCRIPTION}
-		#SET{other_comment,#OTHER_COMMENT}
+		#SET{other_comments,#EVENT_COMMENTS}
 		</BOUCLE_venue>
 		</BOUCLE_panier>
 		<BOUCLE_add(ADRESSES adresses_liens auteurs){id_auteur}{0,1}>
 		<div class="address">
-			<p><strong><:coordonnees:adresse:></strong><br />
+			<p><strong>Address:</strong><br />
 			#VOIE<br />
 			[(#COMPLEMENT)<br />]
 			#CODE_POSTAL #VILLE[ (#PAYS)]</p>
 		</div>
 		</BOUCLE_add>
+		[<p class="email">
+			<strong>E-mail:</strong> (#EMAIL)
+		</p>]
 		<BOUCLE_num(NUMEROS numeros_liens auteurs){id_auteur}{0,1}>
 		<p class="item #EDIT{numero}"><strong><:coordonnees:label_telephone:></strong>: #NUMERO</p>
 		</BOUCLE_num>
@@ -43,12 +46,12 @@
 		</div>]
 		[<div>
 			<p><strong><:alacarte:label_event_comments:></strong><br />
-			(#GET{other_comment})
+			(#GET{other_comments})
 		</div>]
 		</BOUCLE_auteurs>
-		<p>You will receive an e-mail confirmation shortly.<br />
+		<p><strong>You will receive an e-mail confirmation shortly.<br />
 		Thank you for your order,<br />
-		À la Cart Performance Webshop Team</p>
+		À la Cart Performance Webshop Team</strong></p>
 	</div>
 </div>
 </BOUCLE_commande>
