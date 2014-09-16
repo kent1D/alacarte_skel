@@ -16,14 +16,12 @@
 			<span class="comments">
 			<span class="sep">|</span>
 			<a[ href="(#REM|ancre_url{comments})"] [title="(#TOTAL_BOUCLE|singulier_ou_pluriel{zcore:info_1_commentaire,zcore:info_nb_commentaires}|attribut_html)"]>[<i class="icon-comment"></i> (#TOTAL_BOUCLE)]</a>
-			</span>
-			]
+			</span>]
 		<//B_nb_commentaires>
 		</div>
 	</header>
 	<div class="main">
 		[<div class="#EDIT{chapo} chapo surlignable span8">(#CHAPO|adaptive_images)</div>]
-		
 		#SET{cookie_prefix,#EVAL{$GLOBALS['cookie_prefix']}}
 		[(#SET{cookie_prefix,#GET{cookie_prefix}|concat{cookie_formidable_1}})]
 		#SET{valeur_cookie,#EVAL{$_COOKIE[#GET{cookie_prefix}]}}
@@ -31,7 +29,7 @@
 		<BOUCLE_form_custom(FORMULAIRES_REPONSES){cookie = #GET{valeur_cookie,xxx}}{id_formulaire=1}>
 		#SET{id_reponse,#ID_FORMULAIRES_REPONSE}
 		</BOUCLE_form_custom>
-		<div class="#EDIT{texte} texte surlignable span8">[(#FORMULAIRE_FORMIDABLE{1,#ARRAY,#GET{id_reponse}})]</div>
+		<div class="texte surlignable span8 ajax">[(#FORMULAIRE_FORMIDABLE{1,'',#GET{id_reponse}})]</div>
 
 		[<p class="#EDIT{hyperlien} hyperlien"><:voir_en_ligne:> : <a href="(#URL_SITE)" class="spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
 	</div>
