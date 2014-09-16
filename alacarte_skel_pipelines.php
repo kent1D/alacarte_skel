@@ -36,6 +36,5 @@ function alacarte_skel_formulaire_traiter($flux){
 			$flux['data']['message'] = _T('alacarte:message_abomailman');
 		}
 	}
-	spip_log($flux['data'],'test.'._LOG_ERREUR);
 	return $flux;
 }
