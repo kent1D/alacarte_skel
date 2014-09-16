@@ -52,7 +52,7 @@
 			[(#ENV{step}|=={3}|oui)
 			<div class="timeline_show">
 				<div class="show_buy">
-					<a href="[(#URL_PAGE{order})]">
+					<a href="[(#URL_PAGE{order}|ancre_url{title_order})]">
 						[(#CHEMIN{images/alacart_buttons_2x_buy-05.png}|balise_img
 							|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_buy-06.png}
 								|balise_img|extraire_attribut{src})]"}
