@@ -29,8 +29,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'label_co_creation_anonymous' => 'As the co-creator I want to stay anonymous.',
 	'label_color' => 'Color:',
 	'label_event_description' => 'Describe your event briefly',
-	'label_event_description_commande' => 'Event description',
-	'label_event_comments' => 'Other comments',
+	'label_event_description_commande' => 'Event description:',
+	'label_event_comments' => 'Other comments:',
 	'label_filters' => 'FILTER:',
 	'label_filters_all' => 'ALL',
 	'label_name_institution' => 'Name of institution',
@@ -42,7 +42,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'message_abomailman' => 'A newsletter subscription request has been sent to the À la Cart Performance Webshop.<br /><br />To validate your request, please reply to the confirmation email that you will receive shortly.',
 	'message_erreur_date_first' => 'Please set your <a href="@url@">date and venue first</a>.',
 	'message_erreur_order' => 'One or more fields are invalid. Please verify the form.',
-	'message_intro_abomailman' => 'If you wish to be informed about all the activities happening in connection with the À la Cart performance webshop project, subscribe to our NEWSLETTER.',
+	'message_intro_abomailman' => 'If you wish to be informed about all the activities happening in connection with the À la Cart Performance Webshop project, subscribe to our NEWSLETTER.',
 	'message_venue_cree' => 'Your venue has been set.',
 
 	// P

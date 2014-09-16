@@ -515,7 +515,7 @@ function formulaires_commander_performance_traiter_dist($id_auteur, $retour=''){
 				
 				$nom_envoyeur = $nom_site_spip;
 	
-				$sujet = $nom_site_spip.' - ORDER #'.$id_commande;
+				$sujet = $nom_site_spip.' - YOUR ORDER';
 				$sujet = filtrer_entites($sujet);
 			
 				$notification = 'notifications/formulaire_commander_performance';
@@ -538,6 +538,7 @@ function formulaires_commander_performance_traiter_dist($id_auteur, $retour=''){
 					'html' => $html,
 					'texte' => $texte,
 					'nom_envoyeur' => filtrer_entites($nom_envoyeur),
+					'bcc' => array('kud.num@gmail.com','kent1@arscenic.org')
 				);
 				
 				// On envoie enfin le message

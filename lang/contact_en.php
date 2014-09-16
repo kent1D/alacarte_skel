@@ -10,6 +10,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// C
 	'champ_nom' => 'Your name',
 	'champ_sujet' => 'Your subject',
+	'succes' => 'Thank you, your message has been sent.<br />We will reply as soon as possible.<br /><br />The À la Cart Perfomance Webshop team',
 
 );
 
