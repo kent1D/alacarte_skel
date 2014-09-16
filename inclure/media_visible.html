@@ -1,8 +1,9 @@
+#CACHE{0}
 <BOUCLE_art(ARTICLES){id_article}>
 <div id="media_visible_#ID_ARTICLE" class="media_content">
 	<div class="row">
 		<div class="media_visible_nav span4 offset[(#ENV{position}|moins{1}|mult{4})]">
-			<BOUCLE_prev(ARTICLES){id_rubrique?}{id_mot ?} {par num titre}{titre < #TITRE**}{0,1}>
+			<BOUCLE_prev(ARTICLES){id_rubrique?}{id_mot ?}{!par num titre}{titre < #TITRE**}{0,1}>
 			<a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|ancre_url{media_visible_#ID_ARTICLE})]" class="prev_preview" title="Previous">[(#CHEMIN{images/button_prev.png}|balise_img)]</a></BOUCLE_prev><a href="[(#SELF|parametre_url{id_article_visible,''}|ancre_url{article_#ID_ARTICLE})]" class="close_preview">CLOSE</a><BOUCLE_next(ARTICLES){id_rubrique?}{id_mot ?} {par num titre}{titre > #TITRE**}{0,1}><a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|ancre_url{media_visible_#ID_ARTICLE})]" class="next_preview" title="Next">[(#CHEMIN{images/button_next.png}|balise_img)]</a>
 			</BOUCLE_next>
 		</div>
