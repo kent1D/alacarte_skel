@@ -48,6 +48,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// P
 	'panier_un_item' => '<span class="number">@nb@</span> ITEM',
 	'panier_nb_items' => '<span class="number">@nb@</span> ITEMS',
+	'panier_zero_items' => '<span class="number">@nb@</span> ITEMS',
 	
 	// S
 	'subtitle_timeline_1' => 'NO MIN/MAX CHAPTERS',
