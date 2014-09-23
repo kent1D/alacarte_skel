@@ -2,7 +2,7 @@
 	prefix="alacarte_skel"
 	categorie="squelette"
 	version="0.2.0"
-	etat="test"
+	etat="stable"
 	compatibilite="[3.0.0;["
 	schema="0.2.4"
 	logo="alacart.png"
