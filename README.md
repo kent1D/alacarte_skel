@@ -1,4 +1,8 @@
-alacarte_skel
+À la cart
 =============
 
-Squelette "À la carte"
+Squelette pour le site "[À la cart](http://www.a-la-cart.com)" (Webshop performance)
+
+## Nécessite
+
+* [SPIP](http://www.spip.net) >= 3.0
