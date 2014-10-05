@@ -101,7 +101,7 @@
 				</BOUCLE_article1>
 				</B_article_1>
 				<BOUCLE_reponse_form1(FORMULAIRES_REPONSES){si #VALEUR|table_valeur{id_formulaires_reponse}|>{0}|oui}{id_formulaires_reponse = #VALEUR|table_valeur{id_formulaires_reponse}}>
-				<li>#_art_panier2:VALEUR{compte}. YOUR CUSTOM MADE CHAPTER<BOUCLE_reponse_prix2(FORMULAIRES_REPONSES_CHAMPS){nom=input_2}{id_formulaires_reponse}> (&euro;#VALEUR,-)</BOUCLE_reponse_prix2></li>
+				<li>#_art_panier2:VALEUR{compte}. <:alacarte:titre_custom_chapter:><BOUCLE_reponse_prix2(FORMULAIRES_REPONSES_CHAMPS){nom=input_2}{id_formulaires_reponse}> (&euro;#VALEUR,-)</BOUCLE_reponse_prix2></li>
 				</BOUCLE_reponse_form1>
 				<//B_article_1>
 			</BOUCLE_art_panier2>
@@ -113,7 +113,7 @@
 				</BOUCLE_article2>
 				</B_article_2>
 				<BOUCLE_reponse_form2(FORMULAIRES_REPONSES){si #VALEUR|table_valeur{id_formulaires_reponse}|>{0}|oui}{id_formulaires_reponse = #VALEUR|table_valeur{id_formulaires_reponse}}>
-				<li>#_art_panier3:VALEUR{compte}. YOUR CUSTOM MADE CHAPTER<BOUCLE_reponse_prix3(FORMULAIRES_REPONSES_CHAMPS){nom=input_2}{id_formulaires_reponse}> (&euro;#VALEUR,-)</BOUCLE_reponse_prix3></li>
+				<li>#_art_panier3:VALEUR{compte}. <:alacarte:titre_custom_chapter:><BOUCLE_reponse_prix3(FORMULAIRES_REPONSES_CHAMPS){nom=input_2}{id_formulaires_reponse}> (&euro;#VALEUR,-)</BOUCLE_reponse_prix3></li>
 				</BOUCLE_reponse_form2>
 				<//B_article_2>
 			</BOUCLE_art_panier3></ul>
