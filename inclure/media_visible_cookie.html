@@ -1,0 +1,66 @@
+#CACHE{0}
+#SET{id_article_custom,14}
+<BOUCLE_reponse_panier(FORMULAIRES_REPONSES){id_formulaires_reponse=#ENV{id_formulaires_reponse}}>
+<div id="media_visible_cookie_#ID_FORMULAIRES_REPONSE" class="media_content">
+	<div class="row">
+		<div class="media_visible_nav span4 offset[(#ENV{position}|moins{1}|mult{4})]">
+			<a href="[(#SELF|parametre_url{id_article_visible,''}|parametre_url{id_custom_made,''})]" class="close_preview">CLOSE</a><BOUCLE_next(ARTICLES){id_rubrique=1}{id_mot ?} {par num titre}{0,1}><a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|parametre_url{id_custom_made,''}|ancre_url{media_visible_#ID_ARTICLE})]" class="next_preview" title="Next">[(#CHEMIN{images/button_next.png}|balise_img)]</a>
+			</BOUCLE_next>
+		</div>
+		<div class="span12 borderbottom"></div>
+	</div>
+	<div class="row">
+		<div class="span12">
+			<div class="media_visible">
+				<h3><:alacarte:titre_custom_chapter:><BOUCLE_reponse_prix(FORMULAIRES_REPONSES_CHAMPS){nom=input_2}{id_formulaires_reponse}>[ <span class="prix"><span class="price">€ (#VALEUR**),-</span></span>]</BOUCLE_reponse_prix></h3>
+				<div class="media_document">
+					<BOUCLE_document_custom(DOCUMENTS){id_article=#GET{id_article_custom}}{media=video}{par hasard}{0,1}>
+						#MODELE{emb,id_document=#ID_DOCUMENT,preload=metadatas}
+					</BOUCLE_document_custom>
+				</div>
+				<div class="media_infos">
+					<div class="media_infos_technical">
+						<B_reponse_duree>
+						<div class="size">
+							<span class="label"><:alacarte:label_size:></span> <BOUCLE_reponse_duree(FORMULAIRES_REPONSES_CHAMPS){nom=input_1}{id_formulaires_reponse}>[(#VALEUR|mult{60}|alacarte_weight_video)] ([(#VALEUR|mult{60}|spipmotion_duree)] min)</BOUCLE_reponse_duree>
+						</div></B_reponse_duree>
+						<div class="stock">
+							<span class="label"><:alacarte:label_stock:></span> <BOUCLE_stock(MOTS){id_article = #GET{id_article_custom}}{id_groupe=3}{0,1}>#TITRE</BOUCLE_stock></B_stock>ONLY 2 LEFT!<//B_stock>
+						</div>
+						<div class="color">
+							<span class="label"><:alacarte:label_color:></span> <BOUCLE_couleur(MOTS){id_article = #GET{id_article_custom}}{id_groupe=4}{0,1}>#TITRE</BOUCLE_couleur></B_couleur>BLACK<//B_couleur>
+						</div>
+					</div>
+					<BOUCLE_mots_not_draggable(MOTS){id_article = #GET{id_article_custom}}{id_mot IN 4,6}>
+					</BOUCLE_mots_not_draggable>
+					</B_mots_not_draggable>
+					<div class="media_add_to_timeline">
+						[<a href="[(#URL_ACTION_AUTEUR{remplir_panier,formulaires_reponse-#ID_FORMULAIRES_REPONSE-1,#SELF})]" class="add_to_timeline">
+							(#CHEMIN{images/alacart_buttons_2x_timeline-01.png}|balise_img
+									|inserer_attribut{onmouseover,this.src="[(#CHEMIN{images/alacart_buttons_2x_timeline-02.png}
+										|balise_img|extraire_attribut{src})]"}
+									|inserer_attribut{onmouseout,this.src="[(#CHEMIN{images/alacart_buttons_2x_timeline-01.png}
+										|balise_img|extraire_attribut{src})]"})
+						</a>]
+					</div>
+					<//B_mots_not_draggable>
+					<BOUCLE_article(ARTICLES){id_article=#GET{id_article_custom}}>
+					<div class="media_texte_info">
+						#TEXTE
+					</div>
+					</BOUCLE_article>
+					<B_mots>
+					<div class="media_more_in">
+						<:alacarte:label_more_in:>
+						<BOUCLE_mots(MOTS){id_article = #GET{id_article_custom}}{id_groupe=2}{id_mot != #ENV{id_mot}}{', '}><a href="[(#SELF|parametre_url{id_mot,#ID_MOT})]">#TITRE</a></BOUCLE_mots>
+					</div>
+					</B_mots>
+					<div class="media_read_pricing">
+						<a href="#URL_ARTICLE{11}"><:alacarte:lien_read_pricing:></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</BOUCLE_reponse_panier>

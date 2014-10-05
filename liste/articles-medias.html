@@ -26,7 +26,7 @@
 </BOUCLE_form_custom>
 <B_articles>
 	<div class="row liste_medias"[ id='(#ANCRE_PAGINATION|extraire_attribut{id})']>
-		[(#INCLURE{fond=inclure/media_cookie,id_article=14}) [(#SET{liste_image,#GET{liste_image}|push{100000}})]]
+		[(#INCLURE{fond=inclure/media_cookie,id_article=14,id_custom_made}) [(#SET{liste_image,#GET{liste_image}|push{100000}})]]
 		<BOUCLE_articles(ARTICLES){id_rubrique?}{id_mot ?} {par num titre} {pagination #ENV{nb,100}}>
 		[(#SET{liste_image,#GET{liste_image}|push{#ID_ARTICLE}})]
 		[(#SET{position_clear,[(#COMPTEUR_BOUCLE|plus{#GET{plus}}|modulo{3})]})]
@@ -35,7 +35,7 @@
 			[(#SET{position,[(#COMPTEUR_BOUCLE|plus{#GET{plus}}|modulo{3})]})]
 			[(#COMPTEUR_BOUCLE|plus{#GET{plus}}|modulo{3}|=={0}|?{#SET{position,3}})]
 		][(#GET{position_clear}|=={0}|oui)
-			[(#ENV{media_visible}|=={custom}|oui)
+			[(#ENV{id_custom_made}|=={#GET{id_formulaires_reponse}}|et{#COMPTEUR_BOUCLE|<{3}}|oui)
 			<div class="span12" id="media_visible">
 				<INCLURE{fond=inclure/media_visible_cookie,id_formulaires_reponse=#GET{id_formulaires_reponse},position=#GET{position},env,ajax} />
 			</div>]

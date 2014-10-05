@@ -19,7 +19,7 @@
 	</div>]
 	<div class="incitate incitate_drag">||<span> [(#GET{notforsale}|=={oui}|?{<:alacarte:message_out_of_stock:>,<:alacarte:message_drag_timeline:>})] </span>||</div>
 	[(#ENV{id_article_visible}|=={#ID_ARTICLE}|non)
-	<div class="incitate incitate_click"><span><a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|ancre_url{media_visible_#ID_ARTICLE})]" class="ajax show_information">PREVIEW</a></span></div>]
+	<div class="incitate incitate_click"><span><a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|parametre_url{id_custom_made,''}|ancre_url{media_visible_#ID_ARTICLE})]" class="ajax show_information">PREVIEW</a></span></div>]
 	</div>
 	[<div class="prix">[(#FIXED_PRICE|?{'','from '})]<span class="price">€ (#PRIX**),-[(#FIXED_PRICE|=={on}|non)<a href="[(#URL_ARTICLE{11}|ancre_url{star})]" title="<:alacart:title_price_vary|attribut_html:>">*</a>]</span></div>]
 </article>
