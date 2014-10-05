@@ -36,10 +36,12 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'label_event_comments' => 'Other comments:',
 	'label_filters' => 'FILTER:',
 	'label_filters_all' => 'ALL',
+	'label_more_in' => 'MORE IN:',
 	'label_name_institution' => 'Name of institution',
 	'label_nom_prenom' => 'Name and surname',
 	'label_size' => 'Size:',
 	'label_stock' => 'In stock:',
+	'lien_read_pricing' => 'READ ABOUT PRICING',
 
 	// M
 	'message_abomailman' => 'A newsletter subscription request has been sent to the À la Cart Performance Webshop.<br /><br />To validate your request, please reply to the confirmation email that you will receive shortly.',
@@ -48,6 +50,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'message_erreur_order' => 'One or more fields are invalid. Please verify the form.',
 	'message_intro_abomailman' => 'If you wish to be informed about all the activities happening in connection with the À la Cart Performance Webshop project, subscribe to our NEWSLETTER.',
 	'message_out_of_stock' => 'CURRENTLY OUT OF STOCK',
+	'message_panier_playlist' => 'ON YOUR PLAYLIST',
 	'message_venue_cree' => 'Your venue has been set.',
 
 	// P
