@@ -4,6 +4,9 @@
 if (!defined('_ECRIRE_INC_VERSION')) return;
 
 $GLOBALS[$GLOBALS['idx_lang']] = array(
+	// B
+	'button_remove' => 'Remove',
+
 	// C
 	'contact_chapo' => 'Do you have any doubts, comments, questions, suggestions? Or do you want to keep up to date?',
 	'contact_label_email' => 'Your e-mail',
@@ -60,6 +63,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'title_check_ticket' => 'CHECK YOUR TICKET',
 	'title_choose_date' => 'CHOOSE YOUR DATE',
 	'title_contact_infos' => 'CONTACT INFORMATION',
+	'titre_custom_chapter' => 'YOUR CUSTOM MADE CHAPTER',
 	'title_jump_chapter' => 'Jump to this chapter',
 	'title_order' => 'ORDER YOUR SHOW',
 	'title_price_vary' => 'This price may vary',
