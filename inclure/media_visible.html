@@ -2,7 +2,8 @@
 #SET{cookie_prefix,#EVAL{$GLOBALS['cookie_prefix']}}
 [(#SET{cookie_prefix,#GET{cookie_prefix}|concat{cookie_formidable_1}})]
 #SET{valeur_cookie,#EVAL{$_COOKIE[#GET{cookie_prefix}]}}
-<BOUCLE_form_custom(FORMULAIRES_REPONSES){si #SESSION{id_auteur}}{cookie = #GET{valeur_cookie,xxx}}{id_formulaire=1}>
+[(#SESSION|oui) ]
+<BOUCLE_form_custom(FORMULAIRES_REPONSES){cookie = #GET{valeur_cookie,xxx}}>
 #SET{id_formulaires_reponse,#ID_FORMULAIRES_REPONSE}
 </BOUCLE_form_custom>
 <BOUCLE_art(ARTICLES){id_article}>
