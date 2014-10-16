@@ -29,17 +29,27 @@ jQuery.fn.uniformHeight = function() {
  * Generate typewriter effect
  */
 function box_typewriter(){
-	$(".box1 span.typewriter").empty().typed({
-		strings: ["YOU CAN ORDER A PERFORMANCE TO BE EXECUTED LIVE.", "YOU CAN BECOME THE CO-CREATOR OF OUR SHOW.","YOUR DECISIONS DETERMINE HOW OUR PERFORMANCE WILL LOOK LIKE.","YOU CAN BE CREATIVE.","YOU CAN HAVE FUN!!"],
+	$(".box1 span.typewriter,.box2 span.typewriter").empty();
+	$(".box1 span.first_text").empty().typed({
+		strings: ["THIS IS A WEBSHOP WHERE "],
 		typeSpeed: 60,
-		backDelay: 3000,
-		loop:true
+		loop:false,
+		startDelay:3000,
+		callback:function(){
+			$('.box1 span.first_text').next('.typed-cursor').remove();
+			$(".box1 span.typewriter").empty().typed({
+				strings: ["YOU CAN ORDER A PERFORMANCE TO BE EXECUTED LIVE.", "YOU CAN BECOME THE CO-CREATOR OF OUR SHOW.","YOUR DECISIONS DETERMINE HOW OUR PERFORMANCE WILL LOOK LIKE.","YOU CAN BE CREATIVE.","YOU CAN HAVE FUN!!"],
+				typeSpeed: 60,
+				backDelay: 3000,
+				loop:true
+			});
+		}
 	});
+	
 	$(".box2 span.typewriter").empty().typed({
 		strings: ["ARE YOU ORGANIZING A FESTIVAL, THEATRE PROGRAM, EXHIBITION, HOUSE EVENT, LECTURE?", "OR ARE YOU JUST CURIOUS?","VIEW THE CHAPTERS BELOW!","WHICH CHAPTERS DO YOU LIKE?","DRAG THEM TO THE TIMELINE!","AND ORDER A LIVE CUSTOM MADE PERFORMANCE ANYWHERE YOU LIKE!"],
 		typeSpeed: 65,
 		backDelay: 4500,
-		startDelay:1500,
 		loop:true
 	});
 }
@@ -412,8 +422,8 @@ var init_drag = function(){
 		});
 		return false;
 	});
-
-	$('a.prev_preview,a.next_preview,a.close_preview').unbind('click').click(function(e){
+	
+	$('a.show_information,a.prev_preview,a.next_preview,a.close_preview').unbind('click').click(function(e){
 		var media_visible = parametre_url($(this).attr('href'),'id_article_visible'),
 			media_visible_cookie = parametre_url($(this).attr('href'),'id_custom_made');
 		$('.liste_medias').ajaxReload({args:{id_article_visible:media_visible,id_custom_made:media_visible_cookie},history:true,callback:function(){
@@ -648,15 +658,39 @@ function link_new_window(){
 		$(this).attr('target', '_blank');
 	});
 }
+
+function ticket_move_text(){
+	jQuery('.ticket .ticket_content .ticket_chapters ul li span').unbind('hover').hover(function(){
+		var width_parent = $(this).parent().width(), width = $(this).outerWidth();
+		var margin = width-width_parent+10;
+		if(width > width_parent && !$(this).is('.is_moving')){
+			$(this).addClass('is_moving');
+			$(this).animate({'margin-left':'-'+margin+'px'},1000,function(){
+				$(this).removeClass('is_moving');
+			});
+		}
+	},function(){
+		$(this).addClass('is_moving');
+		$(this).animate({'margin-left':'0'},1000,function(){
+			$(this).removeClass('is_moving');
+		});
+	});
+}
 /**
  * Au document.ready
  */
 $(function(){
+	if(location.hash.match('media_visible')){
+		var hash = location.hash;
+		if($(hash).size() > 0)
+				$.scrollTo($(hash),500);
+	}
 	link_new_window();
 	resizeiframe();
 	init_empty();
 	init_drag();
 	init_player_preview();
+	ticket_move_text();
 	$('#timeline').addClass('active');
 	if($('.step_3').size() == 0)
 		setTimeout(desactivate_timeline,500);
@@ -664,6 +698,7 @@ $(function(){
 	onAjaxLoad(init_drag);
 	onAjaxLoad(init_player_preview);
 	onAjaxLoad(link_new_window);
+	onAjaxLoad(ticket_move_text);
 	$(window).resize(function(){
 		window_resize();
 	});
@@ -673,6 +708,11 @@ $(function(){
  * Au window.load
  */
 $(window).load(function(){
+	if(location.hash.match('media_visible')){
+		var hash = location.hash;
+		if($(hash).size() > 0)
+				$.scrollTo($(hash),500);
+	}
 	$(".thumbnails").find(".thumbnail").uniformHeight();
 	$(".homeboxes .hero-unit").uniformHeight();
 	$('.blog_archive').height($('.main').height());
