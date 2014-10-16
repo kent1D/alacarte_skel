@@ -4,6 +4,7 @@
 [(#SET{cookie_prefix,#GET{cookie_prefix}|concat{cookie_formidable_1}})]
 #SET{valeur_cookie,#EVAL{$_COOKIE[#GET{cookie_prefix}]}}
 #SET{plus,0}
+[(#SESSION|oui) ]
 <B_mots_filtres>
 <div class="filters">
 	<ul class="menu-liste">
@@ -21,9 +22,10 @@
 	</ul>
 </div>
 </B_mots_filtres>
-<BOUCLE_form_custom(FORMULAIRES_REPONSES){si #SESSION{id_auteur}|oui}{cookie = #GET{valeur_cookie,xxx}}{id_formulaire=1}>
+<BOUCLE_form_custom(FORMULAIRES_REPONSES){cookie = #GET{valeur_cookie,xxx}}>
 [(#SET{plus,1})][(#SET{id_formulaires_reponse,#ID_FORMULAIRES_REPONSE})]
 </BOUCLE_form_custom>
+
 <B_articles>
 	<div class="row liste_medias"[ id='(#ANCRE_PAGINATION|extraire_attribut{id})']>
 		[(#INCLURE{fond=inclure/media_cookie,id_article=14,id_custom_made}) [(#SET{liste_image,#GET{liste_image}|push{100000}})]]
