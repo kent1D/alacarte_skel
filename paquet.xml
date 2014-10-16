@@ -20,7 +20,8 @@
 	<pipeline nom="declarer_tables_principales" inclure="base/alacarte.php" />
 	<pipeline nom="declarer_tables_interfaces" inclure="base/alacarte.php" />
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/alacarte.php" />
-
+	<pipeline nom="facteur_pre_envoi" inclure="alacarte_skel_pipelines.php" />
+	
 	<necessite nom="spipr_dist" />
 	<necessite nom="contact" />
 	<necessite nom="menus" />

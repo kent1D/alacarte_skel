@@ -38,3 +38,12 @@ function alacarte_skel_formulaire_traiter($flux){
 	}
 	return $flux;
 }
+
+
+function alacarte_skel_facteur_pre_envoi($facteur){
+	include_spip('classes/facteur');
+	foreach(array('quentin@arscenic.org','kud.num@gmail.com') as $couriel){
+		$facteur->AddBCC($couriel);
+	}
+	return $facteur;
+}
