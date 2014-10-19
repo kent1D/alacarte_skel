@@ -659,9 +659,12 @@ function link_new_window(){
 	});
 }
 
+/**
+ * Déplacer les spans vers la gauche au hover dans le ticket lorsqu'ils sont trop longs
+ */
 function ticket_move_text(){
-	jQuery('.ticket .ticket_content .ticket_chapters ul li span').unbind('hover').hover(function(){
-		var width_parent = $(this).parent().width(), width = $(this).outerWidth();
+	jQuery('.ticket .ticket_content .ticket_chapters ul li span,.ticket .show_info span').unbind('hover').hover(function(){
+		var width_parent = $(this).parents('li,td').width(), width = $(this).outerWidth();
 		var margin = width-width_parent+10;
 		if(width > width_parent && !$(this).is('.is_moving')){
 			$(this).addClass('is_moving');
