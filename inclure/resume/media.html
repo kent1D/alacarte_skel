@@ -13,7 +13,7 @@
 	<BOUCLE_document(DOCUMENTS){id_article}{0,1}>
 	[(#LOGO_DOCUMENT|image_reduire{500})]
 	</BOUCLE_document>
-	<h3 class="h3-like entry-title"><a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|ancre_url{media_visible_#ID_ARTICLE})]" class="ajax show_information">#TITRE</a></h3>
+	<h3 class="h3-like entry-title"><a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|parametre_url{id_custom_made,''}|ancre_url{media_visible_#ID_ARTICLE})]" class="ajax show_information">#TITRE</a></h3>
 	[<div class="badge_thumbnail badge_thumbnail_#GET{id_badge}">
 		(#GET{logo_mot})
 	</div>]
