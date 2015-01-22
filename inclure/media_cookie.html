@@ -25,8 +25,11 @@
 		<div class="incitate incitate_click"><span><a href="[(#SELF|parametre_url{id_article_visible,''}|parametre_url{id_custom_made,#ID_FORMULAIRES_REPONSE}|ancre_url{media_visible_cookie_#ID_FORMULAIRES_REPONSE})]" class="ajax show_information">PREVIEW</a></span></div>]
 		</div>
 		<BOUCLE_reponse_prix(FORMULAIRES_REPONSES_CHAMPS){nom=input_2}{id_formulaires_reponse}>
-		[<div class="prix"><span class="price">€ (#VALEUR),-</span></div>]
+		[<div class="prix"><span class="price">€ (#VALEUR|sinon{200}),-</span></div>]
 		</BOUCLE_reponse_prix>
+		</B_reponse_prix>
+		<div class="prix"><span class="price">€ 200,-</span></div>
+		<//B_reponse_prix>
 	</article>
 </div>
 </BOUCLE_form_custom>

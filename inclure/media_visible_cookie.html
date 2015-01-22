@@ -12,7 +12,7 @@
 	<div class="row">
 		<div class="span12">
 			<div class="media_visible">
-				<h3><:alacarte:titre_custom_chapter:><BOUCLE_reponse_prix(FORMULAIRES_REPONSES_CHAMPS){nom=input_2}{id_formulaires_reponse}>[ <span class="prix"><span class="price">€ (#VALEUR**),-</span></span>]</BOUCLE_reponse_prix></h3>
+				<h3><:alacarte:titre_custom_chapter:><BOUCLE_reponse_prix(FORMULAIRES_REPONSES_CHAMPS){nom=input_2}{id_formulaires_reponse}>[ <span class="prix"><span class="price">€ (#VALEUR**|sinon{200}),-</span></span>]</BOUCLE_reponse_prix></h3>
 				<div class="media_document">
 					<BOUCLE_document_custom(DOCUMENTS){id_article=#GET{id_article_custom}}{media=video}{par hasard}{0,1}>
 						#MODELE{emb,id_document=#ID_DOCUMENT,preload=metadatas}
