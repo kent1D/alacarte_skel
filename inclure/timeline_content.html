@@ -36,7 +36,7 @@
 			<div class="timeline_drag[(#GET{playing}|=={#_contenu_panier:MD5}|oui)playing]" data-rang="#_contenu_panier:RANG" id="media_sort_#_contenu_panier:RANG">
 				<BOUCLE_document(DOCUMENTS){id_article}{0,1}>
 				<div class="headline_media"[(#ENV{mode}|=={preview}|oui)title="<:alacarte:title_jump_chapter|attribut_html:>"]<BOUCLE_ssdoc(DOCUMENTS){si #MEDIA|=={video}}{mode=conversion}{objet=document}{id_objet=#ID_DOCUMENT}{tout}> data-#EXTENSION="[(#URL_DOCUMENT|url_absolue)]"</BOUCLE_ssdoc>>
-					[(#LOGO_DOCUMENT|adaptive_images{300})]
+					[(#LOGO_DOCUMENT|adaptive_images{131})]
 					<strong class="h3-like entry-title">#_art_panier:TITRE</strong>
 					[(#ENV{mode}|=={preview}|non)
 					<div class="move_right_left">
@@ -53,7 +53,7 @@
 			<div class="timeline_drag[(#GET{playing}|=={#_contenu_panier:MD5}|oui)playing]" data-rang="#_contenu_panier:RANG" id="media_sort_#_contenu_panier:RANG">
 				<div class="headline_media"[(#ENV{mode}|=={preview}|oui)title="<:alacarte:title_jump_chapter|attribut_html:>"]<BOUCLE_doc(DOCUMENTS){id_article=14}{media=video}{par hasard}{0,1}><BOUCLE_ssdoc2(DOCUMENTS){mode=conversion}{objet=document}{id_objet=#ID_DOCUMENT}{tout}> #ID_DOCUMENT data-#EXTENSION="[(#URL_DOCUMENT|url_absolue)]"</BOUCLE_ssdoc2></BOUCLE_doc>>
 					<BOUCLE_document_custom(DOCUMENTS){id_article=14}{media=video}{par hasard}{0,1}>
-					[(#LOGO_DOCUMENT|adaptive_images{300})]
+					[(#LOGO_DOCUMENT|adaptive_images{131})]
 					</BOUCLE_document_custom>
 					<strong class="h3-like entry-title"><:alacarte:titre_custom_chapter:></strong>
 					[(#ENV{mode}|=={preview}|non)

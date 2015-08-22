@@ -11,7 +11,7 @@
 <article class="entry media hentry article_#ID_ARTICLE[(#ENV{id_article_visible}|=={#ID_ARTICLE}|oui)media_is_visible][(#GET{notforsale}|=={oui}|oui)not_draggable]" id="article_#ID_ARTICLE" data-add_timeline="[(#URL_ACTION_AUTEUR{remplir_panier,article-#ID_ARTICLE-1})]">
 	<div class="headline_media">
 	<BOUCLE_document(DOCUMENTS){id_article}{0,1}>
-	[(#LOGO_DOCUMENT|image_reduire{500})]
+	[(#LOGO_DOCUMENT|image_reduire{370})]
 	</BOUCLE_document>
 	<h3 class="h3-like entry-title"><a href="[(#SELF|parametre_url{id_article_visible,#ID_ARTICLE}|parametre_url{id_custom_made,''}|ancre_url{media_visible_#ID_ARTICLE})]" class="ajax show_information">#TITRE</a></h3>
 	[<div class="badge_thumbnail badge_thumbnail_#GET{id_badge}">

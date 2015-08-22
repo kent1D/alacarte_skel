@@ -519,7 +519,7 @@
             }
 
             return null;
-        }
+        };
 
 		//
 		// Private methods
@@ -1513,7 +1513,7 @@
 			var withinThreshold = false;
 			
 			if(previousTouchEndTime) {	
-				var diff = getTimeStamp() - previousTouchEndTime	
+				var diff = getTimeStamp() - previousTouchEndTime;
 				if( diff<=options.fingerReleaseThreshold ) {
 					withinThreshold = true;
 				}
@@ -1681,7 +1681,7 @@
 		    return { 
 		        direction:dir, 
 		        distance:0
-		    }
+		    };
 		}
 		
 		
@@ -1824,7 +1824,7 @@
 					right:offset.left+el.outerWidth(),
 					top:offset.top,
 					bottom:offset.top+el.outerHeight()
-					}
+					};
 			
 			return bounds;	
 		}
