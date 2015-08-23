@@ -1,9 +1,14 @@
 <script type="text/javascript">
+
 /**
  * Au document.ready
  */
 $(function(){
 	link_new_window();
-	resizeiframe();
+	ticket_move_text();
+	onAjaxLoad(ticket_move_text);
+	$(window).resize(function(){
+		window_resize();
+	});
 });
 </script>

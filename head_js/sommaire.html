@@ -1,0 +1,47 @@
+<script type="text/javascript">
+
+/**
+ * Au document.ready
+ */
+$(function(){
+	if(location.hash.match('media_visible')){
+		var hash = location.hash;
+		if($(hash).size() > 0)
+				$.scrollTo($(hash),500);
+	}
+	link_new_window();
+	resizeiframe();
+	init_empty();
+	init_drag();
+	init_player_preview();
+	ticket_move_text();
+	$('#timeline').addClass('active');
+	activate_desactivate_timeline();
+	onAjaxLoad(init_empty);
+	onAjaxLoad(init_drag);
+	onAjaxLoad(init_player_preview);
+	onAjaxLoad(link_new_window);
+	onAjaxLoad(ticket_move_text);
+	$(window).resize(function(){
+		window_resize();
+	});
+});
+
+/**
+ * Au window.load
+ */
+$(window).load(function(){
+	if(location.hash.match('media_visible')){
+		var hash = location.hash;
+		if($(hash).size() > 0)
+				$.scrollTo($(hash),500);
+	}
+	$(".homeboxes .hero-unit").uniformHeight();
+	box_typewriter();
+	$('.headline_media .h3-like').each(function(){
+		var height = $(this).height()/2;
+		$(this).css({marginTop:'-'+height+'px'});
+	});
+	
+});
+</script>
