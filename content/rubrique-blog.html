@@ -9,7 +9,7 @@
 		<B_articles>
 			<div class="liste articles">
 				<ul class="liste-items">
-				<BOUCLE_articles(ARTICLES){id_rubrique}{date < #ENV{date}}{statut=publie}{!par date}{pagination 5}>
+				<BOUCLE_articles(ARTICLES){id_rubrique}{date < #ENV{date}}{statut=publie}{!par date}{pagination 50}>
 					<li class="item">#INCLURE{fond=inclure/resume/article-blog,id_article,statut}</li>
 				</BOUCLE_articles>
 				</ul>
@@ -24,7 +24,7 @@
 			</div>]
 			<div class="liste articles">
 				<ul class="liste-items">
-				<BOUCLE_articles_archive(ARTICLES){id_rubrique}{date < #ENV{date}}{statut=archive}{!par date}{pagination 5}>
+				<BOUCLE_articles_archive(ARTICLES){id_rubrique}{date < #ENV{date}}{statut=archive}{!par date}{pagination 50}>
 					<li class="item">#INCLURE{fond=inclure/resume/article-blog,id_article,statut}</li>
 				</BOUCLE_articles_archive>
 				</ul>
