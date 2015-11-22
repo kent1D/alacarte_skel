@@ -64,7 +64,8 @@
 							[(#GET{date_show}|affdate{d/m/})][(#GET{date_show}|affdate{Y}|replace{20,''}|sinon{#GET{date_show}})]
 						</td>
 						<td class="show_costs_label show_info show_text title_value">
-							COSTS
+							COSTS<br />
+							<small>excl. VAT</small>
 						</td>
 						<td class="show_costs show_info show_prix show_data value">
 							[&euro; (#GET{prix}|>{0}|?{#GET{prix}|plus{400},#GET{prix}}),-]
